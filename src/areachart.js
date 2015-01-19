@@ -174,6 +174,7 @@ var AreaChart = React.createClass({
     return {
       data: [],
       yAxisTickCount: 4,
+      yAxisMin: 0,
       xAxisTickInterval: {unit: 'years', interval: 1},
       width: 400,
       height: 200,
@@ -193,7 +194,7 @@ var AreaChart = React.createClass({
     var yScale = d3.scale.linear()
       .range([props.height, 0]);
 
-    yScale.domain([0, d3.max(props.data, function(d) { return d.value; })])
+    yScale.domain([this.props.yAxisMin, d3.max(props.data, function(d) { return d.value; })])
 
     var margin = {top: 20, right: 20, bottom: 30, left: 50};
 
