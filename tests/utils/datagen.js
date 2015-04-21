@@ -1,4 +1,3 @@
-var _ = require('lodash');
 
 exports.generateArrayOfPoints = function(n) {
   var data = [];
@@ -11,7 +10,7 @@ exports.generateArrayOfPoints = function(n) {
   return data;
 };
 
-var generateArrayOfNameObjects = function(n) {
+exports.generateArrayOfNameObjects = function(n) {
   var names = [
     "Henrietta",
     "Meaghan",
@@ -42,9 +41,7 @@ var generateArrayOfNameObjects = function(n) {
   return data;
 };
 
-exports.generateArrayOfNameObjects = generateArrayOfNameObjects;
-
-var generatePartsOfWhole = function() {
+exports.generatePartsOfWhole = function() {
   var data = [];
   var names = [
     "Henrietta",
@@ -71,12 +68,12 @@ var generatePartsOfWhole = function() {
   }
   numbers.pop();
   numbers.pop();
-  var sum = _.reduce(numbers, function(sum, num) {
+  var sum = numbers.reduce(function(sum, num) {
     return sum + num;
   });
   var remainder = 100 - sum;
   numbers.push(remainder);
-  var numbers = _.sortBy(numbers, function(v) { return v; });
+  var numbers = numbers.sort(function(v) { return v; });
   numbers.forEach( function(value, idx) {
     var i = idx % 10;
     var name = names[i];
@@ -89,9 +86,7 @@ var generatePartsOfWhole = function() {
   return data;
 }
 
-exports.generatePartsOfWhole = generatePartsOfWhole;
-
-var generateArrayOfNumbers = function(n) {
+exports.generateArrayOfNumbers = function(n) {
   var data = [];
   for (var i = 0; i < n; i++) {
     var j = Math.floor(Math.random() * 100);
@@ -100,9 +95,7 @@ var generateArrayOfNumbers = function(n) {
   return data;
 };
 
-exports.generateArrayOfNumbers = generateArrayOfNumbers;
-
-var generateArrayOfTimeObjects = function(n) {
+exports.generateArrayOfTimeObjects = function(n) {
   function randomDate(start, end) {
       return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
   }
@@ -120,4 +113,38 @@ var generateArrayOfTimeObjects = function(n) {
   });
 };
 
-exports.generateArrayOfTimeObjects = generateArrayOfTimeObjects;
+exports.generateArrayOfTimeOHLCObjects = function(n) {
+  function randomDate(start, end) {
+      return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+  }
+
+  randomDate(new Date(2000, 0, 1), new Date())
+  var data = [];
+  for (var i = 0; i < n; i++) {
+    var date = randomDate(new Date(2012, 0, 1), new Date());
+    var ohlc = { 
+                  open: Math.random() * 1000,
+                  close: Math.random() * 1000
+                };
+    ohlc.high = Math.max(ohlc.open, ohlc.close) * (1 + Math.random());
+    ohlc.low = Math.min(ohlc.open, ohlc.close) * (1 - Math.random());
+    ohlc.x = date.valueOf();
+
+    data.push(ohlc);
+  } 
+  return data.sort(function(a, b) {
+    return a.x - b.x;
+  });
+};
+
+
+exports.generateArrayOfObjects = function(n) {
+  var data = [];
+  for (var i = 0; i < n; i++) {
+    var x = Math.random() * 100;
+    var y = Math.random() * 1000;
+    var point = {x:x, y:y};
+    data.push(point);
+  } 
+  return data;
+};

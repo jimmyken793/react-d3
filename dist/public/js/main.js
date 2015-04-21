@@ -1,15 +1,17 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/home/eric/repos/react-d3/docs/examples/main.js":[function(require,module,exports){
-/** @jsx React.DOM */
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/yangwei/code/react-d3/docs/examples/main.js":[function(require,module,exports){
+'use strict';
+
 var React = require('react');
-var pkg = require('../../package.json');
 var d3 = require('d3');
-var BarChart = require('../../src/barchart').BarChart;
-var LineChart = require('../../src/linechart').LineChart;
-var PieChart = require('../../src/piechart').PieChart;
-var AreaChart = require('../../src/areachart').AreaChart;
-var Treemap = require('../../src/treemap').Treemap;
-var datagen = require('../../utils/datagen');
 var hljs = require("highlight.js");
+var datagen = require('../../utils/datagen');
+var rd3 = require('../../src');
+var BarChart = rd3.BarChart;
+var LineChart = rd3.LineChart;
+var PieChart = rd3.PieChart;
+var AreaChart = rd3.AreaChart;
+var Treemap = rd3.Treemap;
+var ScatterChart= rd3.ScatterChart;
 
 hljs.initHighlightingOnLoad();
 
@@ -47,6 +49,11 @@ var Demos = React.createClass({displayName: "Demos",
     // 2014 Most Populous Countries
     // http://www.prb.org/pdf14/2014-world-population-data-sheet_eng.pdf
     var treemapData = [{label: 'China', value: 1364}, {label: 'India', value: 1296}, {label: 'United States', value: 318}, {label: 'Indonesia', value: 251}, {label: 'Brazil', value: 203}];
+    var scatterData = {
+        series1: [ { x: 0, y: 20 }, { x: 5, y: 7 }, { x: 8, y: 3 }, { x: 13, y: 33 }, { x: 12, y: 10 }, { x: 13, y: 15 }, { x: 24, y: 8 }, { x: 25, y: 15 }, { x: 16, y: 10 }, { x: 16, y: 10 }, { x: 19, y: 30 }, { x: 14, y: 30 }],
+        series2: [ { x: 40, y: 30 }, { x: 35, y: 37 }, { x: 48, y: 37 }, { x: 38, y: 33 }, { x: 52, y: 60 }, { x: 51, y: 55 }, { x: 54, y: 48 }, { x: 45, y: 45 }, { x: 46, y: 50 }, { x: 66, y: 50 }, { x: 39, y: 36 }, { x: 54, y: 30 }],
+        series3: [ { x: 80, y: 78 }, { x: 71, y: 58 }, { x: 78, y: 68 }, { x: 81, y: 47 },{ x: 72, y: 70 }, { x: 70, y: 88 }, { x: 81, y: 90 }, { x: 92, y: 80 }, { x: 81, y: 72 }, { x: 99, y: 95 }, { x: 67, y: 81 }, { x: 96, y: 78 }]
+    };
 
     return (
       React.createElement("div", {className: "container"}, 
@@ -61,7 +68,7 @@ var Demos = React.createClass({displayName: "Demos",
           React.createElement("div", {className: "col-md-6"}, 
             React.createElement("pre", {ref: "block"}, 
               React.createElement("code", {className: "js"}, 
-              "var barData = [\n  {label: 'A', value: 5},\n  {label: 'B', value: 6},\n  ...\n  {label: 'F', value: 7}];"
+              "var barData = [\n  {label: 'A', value: 5},\n  {label: 'B', value: 6},\n  ...\n  {label: 'F', value: 7}\n];"
               )
             ), 
             React.createElement("pre", {ref: "block"}, 
@@ -81,7 +88,7 @@ var Demos = React.createClass({displayName: "Demos",
           React.createElement("div", {className: "col-md-6"}, 
             React.createElement("pre", {ref: "block"}, 
               React.createElement("code", {className: "js"}, 
-              "var pieData = [\n  {label: 'Margarita', value: 20.0},\n  {label: 'John', value: 55.0},\n  {label: 'Tim', value: 25.0 }]"
+              "var pieData = [\n  {label: 'Margarita', value: 20.0},\n  {label: 'John', value: 55.0},\n  {label: 'Tim', value: 25.0 }\n];"
               )
             ), 
             React.createElement("pre", {ref: "block"}, 
@@ -96,21 +103,42 @@ var Demos = React.createClass({displayName: "Demos",
         ), 
         React.createElement("div", {className: "row"}, 
           React.createElement("div", {className: "col-md-6"}, 
-            React.createElement(LineChart, {data: lineData, width: 400, height: 200, title: "Line Chart"})
+            React.createElement(LineChart, {legend: true, data: lineData, width: 500, height: 300, title: "Line Chart"})
           ), 
           React.createElement("div", {className: "col-md-6"}, 
             React.createElement("pre", {ref: "block"}, 
               React.createElement("code", {className: "js"}, 
-              'var lineData = {\n  series1: [ { x: 0, y: 20 }, ... , { x: 6, y: 10 } ],\n  series2: [ { x: 0, y: 8 }, ..., { x: 6, y: 2 } ],\n  series3: [ { x: 0, y: 0 }, ..., { x: 6, y: 2 } ]\n}'
+              'var lineData = {\n  series1: [ { x: 0, y: 20 }, ... , { x: 6, y: 10 } ],\n  series2: [ { x: 0, y: 8 }, ..., { x: 6, y: 2 } ],\n  series3: [ { x: 0, y: 0 }, ..., { x: 6, y: 2 } ]\n};'
               )
             ), 
             React.createElement("pre", {ref: "block"}, 
               React.createElement("code", {className: "html"}, 
-              '<LineChart\n  data={lineData}\n  width={400}\n  height={200}\n  title="Line Chart"\n/>'
+              '<LineChart\n  legend={true}\n  data={lineData}\n  width={500}\n  height={300}\n  title="Line Chart"\n/>'
               )
             )
           )
         ), 
+        React.createElement("div", {className: "row"}, 
+          React.createElement("hr", null)
+        ), 
+        React.createElement("div", {className: "row"}, 
+          React.createElement("div", {className: "col-md-6"}, 
+            React.createElement(ScatterChart, {data: scatterData, width: 500, height: 400, yHideOrigin: true, title: "Scatter Chart"})
+          ), 
+          React.createElement("div", {className: "col-md-6"}, 
+            React.createElement("pre", {ref: "block"}, 
+              React.createElement("code", {className: "js"}, 
+              'var scatterData = {\n  series1: [ { x: 0, y: 20 }, ..., { x: 24, y: 10 } ],\n  series2: [ { x: 40, y: 40 }, ..., { x: 69, y: 50 } ],\n  series3: [ { x: 70, y: 82 }, ..., { x: 76, y: 82 } ]\n};'
+              )
+            ), 
+            React.createElement("pre", {ref: "block"}, 
+              React.createElement("code", {className: "html"}, 
+              '<ScatterChart\n  data={scatterData}\n  width={500}\n  height={400}\n  yHideOrigin={true}\n  title="Scatter Chart"\n/>'
+              )
+            )
+          )
+        ), 
+
         React.createElement("div", {className: "row"}, 
           React.createElement("hr", null)
         ), 
@@ -128,7 +156,7 @@ var Demos = React.createClass({displayName: "Demos",
           React.createElement("div", {className: "col-md-6"}, 
             React.createElement("pre", {ref: "block"}, 
               React.createElement("code", {className: "js"}, 
-              '//Sample data format (not actually rendered)\n//for actual data, see Apple stock data from Mike Bostock\'s chart:\n// http://bl.ocks.org/mbostock/3883195\nvar areaData = [\n  {date: 1177646400000, value: 582.13},\n  ...\n  {date: 1178078400000, value: 603}\n]'
+              '//Sample data format (not actually rendered)\n//for actual data, see Apple stock data from Mike Bostock\'s chart:\n// http://bl.ocks.org/mbostock/3883195\nvar areaData = [\n  {date: 1177646400000, value: 582.13},\n  ...\n  {date: 1178078400000, value: 603}\n];'
               )
             ), 
             React.createElement("pre", {ref: "block"}, 
@@ -155,7 +183,7 @@ var Demos = React.createClass({displayName: "Demos",
           React.createElement("div", {className: "col-md-6"}, 
             React.createElement("pre", {ref: "block"}, 
               React.createElement("code", {className: "js"}, 
-              '//2014 World Most Populous Countries (millions)\n//http://www.prb.org/pdf14/2014-world-population-data-sheet_eng.pdf\n var treemapData = [\n  {label: "China", value: 1364},\n  {label: "India", value: 1296},\n...\n  {label: "Brazil", value: 203}\n ];'
+              '//2014 World Most Populous Countries (millions)\n//http://www.prb.org/pdf14/2014-world-population-data-sheet_eng.pdf\nvar treemapData = [\n  {label: "China", value: 1364},\n  {label: "India", value: 1296},\n...\n  {label: "Brazil", value: 203}\n];'
               )
             ), 
             React.createElement("pre", {ref: "block"}, 
@@ -177,7 +205,7 @@ React.render(
   document.body
 );
 
-},{"../../package.json":"/home/eric/repos/react-d3/package.json","../../src/areachart":"/home/eric/repos/react-d3/src/areachart.js","../../src/barchart":"/home/eric/repos/react-d3/src/barchart.js","../../src/linechart":"/home/eric/repos/react-d3/src/linechart.js","../../src/piechart":"/home/eric/repos/react-d3/src/piechart.js","../../src/treemap":"/home/eric/repos/react-d3/src/treemap.js","../../utils/datagen":"/home/eric/repos/react-d3/utils/datagen.js","d3":"/home/eric/repos/react-d3/node_modules/d3/d3.js","highlight.js":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/index.js","react":"/home/eric/repos/react-d3/node_modules/react/react.js"}],"/home/eric/repos/react-d3/node_modules/d3/d3.js":[function(require,module,exports){
+},{"../../src":"/Users/yangwei/code/react-d3/src/index.js","../../utils/datagen":"/Users/yangwei/code/react-d3/utils/datagen.js","d3":"/Users/yangwei/code/react-d3/node_modules/d3/d3.js","highlight.js":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/index.js","react":"/Users/yangwei/code/react-d3/node_modules/react/react.js"}],"/Users/yangwei/code/react-d3/node_modules/d3/d3.js":[function(require,module,exports){
 !function() {
   var d3 = {
     version: "3.5.3"
@@ -9644,7 +9672,7 @@ React.render(
   if (typeof define === "function" && define.amd) define(d3); else if (typeof module === "object" && module.exports) module.exports = d3;
   this.d3 = d3;
 }();
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/highlight.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/highlight.js":[function(require,module,exports){
 /*
 Syntax highlighting with language autodetection.
 https://highlightjs.org/
@@ -10385,7 +10413,7 @@ https://highlightjs.org/
   return hljs;
 }));
 
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/index.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/index.js":[function(require,module,exports){
 var hljs = require('./highlight');
 
 hljs.registerLanguage('1c', require('./languages/1c'));
@@ -10502,7 +10530,7 @@ hljs.registerLanguage('x86asm', require('./languages/x86asm'));
 hljs.registerLanguage('xl', require('./languages/xl'));
 
 module.exports = hljs;
-},{"./highlight":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/highlight.js","./languages/1c":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/1c.js","./languages/actionscript":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/actionscript.js","./languages/apache":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/apache.js","./languages/applescript":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/applescript.js","./languages/asciidoc":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/asciidoc.js","./languages/aspectj":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/aspectj.js","./languages/autohotkey":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/autohotkey.js","./languages/avrasm":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/avrasm.js","./languages/axapta":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/axapta.js","./languages/bash":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/bash.js","./languages/brainfuck":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/brainfuck.js","./languages/capnproto":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/capnproto.js","./languages/clojure":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/clojure.js","./languages/clojure-repl":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/clojure-repl.js","./languages/cmake":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/cmake.js","./languages/coffeescript":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/coffeescript.js","./languages/cpp":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/cpp.js","./languages/cs":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/cs.js","./languages/css":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/css.js","./languages/d":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/d.js","./languages/dart":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/dart.js","./languages/delphi":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/delphi.js","./languages/diff":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/diff.js","./languages/django":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/django.js","./languages/dos":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/dos.js","./languages/dust":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/dust.js","./languages/elixir":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/elixir.js","./languages/erb":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/erb.js","./languages/erlang":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/erlang.js","./languages/erlang-repl":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/erlang-repl.js","./languages/fix":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/fix.js","./languages/fsharp":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/fsharp.js","./languages/gcode":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/gcode.js","./languages/gherkin":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/gherkin.js","./languages/glsl":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/glsl.js","./languages/go":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/go.js","./languages/gradle":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/gradle.js","./languages/groovy":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/groovy.js","./languages/haml":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/haml.js","./languages/handlebars":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/handlebars.js","./languages/haskell":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/haskell.js","./languages/haxe":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/haxe.js","./languages/http":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/http.js","./languages/ini":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/ini.js","./languages/java":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/java.js","./languages/javascript":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/javascript.js","./languages/json":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/json.js","./languages/lasso":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/lasso.js","./languages/less":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/less.js","./languages/lisp":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/lisp.js","./languages/livecodeserver":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/livecodeserver.js","./languages/livescript":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/livescript.js","./languages/lua":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/lua.js","./languages/makefile":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/makefile.js","./languages/markdown":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/markdown.js","./languages/mathematica":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/mathematica.js","./languages/matlab":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/matlab.js","./languages/mel":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/mel.js","./languages/mercury":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/mercury.js","./languages/mizar":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/mizar.js","./languages/monkey":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/monkey.js","./languages/nginx":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/nginx.js","./languages/nimrod":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/nimrod.js","./languages/nix":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/nix.js","./languages/nsis":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/nsis.js","./languages/objectivec":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/objectivec.js","./languages/ocaml":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/ocaml.js","./languages/oxygene":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/oxygene.js","./languages/parser3":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/parser3.js","./languages/perl":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/perl.js","./languages/php":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/php.js","./languages/powershell":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/powershell.js","./languages/processing":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/processing.js","./languages/profile":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/profile.js","./languages/protobuf":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/protobuf.js","./languages/puppet":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/puppet.js","./languages/python":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/python.js","./languages/q":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/q.js","./languages/r":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/r.js","./languages/rib":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/rib.js","./languages/roboconf":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/roboconf.js","./languages/rsl":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/rsl.js","./languages/ruby":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/ruby.js","./languages/ruleslanguage":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/ruleslanguage.js","./languages/rust":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/rust.js","./languages/scala":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/scala.js","./languages/scheme":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/scheme.js","./languages/scilab":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/scilab.js","./languages/scss":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/scss.js","./languages/smali":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/smali.js","./languages/smalltalk":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/smalltalk.js","./languages/sml":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/sml.js","./languages/sql":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/sql.js","./languages/stata":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/stata.js","./languages/step21":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/step21.js","./languages/stylus":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/stylus.js","./languages/swift":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/swift.js","./languages/tcl":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/tcl.js","./languages/tex":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/tex.js","./languages/thrift":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/thrift.js","./languages/twig":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/twig.js","./languages/typescript":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/typescript.js","./languages/vala":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/vala.js","./languages/vbnet":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/vbnet.js","./languages/vbscript":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/vbscript.js","./languages/vbscript-html":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/vbscript-html.js","./languages/verilog":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/verilog.js","./languages/vhdl":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/vhdl.js","./languages/vim":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/vim.js","./languages/x86asm":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/x86asm.js","./languages/xl":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/xl.js","./languages/xml":"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/xml.js"}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/1c.js":[function(require,module,exports){
+},{"./highlight":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/highlight.js","./languages/1c":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/1c.js","./languages/actionscript":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/actionscript.js","./languages/apache":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/apache.js","./languages/applescript":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/applescript.js","./languages/asciidoc":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/asciidoc.js","./languages/aspectj":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/aspectj.js","./languages/autohotkey":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/autohotkey.js","./languages/avrasm":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/avrasm.js","./languages/axapta":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/axapta.js","./languages/bash":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/bash.js","./languages/brainfuck":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/brainfuck.js","./languages/capnproto":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/capnproto.js","./languages/clojure":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/clojure.js","./languages/clojure-repl":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/clojure-repl.js","./languages/cmake":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/cmake.js","./languages/coffeescript":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/coffeescript.js","./languages/cpp":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/cpp.js","./languages/cs":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/cs.js","./languages/css":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/css.js","./languages/d":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/d.js","./languages/dart":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/dart.js","./languages/delphi":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/delphi.js","./languages/diff":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/diff.js","./languages/django":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/django.js","./languages/dos":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/dos.js","./languages/dust":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/dust.js","./languages/elixir":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/elixir.js","./languages/erb":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/erb.js","./languages/erlang":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/erlang.js","./languages/erlang-repl":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/erlang-repl.js","./languages/fix":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/fix.js","./languages/fsharp":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/fsharp.js","./languages/gcode":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/gcode.js","./languages/gherkin":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/gherkin.js","./languages/glsl":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/glsl.js","./languages/go":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/go.js","./languages/gradle":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/gradle.js","./languages/groovy":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/groovy.js","./languages/haml":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/haml.js","./languages/handlebars":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/handlebars.js","./languages/haskell":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/haskell.js","./languages/haxe":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/haxe.js","./languages/http":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/http.js","./languages/ini":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/ini.js","./languages/java":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/java.js","./languages/javascript":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/javascript.js","./languages/json":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/json.js","./languages/lasso":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/lasso.js","./languages/less":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/less.js","./languages/lisp":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/lisp.js","./languages/livecodeserver":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/livecodeserver.js","./languages/livescript":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/livescript.js","./languages/lua":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/lua.js","./languages/makefile":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/makefile.js","./languages/markdown":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/markdown.js","./languages/mathematica":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/mathematica.js","./languages/matlab":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/matlab.js","./languages/mel":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/mel.js","./languages/mercury":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/mercury.js","./languages/mizar":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/mizar.js","./languages/monkey":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/monkey.js","./languages/nginx":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/nginx.js","./languages/nimrod":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/nimrod.js","./languages/nix":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/nix.js","./languages/nsis":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/nsis.js","./languages/objectivec":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/objectivec.js","./languages/ocaml":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/ocaml.js","./languages/oxygene":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/oxygene.js","./languages/parser3":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/parser3.js","./languages/perl":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/perl.js","./languages/php":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/php.js","./languages/powershell":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/powershell.js","./languages/processing":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/processing.js","./languages/profile":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/profile.js","./languages/protobuf":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/protobuf.js","./languages/puppet":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/puppet.js","./languages/python":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/python.js","./languages/q":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/q.js","./languages/r":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/r.js","./languages/rib":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/rib.js","./languages/roboconf":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/roboconf.js","./languages/rsl":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/rsl.js","./languages/ruby":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/ruby.js","./languages/ruleslanguage":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/ruleslanguage.js","./languages/rust":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/rust.js","./languages/scala":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/scala.js","./languages/scheme":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/scheme.js","./languages/scilab":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/scilab.js","./languages/scss":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/scss.js","./languages/smali":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/smali.js","./languages/smalltalk":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/smalltalk.js","./languages/sml":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/sml.js","./languages/sql":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/sql.js","./languages/stata":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/stata.js","./languages/step21":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/step21.js","./languages/stylus":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/stylus.js","./languages/swift":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/swift.js","./languages/tcl":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/tcl.js","./languages/tex":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/tex.js","./languages/thrift":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/thrift.js","./languages/twig":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/twig.js","./languages/typescript":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/typescript.js","./languages/vala":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/vala.js","./languages/vbnet":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/vbnet.js","./languages/vbscript":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/vbscript.js","./languages/vbscript-html":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/vbscript-html.js","./languages/verilog":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/verilog.js","./languages/vhdl":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/vhdl.js","./languages/vim":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/vim.js","./languages/x86asm":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/x86asm.js","./languages/xl":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/xl.js","./languages/xml":"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/xml.js"}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/1c.js":[function(require,module,exports){
 module.exports = function(hljs){
   var IDENT_RE_RU = '[a-zA-Zа-яА-Я][a-zA-Z0-9_а-яА-Я]*';
   var OneS_KEYWORDS = 'возврат дата для если и или иначе иначеесли исключение конецесли ' +
@@ -10588,7 +10616,7 @@ module.exports = function(hljs){
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/actionscript.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/actionscript.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var IDENT_RE = '[a-zA-Z_$][a-zA-Z0-9_$]*';
   var IDENT_FUNC_RETURN_TYPE_RE = '([*]|[a-zA-Z_$][a-zA-Z0-9_$]*)';
@@ -10662,7 +10690,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/apache.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/apache.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var NUMBER = {className: 'number', begin: '[\\$%]\\d+'};
   return {
@@ -10708,7 +10736,7 @@ module.exports = function(hljs) {
     illegal: /\S/
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/applescript.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/applescript.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var STRING = hljs.inherit(hljs.QUOTE_STRING_MODE, {illegal: ''});
   var PARAMS = {
@@ -10804,7 +10832,7 @@ module.exports = function(hljs) {
     illegal: '//|->|=>'
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/asciidoc.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/asciidoc.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     contains: [
@@ -10993,7 +11021,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/aspectj.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/aspectj.js":[function(require,module,exports){
 module.exports = function (hljs) {
   var KEYWORDS =
     'false synchronized int abstract float private char boolean static null if const ' +
@@ -11129,7 +11157,7 @@ module.exports = function (hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/autohotkey.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/autohotkey.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var BACKTICK_ESCAPE = {
     className: 'escape',
@@ -11189,7 +11217,7 @@ module.exports = function(hljs) {
     ])
   }
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/avrasm.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/avrasm.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     case_insensitive: true,
@@ -11245,7 +11273,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/axapta.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/axapta.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords: 'false int abstract private char boolean static null if for true ' +
@@ -11276,7 +11304,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/bash.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/bash.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var VAR = {
     className: 'variable',
@@ -11352,7 +11380,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/brainfuck.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/brainfuck.js":[function(require,module,exports){
 module.exports = function(hljs){
   var LITERAL = {
     className: 'literal',
@@ -11388,7 +11416,7 @@ module.exports = function(hljs){
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/capnproto.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/capnproto.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['capnp'],
@@ -11437,7 +11465,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/clojure-repl.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/clojure-repl.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     contains: [
@@ -11452,7 +11480,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/clojure.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/clojure.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var keywords = {
     built_in:
@@ -11551,7 +11579,7 @@ module.exports = function(hljs) {
     contains: [LIST, STRING, HINT, HINT_COL, COMMENT, KEY, COLLECTION, NUMBER, LITERAL]
   }
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/cmake.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/cmake.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['cmake.in'],
@@ -11590,7 +11618,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/coffeescript.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/coffeescript.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS = {
     keyword:
@@ -11738,7 +11766,7 @@ module.exports = function(hljs) {
     ])
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/cpp.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/cpp.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var CPP_KEYWORDS = {
     keyword: 'false int float while private char catch export virtual operator sizeof ' +
@@ -11841,7 +11869,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/cs.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/cs.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS =
     // Normal keywords.
@@ -11941,7 +11969,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/css.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/css.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var IDENT_RE = '[a-zA-Z-][a-zA-Z0-9_-]*';
   var FUNCTION = {
@@ -12045,7 +12073,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/d.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/d.js":[function(require,module,exports){
 module.exports = /**
  * Known issues:
  *
@@ -12302,7 +12330,7 @@ function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/dart.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/dart.js":[function(require,module,exports){
 module.exports = function (hljs) {
   var SUBST = {
     className: 'subst',
@@ -12401,7 +12429,7 @@ module.exports = function (hljs) {
     ]
   }
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/delphi.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/delphi.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS =
     'exports register file shl array record property for mod while set ally label uses raise not ' +
@@ -12460,7 +12488,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/diff.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/diff.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['patch'],
@@ -12500,7 +12528,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/django.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/django.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var FILTER = {
     className: 'filter',
@@ -12556,7 +12584,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/dos.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/dos.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var COMMENT = {
     className: 'comment',
@@ -12603,7 +12631,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/dust.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/dust.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var EXPRESSION_KEYWORDS = 'if eq ne lt lte gt gte select default math sep';
   return {
@@ -12638,7 +12666,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/elixir.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/elixir.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var ELIXIR_IDENT_RE = '[a-zA-Z_][a-zA-Z0-9_]*(\\!|\\?)?';
   var ELIXIR_METHOD_RE = '[a-zA-Z_]\\w*[!?=]?|[-+~]\\@|<<|>>|=~|===?|<=>|[<>]=?|\\*\\*|[-/+%^&*~`|]|\\[\\]=?';
@@ -12747,7 +12775,7 @@ module.exports = function(hljs) {
     contains: ELIXIR_DEFAULT_CONTAINS
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/erb.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/erb.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     subLanguage: 'xml', subLanguageMode: 'continuous',
@@ -12765,7 +12793,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/erlang-repl.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/erlang-repl.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords: {
@@ -12816,7 +12844,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/erlang.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/erlang.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var BASIC_ATOM_RE = '[a-z\'][a-zA-Z0-9_\']*';
   var FUNCTION_NAME_RE = '(' + BASIC_ATOM_RE + ':' + BASIC_ATOM_RE + '|' + BASIC_ATOM_RE + ')';
@@ -12971,7 +12999,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/fix.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/fix.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     contains: [
@@ -13000,7 +13028,7 @@ module.exports = function(hljs) {
     case_insensitive: true
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/fsharp.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/fsharp.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var TYPEPARAM = {
     begin: '<', end: '>',
@@ -13059,7 +13087,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/gcode.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/gcode.js":[function(require,module,exports){
 module.exports = function(hljs) {
     var GCODE_IDENT_RE = '[A-Z_][A-Z0-9_.]*';
     var GCODE_CLOSE_RE = '\\%';
@@ -13136,7 +13164,7 @@ module.exports = function(hljs) {
         ].concat(GCODE_CODE)
     };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/gherkin.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/gherkin.js":[function(require,module,exports){
 module.exports = function (hljs) {
   return {
     aliases: ['feature'],
@@ -13167,7 +13195,7 @@ module.exports = function (hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/glsl.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/glsl.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords: {
@@ -13261,7 +13289,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/go.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/go.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var GO_KEYWORDS = {
     keyword:
@@ -13300,7 +13328,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/gradle.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/gradle.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     case_insensitive: true,
@@ -13335,7 +13363,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/groovy.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/groovy.js":[function(require,module,exports){
 module.exports = function(hljs) {
     return {
         keywords: {
@@ -13421,7 +13449,7 @@ module.exports = function(hljs) {
         ]
     }
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/haml.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/haml.js":[function(require,module,exports){
 module.exports = // TODO support filter tags like :javascript, support inline HTML
 function(hljs) {
   return {
@@ -13543,7 +13571,7 @@ function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/handlebars.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/handlebars.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var EXPRESSION_KEYWORDS = 'each in with if else unless bindattr action collection debugger log outlet template unbound view yield';
   return {
@@ -13576,7 +13604,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/haskell.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/haskell.js":[function(require,module,exports){
 module.exports = function(hljs) {
 
   var COMMENT = {
@@ -13702,7 +13730,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/haxe.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/haxe.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var IDENT_RE = '[a-zA-Z_$][a-zA-Z0-9_$]*';
   var IDENT_FUNC_RETURN_TYPE_RE = '([*]|[a-zA-Z_$][a-zA-Z0-9_$]*)';
@@ -13763,7 +13791,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/http.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/http.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     illegal: '\\S',
@@ -13797,7 +13825,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/ini.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/ini.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     case_insensitive: true,
@@ -13827,7 +13855,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/java.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/java.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var GENERIC_IDENT_RE = hljs.UNDERSCORE_IDENT_RE + '(<' + hljs.UNDERSCORE_IDENT_RE + '>)?';
   var KEYWORDS =
@@ -13911,7 +13939,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/javascript.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/javascript.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['js'],
@@ -13986,7 +14014,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/json.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/json.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var LITERALS = {literal: 'true false null'};
   var TYPES = [
@@ -14024,7 +14052,7 @@ module.exports = function(hljs) {
     illegal: '\\S'
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/lasso.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/lasso.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var LASSO_IDENT_RE = '[a-zA-Z_][a-zA-Z0-9_.]*';
   var LASSO_ANGLE_RE = '<\\?(lasso(script)?|=)';
@@ -14209,7 +14237,7 @@ module.exports = function(hljs) {
     ].concat(LASSO_CODE)
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/less.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/less.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var IDENT_RE        = '[\\w-]+'; // yes, Less identifiers may begin with a digit
   var INTERP_IDENT_RE = '(' + IDENT_RE + '|@{' + IDENT_RE + '})+';
@@ -14346,7 +14374,7 @@ module.exports = function(hljs) {
     contains: RULES
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/lisp.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/lisp.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var LISP_IDENT_RE = '[a-zA-Z_\\-\\+\\*\\/\\<\\=\\>\\&\\#][a-zA-Z0-9_\\-\\+\\*\\/\\<\\=\\>\\&\\#!]*';
   var MEC_RE = '\\|[^]*?\\|';
@@ -14443,7 +14471,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/livecodeserver.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/livecodeserver.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var VARIABLE = {
     className: 'variable', begin: '\\b[gtps][A-Z]+[A-Za-z0-9_\\-]*\\b|\\$_[A-Z]+',
@@ -14612,7 +14640,7 @@ module.exports = function(hljs) {
     illegal: ';$|^\\[|^='
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/livescript.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/livescript.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS = {
     keyword:
@@ -14766,7 +14794,7 @@ module.exports = function(hljs) {
     ])
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/lua.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/lua.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var OPENING_LONG_BRACKET = '\\[=*\\[';
   var CLOSING_LONG_BRACKET = '\\]=*\\]';
@@ -14823,7 +14851,7 @@ module.exports = function(hljs) {
     ])
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/makefile.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/makefile.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var VARIABLE = {
     className: 'variable',
@@ -14869,7 +14897,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/markdown.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/markdown.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['md', 'mkdown', 'mkd'],
@@ -14971,7 +14999,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/mathematica.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/mathematica.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['mma'],
@@ -15030,7 +15058,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/matlab.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/matlab.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var COMMON_CONTAINS = [
     hljs.C_NUMBER_MODE,
@@ -15124,7 +15152,7 @@ module.exports = function(hljs) {
     ].concat(COMMON_CONTAINS)
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/mel.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/mel.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords:
@@ -15354,7 +15382,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/mercury.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/mercury.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var KEYWORDS = {
     keyword:
@@ -15443,7 +15471,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/mizar.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/mizar.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords:
@@ -15465,7 +15493,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/monkey.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/monkey.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var NUMBER = {
     className: 'number', relevance: 0,
@@ -15544,7 +15572,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/nginx.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/nginx.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var VAR = {
     className: 'variable',
@@ -15626,7 +15654,7 @@ module.exports = function(hljs) {
     illegal: '[^\\s\\}]'
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/nimrod.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/nimrod.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords: {
@@ -15681,7 +15709,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/nix.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/nix.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var NIX_KEYWORDS = {
     keyword: 'rec with let in inherit assert if else then',
@@ -15731,7 +15759,7 @@ module.exports = function(hljs) {
     contains: EXPRESSIONS
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/nsis.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/nsis.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var CONSTANTS = {
     className: 'symbol',
@@ -15817,7 +15845,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/objectivec.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/objectivec.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var OBJC_KEYWORDS = {
     keyword:
@@ -15904,7 +15932,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/ocaml.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/ocaml.js":[function(require,module,exports){
 module.exports = function(hljs) {
   /* missing support for heredoc-like string (OCaml 4.0.2+) */
   return {
@@ -15972,7 +16000,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/oxygene.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/oxygene.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var OXYGENE_KEYWORDS = 'abstract add and array as asc aspect assembly async begin break block by case class concat const copy constructor continue '+
     'create default delegate desc distinct div do downto dynamic each else empty end ensure enum equals event except exit extension external false '+
@@ -16037,7 +16065,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/parser3.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/parser3.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     subLanguage: 'xml', relevance: 0,
@@ -16082,7 +16110,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/perl.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/perl.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var PERL_KEYWORDS = 'getpwent getservent quotemeta msgrcv scalar kill dbmclose undef lc ' +
     'ma syswrite tr send umask sysopen shmwrite vec qx utime local oct semctl localtime ' +
@@ -16231,7 +16259,7 @@ module.exports = function(hljs) {
     contains: PERL_DEFAULT_CONTAINS
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/php.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/php.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var VARIABLE = {
     className: 'variable', begin: '\\$+[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*'
@@ -16341,7 +16369,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/powershell.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/powershell.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var backtickEscape = {
     begin: '`[\\s\\S]',
@@ -16393,7 +16421,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/processing.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/processing.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords: {
@@ -16441,7 +16469,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/profile.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/profile.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     contains: [
@@ -16483,7 +16511,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/protobuf.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/protobuf.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords: {
@@ -16520,7 +16548,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/puppet.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/puppet.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var PUPPET_TYPE_REFERENCE =
       'augeas computer cron exec file filebucket host interface k5login macauthorization mailalias maillist mcx mount nagios_command ' +
@@ -16630,7 +16658,7 @@ module.exports = function(hljs) {
     contains: PUPPET_DEFAULT_CONTAINS
   }
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/python.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/python.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var PROMPT = {
     className: 'prompt',  begin: /^(>>>|\.\.\.) /
@@ -16715,7 +16743,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/q.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/q.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var Q_KEYWORDS = {
   keyword:
@@ -16738,7 +16766,7 @@ module.exports = function(hljs) {
      ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/r.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/r.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var IDENT_RE = '([a-zA-Z]|\\.[a-zA-Z.])[a-zA-Z0-9._]*';
 
@@ -16808,7 +16836,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/rib.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/rib.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords:
@@ -16835,7 +16863,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/roboconf.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/roboconf.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var IDENTIFIER = '[a-zA-Z-_][^\n{\r\n]+\\{';
 
@@ -16895,7 +16923,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/rsl.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/rsl.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords: {
@@ -16932,7 +16960,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/ruby.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/ruby.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var RUBY_METHOD_RE = '[a-zA-Z_]\\w*[!?=]?|[-+~]\\@|<<|>>|=~|===?|<=>|[<>]=?|\\*\\*|[-/+%^&*~`|]|\\[\\]=?';
   var RUBY_KEYWORDS =
@@ -17104,7 +17132,7 @@ module.exports = function(hljs) {
     contains: [COMMENT].concat(IRB_DEFAULT).concat(RUBY_DEFAULT_CONTAINS)
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/ruleslanguage.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/ruleslanguage.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords: {
@@ -17161,7 +17189,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/rust.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/rust.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var BLOCK_COMMENT = hljs.inherit(hljs.C_BLOCK_COMMENT_MODE);
   BLOCK_COMMENT.contains.push('self');
@@ -17234,7 +17262,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/scala.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/scala.js":[function(require,module,exports){
 module.exports = function(hljs) {
 
   var ANNOTATION = {
@@ -17307,7 +17335,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/scheme.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/scheme.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var SCHEME_IDENT_RE = '[^\\(\\)\\[\\]\\{\\}",\'`;#|\\\\\\s]+';
   var SCHEME_SIMPLE_NUMBER_RE = '(\\-|\\+)?\\d+([./]\\d+)?';
@@ -17426,7 +17454,7 @@ module.exports = function(hljs) {
     contains: [SHEBANG, NUMBER, STRING, COMMENT, QUOTED_IDENT, LIST]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/scilab.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/scilab.js":[function(require,module,exports){
 module.exports = function(hljs) {
 
   var COMMON_CONTAINS = [
@@ -17484,7 +17512,7 @@ module.exports = function(hljs) {
     ].concat(COMMON_CONTAINS)
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/scss.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/scss.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var IDENT_RE = '[a-zA-Z-][a-zA-Z0-9_-]*';
   var VARIABLE = {
@@ -17601,7 +17629,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/smali.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/smali.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var smali_instr_low_prio = ['add', 'and', 'cmp', 'cmpg', 'cmpl', 'const', 'div', 'double', 'float', 'goto', 'if', 'int', 'long', 'move', 'mul', 'neg', 'new', 'nop', 'not', 'or', 'rem', 'return', 'shl', 'shr', 'sput', 'sub', 'throw', 'ushr', 'xor'];
   var smali_instr_high_prio = ['aget', 'aput', 'array', 'check', 'execute', 'fill', 'filled', 'goto/16', 'goto/32', 'iget', 'instance', 'invoke', 'iput', 'monitor', 'packed', 'sget', 'sparse'];
@@ -17682,7 +17710,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/smalltalk.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/smalltalk.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var VAR_IDENT_RE = '[a-z][a-zA-Z0-9_]*';
   var CHAR = {
@@ -17738,7 +17766,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/sml.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/sml.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['ml'],
@@ -17801,7 +17829,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/sql.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/sql.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var COMMENT_MODE = {
     className: 'comment',
@@ -17904,7 +17932,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/stata.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/stata.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['do', 'ado'],
@@ -17945,7 +17973,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/step21.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/step21.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var STEP21_IDENT_RE = '[A-Z_][A-Z0-9_.]*';
   var STEP21_CLOSE_RE = 'END-ISO-10303-21;';
@@ -18001,7 +18029,7 @@ module.exports = function(hljs) {
     ].concat(STEP21_CODE)
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/stylus.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/stylus.js":[function(require,module,exports){
 module.exports = function(hljs) {
 
   var VARIABLE = {
@@ -18443,7 +18471,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/swift.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/swift.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var SWIFT_KEYWORDS = {
       keyword: 'class deinit enum extension func import init let protocol static ' +
@@ -18552,7 +18580,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/tcl.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/tcl.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['tk'],
@@ -18619,7 +18647,7 @@ module.exports = function(hljs) {
     ]
   }
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/tex.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/tex.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var COMMAND1 = {
     className: 'command',
@@ -18672,7 +18700,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/thrift.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/thrift.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var BUILT_IN_TYPES = 'bool byte i16 i32 i64 double string binary';
   return {
@@ -18708,7 +18736,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/twig.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/twig.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var PARAMS = {
     className: 'params',
@@ -18768,7 +18796,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/typescript.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/typescript.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['ts'],
@@ -18855,7 +18883,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/vala.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/vala.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     keywords: {
@@ -18910,7 +18938,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/vbnet.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/vbnet.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['vb'],
@@ -18961,7 +18989,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/vbscript-html.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/vbscript-html.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     subLanguage: 'xml', subLanguageMode: 'continuous',
@@ -18973,7 +19001,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/vbscript.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/vbscript.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['vbs'],
@@ -19010,7 +19038,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/verilog.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/verilog.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     aliases: ['v'],
@@ -19060,7 +19088,7 @@ module.exports = function(hljs) {
     ]
   }; // return
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/vhdl.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/vhdl.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     case_insensitive: true,
@@ -19103,7 +19131,7 @@ module.exports = function(hljs) {
     ]
   }; // return
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/vim.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/vim.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     lexemes: /[!#@\w]+/,
@@ -19166,7 +19194,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/x86asm.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/x86asm.js":[function(require,module,exports){
 module.exports = function(hljs) {
   return {
     case_insensitive: true,
@@ -19313,7 +19341,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/xl.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/xl.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var BUILTIN_MODULES = 'ObjectLoader Animate MovieCredits Slides Filters Shading Materials LensFlare Mapping VLCAudioVideo StereoDecoder PointCloud NetworkAccess RemoteControl RegExp ChromaKey Snowfall NodeJS Speech Charts';
 
@@ -19393,7 +19421,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/highlight.js/lib/languages/xml.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/highlight.js/lib/languages/xml.js":[function(require,module,exports){
 module.exports = function(hljs) {
   var XML_IDENT_RE = '[A-Za-z0-9\\._:-]+';
   var PHP = {
@@ -19494,6796 +19522,7 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}],"/home/eric/repos/react-d3/node_modules/lodash/dist/lodash.js":[function(require,module,exports){
-(function (global){
-/**
- * @license
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modern -o ./dist/lodash.js`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-;(function() {
-
-  /** Used as a safe reference for `undefined` in pre ES5 environments */
-  var undefined;
-
-  /** Used to pool arrays and objects used internally */
-  var arrayPool = [],
-      objectPool = [];
-
-  /** Used to generate unique IDs */
-  var idCounter = 0;
-
-  /** Used to prefix keys to avoid issues with `__proto__` and properties on `Object.prototype` */
-  var keyPrefix = +new Date + '';
-
-  /** Used as the size when optimizations are enabled for large arrays */
-  var largeArraySize = 75;
-
-  /** Used as the max size of the `arrayPool` and `objectPool` */
-  var maxPoolSize = 40;
-
-  /** Used to detect and test whitespace */
-  var whitespace = (
-    // whitespace
-    ' \t\x0B\f\xA0\ufeff' +
-
-    // line terminators
-    '\n\r\u2028\u2029' +
-
-    // unicode category "Zs" space separators
-    '\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000'
-  );
-
-  /** Used to match empty string literals in compiled template source */
-  var reEmptyStringLeading = /\b__p \+= '';/g,
-      reEmptyStringMiddle = /\b(__p \+=) '' \+/g,
-      reEmptyStringTrailing = /(__e\(.*?\)|\b__t\)) \+\n'';/g;
-
-  /**
-   * Used to match ES6 template delimiters
-   * http://people.mozilla.org/~jorendorff/es6-draft.html#sec-literals-string-literals
-   */
-  var reEsTemplate = /\$\{([^\\}]*(?:\\.[^\\}]*)*)\}/g;
-
-  /** Used to match regexp flags from their coerced string values */
-  var reFlags = /\w*$/;
-
-  /** Used to detected named functions */
-  var reFuncName = /^\s*function[ \n\r\t]+\w/;
-
-  /** Used to match "interpolate" template delimiters */
-  var reInterpolate = /<%=([\s\S]+?)%>/g;
-
-  /** Used to match leading whitespace and zeros to be removed */
-  var reLeadingSpacesAndZeros = RegExp('^[' + whitespace + ']*0+(?=.$)');
-
-  /** Used to ensure capturing order of template delimiters */
-  var reNoMatch = /($^)/;
-
-  /** Used to detect functions containing a `this` reference */
-  var reThis = /\bthis\b/;
-
-  /** Used to match unescaped characters in compiled string literals */
-  var reUnescapedString = /['\n\r\t\u2028\u2029\\]/g;
-
-  /** Used to assign default `context` object properties */
-  var contextProps = [
-    'Array', 'Boolean', 'Date', 'Function', 'Math', 'Number', 'Object',
-    'RegExp', 'String', '_', 'attachEvent', 'clearTimeout', 'isFinite', 'isNaN',
-    'parseInt', 'setTimeout'
-  ];
-
-  /** Used to make template sourceURLs easier to identify */
-  var templateCounter = 0;
-
-  /** `Object#toString` result shortcuts */
-  var argsClass = '[object Arguments]',
-      arrayClass = '[object Array]',
-      boolClass = '[object Boolean]',
-      dateClass = '[object Date]',
-      funcClass = '[object Function]',
-      numberClass = '[object Number]',
-      objectClass = '[object Object]',
-      regexpClass = '[object RegExp]',
-      stringClass = '[object String]';
-
-  /** Used to identify object classifications that `_.clone` supports */
-  var cloneableClasses = {};
-  cloneableClasses[funcClass] = false;
-  cloneableClasses[argsClass] = cloneableClasses[arrayClass] =
-  cloneableClasses[boolClass] = cloneableClasses[dateClass] =
-  cloneableClasses[numberClass] = cloneableClasses[objectClass] =
-  cloneableClasses[regexpClass] = cloneableClasses[stringClass] = true;
-
-  /** Used as an internal `_.debounce` options object */
-  var debounceOptions = {
-    'leading': false,
-    'maxWait': 0,
-    'trailing': false
-  };
-
-  /** Used as the property descriptor for `__bindData__` */
-  var descriptor = {
-    'configurable': false,
-    'enumerable': false,
-    'value': null,
-    'writable': false
-  };
-
-  /** Used to determine if values are of the language type Object */
-  var objectTypes = {
-    'boolean': false,
-    'function': true,
-    'object': true,
-    'number': false,
-    'string': false,
-    'undefined': false
-  };
-
-  /** Used to escape characters for inclusion in compiled string literals */
-  var stringEscapes = {
-    '\\': '\\',
-    "'": "'",
-    '\n': 'n',
-    '\r': 'r',
-    '\t': 't',
-    '\u2028': 'u2028',
-    '\u2029': 'u2029'
-  };
-
-  /** Used as a reference to the global object */
-  var root = (objectTypes[typeof window] && window) || this;
-
-  /** Detect free variable `exports` */
-  var freeExports = objectTypes[typeof exports] && exports && !exports.nodeType && exports;
-
-  /** Detect free variable `module` */
-  var freeModule = objectTypes[typeof module] && module && !module.nodeType && module;
-
-  /** Detect the popular CommonJS extension `module.exports` */
-  var moduleExports = freeModule && freeModule.exports === freeExports && freeExports;
-
-  /** Detect free variable `global` from Node.js or Browserified code and use it as `root` */
-  var freeGlobal = objectTypes[typeof global] && global;
-  if (freeGlobal && (freeGlobal.global === freeGlobal || freeGlobal.window === freeGlobal)) {
-    root = freeGlobal;
-  }
-
-  /*--------------------------------------------------------------------------*/
-
-  /**
-   * The base implementation of `_.indexOf` without support for binary searches
-   * or `fromIndex` constraints.
-   *
-   * @private
-   * @param {Array} array The array to search.
-   * @param {*} value The value to search for.
-   * @param {number} [fromIndex=0] The index to search from.
-   * @returns {number} Returns the index of the matched value or `-1`.
-   */
-  function baseIndexOf(array, value, fromIndex) {
-    var index = (fromIndex || 0) - 1,
-        length = array ? array.length : 0;
-
-    while (++index < length) {
-      if (array[index] === value) {
-        return index;
-      }
-    }
-    return -1;
-  }
-
-  /**
-   * An implementation of `_.contains` for cache objects that mimics the return
-   * signature of `_.indexOf` by returning `0` if the value is found, else `-1`.
-   *
-   * @private
-   * @param {Object} cache The cache object to inspect.
-   * @param {*} value The value to search for.
-   * @returns {number} Returns `0` if `value` is found, else `-1`.
-   */
-  function cacheIndexOf(cache, value) {
-    var type = typeof value;
-    cache = cache.cache;
-
-    if (type == 'boolean' || value == null) {
-      return cache[value] ? 0 : -1;
-    }
-    if (type != 'number' && type != 'string') {
-      type = 'object';
-    }
-    var key = type == 'number' ? value : keyPrefix + value;
-    cache = (cache = cache[type]) && cache[key];
-
-    return type == 'object'
-      ? (cache && baseIndexOf(cache, value) > -1 ? 0 : -1)
-      : (cache ? 0 : -1);
-  }
-
-  /**
-   * Adds a given value to the corresponding cache object.
-   *
-   * @private
-   * @param {*} value The value to add to the cache.
-   */
-  function cachePush(value) {
-    var cache = this.cache,
-        type = typeof value;
-
-    if (type == 'boolean' || value == null) {
-      cache[value] = true;
-    } else {
-      if (type != 'number' && type != 'string') {
-        type = 'object';
-      }
-      var key = type == 'number' ? value : keyPrefix + value,
-          typeCache = cache[type] || (cache[type] = {});
-
-      if (type == 'object') {
-        (typeCache[key] || (typeCache[key] = [])).push(value);
-      } else {
-        typeCache[key] = true;
-      }
-    }
-  }
-
-  /**
-   * Used by `_.max` and `_.min` as the default callback when a given
-   * collection is a string value.
-   *
-   * @private
-   * @param {string} value The character to inspect.
-   * @returns {number} Returns the code unit of given character.
-   */
-  function charAtCallback(value) {
-    return value.charCodeAt(0);
-  }
-
-  /**
-   * Used by `sortBy` to compare transformed `collection` elements, stable sorting
-   * them in ascending order.
-   *
-   * @private
-   * @param {Object} a The object to compare to `b`.
-   * @param {Object} b The object to compare to `a`.
-   * @returns {number} Returns the sort order indicator of `1` or `-1`.
-   */
-  function compareAscending(a, b) {
-    var ac = a.criteria,
-        bc = b.criteria,
-        index = -1,
-        length = ac.length;
-
-    while (++index < length) {
-      var value = ac[index],
-          other = bc[index];
-
-      if (value !== other) {
-        if (value > other || typeof value == 'undefined') {
-          return 1;
-        }
-        if (value < other || typeof other == 'undefined') {
-          return -1;
-        }
-      }
-    }
-    // Fixes an `Array#sort` bug in the JS engine embedded in Adobe applications
-    // that causes it, under certain circumstances, to return the same value for
-    // `a` and `b`. See https://github.com/jashkenas/underscore/pull/1247
-    //
-    // This also ensures a stable sort in V8 and other engines.
-    // See http://code.google.com/p/v8/issues/detail?id=90
-    return a.index - b.index;
-  }
-
-  /**
-   * Creates a cache object to optimize linear searches of large arrays.
-   *
-   * @private
-   * @param {Array} [array=[]] The array to search.
-   * @returns {null|Object} Returns the cache object or `null` if caching should not be used.
-   */
-  function createCache(array) {
-    var index = -1,
-        length = array.length,
-        first = array[0],
-        mid = array[(length / 2) | 0],
-        last = array[length - 1];
-
-    if (first && typeof first == 'object' &&
-        mid && typeof mid == 'object' && last && typeof last == 'object') {
-      return false;
-    }
-    var cache = getObject();
-    cache['false'] = cache['null'] = cache['true'] = cache['undefined'] = false;
-
-    var result = getObject();
-    result.array = array;
-    result.cache = cache;
-    result.push = cachePush;
-
-    while (++index < length) {
-      result.push(array[index]);
-    }
-    return result;
-  }
-
-  /**
-   * Used by `template` to escape characters for inclusion in compiled
-   * string literals.
-   *
-   * @private
-   * @param {string} match The matched character to escape.
-   * @returns {string} Returns the escaped character.
-   */
-  function escapeStringChar(match) {
-    return '\\' + stringEscapes[match];
-  }
-
-  /**
-   * Gets an array from the array pool or creates a new one if the pool is empty.
-   *
-   * @private
-   * @returns {Array} The array from the pool.
-   */
-  function getArray() {
-    return arrayPool.pop() || [];
-  }
-
-  /**
-   * Gets an object from the object pool or creates a new one if the pool is empty.
-   *
-   * @private
-   * @returns {Object} The object from the pool.
-   */
-  function getObject() {
-    return objectPool.pop() || {
-      'array': null,
-      'cache': null,
-      'criteria': null,
-      'false': false,
-      'index': 0,
-      'null': false,
-      'number': null,
-      'object': null,
-      'push': null,
-      'string': null,
-      'true': false,
-      'undefined': false,
-      'value': null
-    };
-  }
-
-  /**
-   * Releases the given array back to the array pool.
-   *
-   * @private
-   * @param {Array} [array] The array to release.
-   */
-  function releaseArray(array) {
-    array.length = 0;
-    if (arrayPool.length < maxPoolSize) {
-      arrayPool.push(array);
-    }
-  }
-
-  /**
-   * Releases the given object back to the object pool.
-   *
-   * @private
-   * @param {Object} [object] The object to release.
-   */
-  function releaseObject(object) {
-    var cache = object.cache;
-    if (cache) {
-      releaseObject(cache);
-    }
-    object.array = object.cache = object.criteria = object.object = object.number = object.string = object.value = null;
-    if (objectPool.length < maxPoolSize) {
-      objectPool.push(object);
-    }
-  }
-
-  /**
-   * Slices the `collection` from the `start` index up to, but not including,
-   * the `end` index.
-   *
-   * Note: This function is used instead of `Array#slice` to support node lists
-   * in IE < 9 and to ensure dense arrays are returned.
-   *
-   * @private
-   * @param {Array|Object|string} collection The collection to slice.
-   * @param {number} start The start index.
-   * @param {number} end The end index.
-   * @returns {Array} Returns the new array.
-   */
-  function slice(array, start, end) {
-    start || (start = 0);
-    if (typeof end == 'undefined') {
-      end = array ? array.length : 0;
-    }
-    var index = -1,
-        length = end - start || 0,
-        result = Array(length < 0 ? 0 : length);
-
-    while (++index < length) {
-      result[index] = array[start + index];
-    }
-    return result;
-  }
-
-  /*--------------------------------------------------------------------------*/
-
-  /**
-   * Create a new `lodash` function using the given context object.
-   *
-   * @static
-   * @memberOf _
-   * @category Utilities
-   * @param {Object} [context=root] The context object.
-   * @returns {Function} Returns the `lodash` function.
-   */
-  function runInContext(context) {
-    // Avoid issues with some ES3 environments that attempt to use values, named
-    // after built-in constructors like `Object`, for the creation of literals.
-    // ES5 clears this up by stating that literals must use built-in constructors.
-    // See http://es5.github.io/#x11.1.5.
-    context = context ? _.defaults(root.Object(), context, _.pick(root, contextProps)) : root;
-
-    /** Native constructor references */
-    var Array = context.Array,
-        Boolean = context.Boolean,
-        Date = context.Date,
-        Function = context.Function,
-        Math = context.Math,
-        Number = context.Number,
-        Object = context.Object,
-        RegExp = context.RegExp,
-        String = context.String,
-        TypeError = context.TypeError;
-
-    /**
-     * Used for `Array` method references.
-     *
-     * Normally `Array.prototype` would suffice, however, using an array literal
-     * avoids issues in Narwhal.
-     */
-    var arrayRef = [];
-
-    /** Used for native method references */
-    var objectProto = Object.prototype;
-
-    /** Used to restore the original `_` reference in `noConflict` */
-    var oldDash = context._;
-
-    /** Used to resolve the internal [[Class]] of values */
-    var toString = objectProto.toString;
-
-    /** Used to detect if a method is native */
-    var reNative = RegExp('^' +
-      String(toString)
-        .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-        .replace(/toString| for [^\]]+/g, '.*?') + '$'
-    );
-
-    /** Native method shortcuts */
-    var ceil = Math.ceil,
-        clearTimeout = context.clearTimeout,
-        floor = Math.floor,
-        fnToString = Function.prototype.toString,
-        getPrototypeOf = isNative(getPrototypeOf = Object.getPrototypeOf) && getPrototypeOf,
-        hasOwnProperty = objectProto.hasOwnProperty,
-        push = arrayRef.push,
-        setTimeout = context.setTimeout,
-        splice = arrayRef.splice,
-        unshift = arrayRef.unshift;
-
-    /** Used to set meta data on functions */
-    var defineProperty = (function() {
-      // IE 8 only accepts DOM elements
-      try {
-        var o = {},
-            func = isNative(func = Object.defineProperty) && func,
-            result = func(o, o, o) && func;
-      } catch(e) { }
-      return result;
-    }());
-
-    /* Native method shortcuts for methods with the same name as other `lodash` methods */
-    var nativeCreate = isNative(nativeCreate = Object.create) && nativeCreate,
-        nativeIsArray = isNative(nativeIsArray = Array.isArray) && nativeIsArray,
-        nativeIsFinite = context.isFinite,
-        nativeIsNaN = context.isNaN,
-        nativeKeys = isNative(nativeKeys = Object.keys) && nativeKeys,
-        nativeMax = Math.max,
-        nativeMin = Math.min,
-        nativeParseInt = context.parseInt,
-        nativeRandom = Math.random;
-
-    /** Used to lookup a built-in constructor by [[Class]] */
-    var ctorByClass = {};
-    ctorByClass[arrayClass] = Array;
-    ctorByClass[boolClass] = Boolean;
-    ctorByClass[dateClass] = Date;
-    ctorByClass[funcClass] = Function;
-    ctorByClass[objectClass] = Object;
-    ctorByClass[numberClass] = Number;
-    ctorByClass[regexpClass] = RegExp;
-    ctorByClass[stringClass] = String;
-
-    /*--------------------------------------------------------------------------*/
-
-    /**
-     * Creates a `lodash` object which wraps the given value to enable intuitive
-     * method chaining.
-     *
-     * In addition to Lo-Dash methods, wrappers also have the following `Array` methods:
-     * `concat`, `join`, `pop`, `push`, `reverse`, `shift`, `slice`, `sort`, `splice`,
-     * and `unshift`
-     *
-     * Chaining is supported in custom builds as long as the `value` method is
-     * implicitly or explicitly included in the build.
-     *
-     * The chainable wrapper functions are:
-     * `after`, `assign`, `bind`, `bindAll`, `bindKey`, `chain`, `compact`,
-     * `compose`, `concat`, `countBy`, `create`, `createCallback`, `curry`,
-     * `debounce`, `defaults`, `defer`, `delay`, `difference`, `filter`, `flatten`,
-     * `forEach`, `forEachRight`, `forIn`, `forInRight`, `forOwn`, `forOwnRight`,
-     * `functions`, `groupBy`, `indexBy`, `initial`, `intersection`, `invert`,
-     * `invoke`, `keys`, `map`, `max`, `memoize`, `merge`, `min`, `object`, `omit`,
-     * `once`, `pairs`, `partial`, `partialRight`, `pick`, `pluck`, `pull`, `push`,
-     * `range`, `reject`, `remove`, `rest`, `reverse`, `shuffle`, `slice`, `sort`,
-     * `sortBy`, `splice`, `tap`, `throttle`, `times`, `toArray`, `transform`,
-     * `union`, `uniq`, `unshift`, `unzip`, `values`, `where`, `without`, `wrap`,
-     * and `zip`
-     *
-     * The non-chainable wrapper functions are:
-     * `clone`, `cloneDeep`, `contains`, `escape`, `every`, `find`, `findIndex`,
-     * `findKey`, `findLast`, `findLastIndex`, `findLastKey`, `has`, `identity`,
-     * `indexOf`, `isArguments`, `isArray`, `isBoolean`, `isDate`, `isElement`,
-     * `isEmpty`, `isEqual`, `isFinite`, `isFunction`, `isNaN`, `isNull`, `isNumber`,
-     * `isObject`, `isPlainObject`, `isRegExp`, `isString`, `isUndefined`, `join`,
-     * `lastIndexOf`, `mixin`, `noConflict`, `parseInt`, `pop`, `random`, `reduce`,
-     * `reduceRight`, `result`, `shift`, `size`, `some`, `sortedIndex`, `runInContext`,
-     * `template`, `unescape`, `uniqueId`, and `value`
-     *
-     * The wrapper functions `first` and `last` return wrapped values when `n` is
-     * provided, otherwise they return unwrapped values.
-     *
-     * Explicit chaining can be enabled by using the `_.chain` method.
-     *
-     * @name _
-     * @constructor
-     * @category Chaining
-     * @param {*} value The value to wrap in a `lodash` instance.
-     * @returns {Object} Returns a `lodash` instance.
-     * @example
-     *
-     * var wrapped = _([1, 2, 3]);
-     *
-     * // returns an unwrapped value
-     * wrapped.reduce(function(sum, num) {
-     *   return sum + num;
-     * });
-     * // => 6
-     *
-     * // returns a wrapped value
-     * var squares = wrapped.map(function(num) {
-     *   return num * num;
-     * });
-     *
-     * _.isArray(squares);
-     * // => false
-     *
-     * _.isArray(squares.value());
-     * // => true
-     */
-    function lodash(value) {
-      // don't wrap if already wrapped, even if wrapped by a different `lodash` constructor
-      return (value && typeof value == 'object' && !isArray(value) && hasOwnProperty.call(value, '__wrapped__'))
-       ? value
-       : new lodashWrapper(value);
-    }
-
-    /**
-     * A fast path for creating `lodash` wrapper objects.
-     *
-     * @private
-     * @param {*} value The value to wrap in a `lodash` instance.
-     * @param {boolean} chainAll A flag to enable chaining for all methods
-     * @returns {Object} Returns a `lodash` instance.
-     */
-    function lodashWrapper(value, chainAll) {
-      this.__chain__ = !!chainAll;
-      this.__wrapped__ = value;
-    }
-    // ensure `new lodashWrapper` is an instance of `lodash`
-    lodashWrapper.prototype = lodash.prototype;
-
-    /**
-     * An object used to flag environments features.
-     *
-     * @static
-     * @memberOf _
-     * @type Object
-     */
-    var support = lodash.support = {};
-
-    /**
-     * Detect if functions can be decompiled by `Function#toString`
-     * (all but PS3 and older Opera mobile browsers & avoided in Windows 8 apps).
-     *
-     * @memberOf _.support
-     * @type boolean
-     */
-    support.funcDecomp = !isNative(context.WinRTError) && reThis.test(runInContext);
-
-    /**
-     * Detect if `Function#name` is supported (all but IE).
-     *
-     * @memberOf _.support
-     * @type boolean
-     */
-    support.funcNames = typeof Function.name == 'string';
-
-    /**
-     * By default, the template delimiters used by Lo-Dash are similar to those in
-     * embedded Ruby (ERB). Change the following template settings to use alternative
-     * delimiters.
-     *
-     * @static
-     * @memberOf _
-     * @type Object
-     */
-    lodash.templateSettings = {
-
-      /**
-       * Used to detect `data` property values to be HTML-escaped.
-       *
-       * @memberOf _.templateSettings
-       * @type RegExp
-       */
-      'escape': /<%-([\s\S]+?)%>/g,
-
-      /**
-       * Used to detect code to be evaluated.
-       *
-       * @memberOf _.templateSettings
-       * @type RegExp
-       */
-      'evaluate': /<%([\s\S]+?)%>/g,
-
-      /**
-       * Used to detect `data` property values to inject.
-       *
-       * @memberOf _.templateSettings
-       * @type RegExp
-       */
-      'interpolate': reInterpolate,
-
-      /**
-       * Used to reference the data object in the template text.
-       *
-       * @memberOf _.templateSettings
-       * @type string
-       */
-      'variable': '',
-
-      /**
-       * Used to import variables into the compiled template.
-       *
-       * @memberOf _.templateSettings
-       * @type Object
-       */
-      'imports': {
-
-        /**
-         * A reference to the `lodash` function.
-         *
-         * @memberOf _.templateSettings.imports
-         * @type Function
-         */
-        '_': lodash
-      }
-    };
-
-    /*--------------------------------------------------------------------------*/
-
-    /**
-     * The base implementation of `_.bind` that creates the bound function and
-     * sets its meta data.
-     *
-     * @private
-     * @param {Array} bindData The bind data array.
-     * @returns {Function} Returns the new bound function.
-     */
-    function baseBind(bindData) {
-      var func = bindData[0],
-          partialArgs = bindData[2],
-          thisArg = bindData[4];
-
-      function bound() {
-        // `Function#bind` spec
-        // http://es5.github.io/#x15.3.4.5
-        if (partialArgs) {
-          // avoid `arguments` object deoptimizations by using `slice` instead
-          // of `Array.prototype.slice.call` and not assigning `arguments` to a
-          // variable as a ternary expression
-          var args = slice(partialArgs);
-          push.apply(args, arguments);
-        }
-        // mimic the constructor's `return` behavior
-        // http://es5.github.io/#x13.2.2
-        if (this instanceof bound) {
-          // ensure `new bound` is an instance of `func`
-          var thisBinding = baseCreate(func.prototype),
-              result = func.apply(thisBinding, args || arguments);
-          return isObject(result) ? result : thisBinding;
-        }
-        return func.apply(thisArg, args || arguments);
-      }
-      setBindData(bound, bindData);
-      return bound;
-    }
-
-    /**
-     * The base implementation of `_.clone` without argument juggling or support
-     * for `thisArg` binding.
-     *
-     * @private
-     * @param {*} value The value to clone.
-     * @param {boolean} [isDeep=false] Specify a deep clone.
-     * @param {Function} [callback] The function to customize cloning values.
-     * @param {Array} [stackA=[]] Tracks traversed source objects.
-     * @param {Array} [stackB=[]] Associates clones with source counterparts.
-     * @returns {*} Returns the cloned value.
-     */
-    function baseClone(value, isDeep, callback, stackA, stackB) {
-      if (callback) {
-        var result = callback(value);
-        if (typeof result != 'undefined') {
-          return result;
-        }
-      }
-      // inspect [[Class]]
-      var isObj = isObject(value);
-      if (isObj) {
-        var className = toString.call(value);
-        if (!cloneableClasses[className]) {
-          return value;
-        }
-        var ctor = ctorByClass[className];
-        switch (className) {
-          case boolClass:
-          case dateClass:
-            return new ctor(+value);
-
-          case numberClass:
-          case stringClass:
-            return new ctor(value);
-
-          case regexpClass:
-            result = ctor(value.source, reFlags.exec(value));
-            result.lastIndex = value.lastIndex;
-            return result;
-        }
-      } else {
-        return value;
-      }
-      var isArr = isArray(value);
-      if (isDeep) {
-        // check for circular references and return corresponding clone
-        var initedStack = !stackA;
-        stackA || (stackA = getArray());
-        stackB || (stackB = getArray());
-
-        var length = stackA.length;
-        while (length--) {
-          if (stackA[length] == value) {
-            return stackB[length];
-          }
-        }
-        result = isArr ? ctor(value.length) : {};
-      }
-      else {
-        result = isArr ? slice(value) : assign({}, value);
-      }
-      // add array properties assigned by `RegExp#exec`
-      if (isArr) {
-        if (hasOwnProperty.call(value, 'index')) {
-          result.index = value.index;
-        }
-        if (hasOwnProperty.call(value, 'input')) {
-          result.input = value.input;
-        }
-      }
-      // exit for shallow clone
-      if (!isDeep) {
-        return result;
-      }
-      // add the source value to the stack of traversed objects
-      // and associate it with its clone
-      stackA.push(value);
-      stackB.push(result);
-
-      // recursively populate clone (susceptible to call stack limits)
-      (isArr ? forEach : forOwn)(value, function(objValue, key) {
-        result[key] = baseClone(objValue, isDeep, callback, stackA, stackB);
-      });
-
-      if (initedStack) {
-        releaseArray(stackA);
-        releaseArray(stackB);
-      }
-      return result;
-    }
-
-    /**
-     * The base implementation of `_.create` without support for assigning
-     * properties to the created object.
-     *
-     * @private
-     * @param {Object} prototype The object to inherit from.
-     * @returns {Object} Returns the new object.
-     */
-    function baseCreate(prototype, properties) {
-      return isObject(prototype) ? nativeCreate(prototype) : {};
-    }
-    // fallback for browsers without `Object.create`
-    if (!nativeCreate) {
-      baseCreate = (function() {
-        function Object() {}
-        return function(prototype) {
-          if (isObject(prototype)) {
-            Object.prototype = prototype;
-            var result = new Object;
-            Object.prototype = null;
-          }
-          return result || context.Object();
-        };
-      }());
-    }
-
-    /**
-     * The base implementation of `_.createCallback` without support for creating
-     * "_.pluck" or "_.where" style callbacks.
-     *
-     * @private
-     * @param {*} [func=identity] The value to convert to a callback.
-     * @param {*} [thisArg] The `this` binding of the created callback.
-     * @param {number} [argCount] The number of arguments the callback accepts.
-     * @returns {Function} Returns a callback function.
-     */
-    function baseCreateCallback(func, thisArg, argCount) {
-      if (typeof func != 'function') {
-        return identity;
-      }
-      // exit early for no `thisArg` or already bound by `Function#bind`
-      if (typeof thisArg == 'undefined' || !('prototype' in func)) {
-        return func;
-      }
-      var bindData = func.__bindData__;
-      if (typeof bindData == 'undefined') {
-        if (support.funcNames) {
-          bindData = !func.name;
-        }
-        bindData = bindData || !support.funcDecomp;
-        if (!bindData) {
-          var source = fnToString.call(func);
-          if (!support.funcNames) {
-            bindData = !reFuncName.test(source);
-          }
-          if (!bindData) {
-            // checks if `func` references the `this` keyword and stores the result
-            bindData = reThis.test(source);
-            setBindData(func, bindData);
-          }
-        }
-      }
-      // exit early if there are no `this` references or `func` is bound
-      if (bindData === false || (bindData !== true && bindData[1] & 1)) {
-        return func;
-      }
-      switch (argCount) {
-        case 1: return function(value) {
-          return func.call(thisArg, value);
-        };
-        case 2: return function(a, b) {
-          return func.call(thisArg, a, b);
-        };
-        case 3: return function(value, index, collection) {
-          return func.call(thisArg, value, index, collection);
-        };
-        case 4: return function(accumulator, value, index, collection) {
-          return func.call(thisArg, accumulator, value, index, collection);
-        };
-      }
-      return bind(func, thisArg);
-    }
-
-    /**
-     * The base implementation of `createWrapper` that creates the wrapper and
-     * sets its meta data.
-     *
-     * @private
-     * @param {Array} bindData The bind data array.
-     * @returns {Function} Returns the new function.
-     */
-    function baseCreateWrapper(bindData) {
-      var func = bindData[0],
-          bitmask = bindData[1],
-          partialArgs = bindData[2],
-          partialRightArgs = bindData[3],
-          thisArg = bindData[4],
-          arity = bindData[5];
-
-      var isBind = bitmask & 1,
-          isBindKey = bitmask & 2,
-          isCurry = bitmask & 4,
-          isCurryBound = bitmask & 8,
-          key = func;
-
-      function bound() {
-        var thisBinding = isBind ? thisArg : this;
-        if (partialArgs) {
-          var args = slice(partialArgs);
-          push.apply(args, arguments);
-        }
-        if (partialRightArgs || isCurry) {
-          args || (args = slice(arguments));
-          if (partialRightArgs) {
-            push.apply(args, partialRightArgs);
-          }
-          if (isCurry && args.length < arity) {
-            bitmask |= 16 & ~32;
-            return baseCreateWrapper([func, (isCurryBound ? bitmask : bitmask & ~3), args, null, thisArg, arity]);
-          }
-        }
-        args || (args = arguments);
-        if (isBindKey) {
-          func = thisBinding[key];
-        }
-        if (this instanceof bound) {
-          thisBinding = baseCreate(func.prototype);
-          var result = func.apply(thisBinding, args);
-          return isObject(result) ? result : thisBinding;
-        }
-        return func.apply(thisBinding, args);
-      }
-      setBindData(bound, bindData);
-      return bound;
-    }
-
-    /**
-     * The base implementation of `_.difference` that accepts a single array
-     * of values to exclude.
-     *
-     * @private
-     * @param {Array} array The array to process.
-     * @param {Array} [values] The array of values to exclude.
-     * @returns {Array} Returns a new array of filtered values.
-     */
-    function baseDifference(array, values) {
-      var index = -1,
-          indexOf = getIndexOf(),
-          length = array ? array.length : 0,
-          isLarge = length >= largeArraySize && indexOf === baseIndexOf,
-          result = [];
-
-      if (isLarge) {
-        var cache = createCache(values);
-        if (cache) {
-          indexOf = cacheIndexOf;
-          values = cache;
-        } else {
-          isLarge = false;
-        }
-      }
-      while (++index < length) {
-        var value = array[index];
-        if (indexOf(values, value) < 0) {
-          result.push(value);
-        }
-      }
-      if (isLarge) {
-        releaseObject(values);
-      }
-      return result;
-    }
-
-    /**
-     * The base implementation of `_.flatten` without support for callback
-     * shorthands or `thisArg` binding.
-     *
-     * @private
-     * @param {Array} array The array to flatten.
-     * @param {boolean} [isShallow=false] A flag to restrict flattening to a single level.
-     * @param {boolean} [isStrict=false] A flag to restrict flattening to arrays and `arguments` objects.
-     * @param {number} [fromIndex=0] The index to start from.
-     * @returns {Array} Returns a new flattened array.
-     */
-    function baseFlatten(array, isShallow, isStrict, fromIndex) {
-      var index = (fromIndex || 0) - 1,
-          length = array ? array.length : 0,
-          result = [];
-
-      while (++index < length) {
-        var value = array[index];
-
-        if (value && typeof value == 'object' && typeof value.length == 'number'
-            && (isArray(value) || isArguments(value))) {
-          // recursively flatten arrays (susceptible to call stack limits)
-          if (!isShallow) {
-            value = baseFlatten(value, isShallow, isStrict);
-          }
-          var valIndex = -1,
-              valLength = value.length,
-              resIndex = result.length;
-
-          result.length += valLength;
-          while (++valIndex < valLength) {
-            result[resIndex++] = value[valIndex];
-          }
-        } else if (!isStrict) {
-          result.push(value);
-        }
-      }
-      return result;
-    }
-
-    /**
-     * The base implementation of `_.isEqual`, without support for `thisArg` binding,
-     * that allows partial "_.where" style comparisons.
-     *
-     * @private
-     * @param {*} a The value to compare.
-     * @param {*} b The other value to compare.
-     * @param {Function} [callback] The function to customize comparing values.
-     * @param {Function} [isWhere=false] A flag to indicate performing partial comparisons.
-     * @param {Array} [stackA=[]] Tracks traversed `a` objects.
-     * @param {Array} [stackB=[]] Tracks traversed `b` objects.
-     * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
-     */
-    function baseIsEqual(a, b, callback, isWhere, stackA, stackB) {
-      // used to indicate that when comparing objects, `a` has at least the properties of `b`
-      if (callback) {
-        var result = callback(a, b);
-        if (typeof result != 'undefined') {
-          return !!result;
-        }
-      }
-      // exit early for identical values
-      if (a === b) {
-        // treat `+0` vs. `-0` as not equal
-        return a !== 0 || (1 / a == 1 / b);
-      }
-      var type = typeof a,
-          otherType = typeof b;
-
-      // exit early for unlike primitive values
-      if (a === a &&
-          !(a && objectTypes[type]) &&
-          !(b && objectTypes[otherType])) {
-        return false;
-      }
-      // exit early for `null` and `undefined` avoiding ES3's Function#call behavior
-      // http://es5.github.io/#x15.3.4.4
-      if (a == null || b == null) {
-        return a === b;
-      }
-      // compare [[Class]] names
-      var className = toString.call(a),
-          otherClass = toString.call(b);
-
-      if (className == argsClass) {
-        className = objectClass;
-      }
-      if (otherClass == argsClass) {
-        otherClass = objectClass;
-      }
-      if (className != otherClass) {
-        return false;
-      }
-      switch (className) {
-        case boolClass:
-        case dateClass:
-          // coerce dates and booleans to numbers, dates to milliseconds and booleans
-          // to `1` or `0` treating invalid dates coerced to `NaN` as not equal
-          return +a == +b;
-
-        case numberClass:
-          // treat `NaN` vs. `NaN` as equal
-          return (a != +a)
-            ? b != +b
-            // but treat `+0` vs. `-0` as not equal
-            : (a == 0 ? (1 / a == 1 / b) : a == +b);
-
-        case regexpClass:
-        case stringClass:
-          // coerce regexes to strings (http://es5.github.io/#x15.10.6.4)
-          // treat string primitives and their corresponding object instances as equal
-          return a == String(b);
-      }
-      var isArr = className == arrayClass;
-      if (!isArr) {
-        // unwrap any `lodash` wrapped values
-        var aWrapped = hasOwnProperty.call(a, '__wrapped__'),
-            bWrapped = hasOwnProperty.call(b, '__wrapped__');
-
-        if (aWrapped || bWrapped) {
-          return baseIsEqual(aWrapped ? a.__wrapped__ : a, bWrapped ? b.__wrapped__ : b, callback, isWhere, stackA, stackB);
-        }
-        // exit for functions and DOM nodes
-        if (className != objectClass) {
-          return false;
-        }
-        // in older versions of Opera, `arguments` objects have `Array` constructors
-        var ctorA = a.constructor,
-            ctorB = b.constructor;
-
-        // non `Object` object instances with different constructors are not equal
-        if (ctorA != ctorB &&
-              !(isFunction(ctorA) && ctorA instanceof ctorA && isFunction(ctorB) && ctorB instanceof ctorB) &&
-              ('constructor' in a && 'constructor' in b)
-            ) {
-          return false;
-        }
-      }
-      // assume cyclic structures are equal
-      // the algorithm for detecting cyclic structures is adapted from ES 5.1
-      // section 15.12.3, abstract operation `JO` (http://es5.github.io/#x15.12.3)
-      var initedStack = !stackA;
-      stackA || (stackA = getArray());
-      stackB || (stackB = getArray());
-
-      var length = stackA.length;
-      while (length--) {
-        if (stackA[length] == a) {
-          return stackB[length] == b;
-        }
-      }
-      var size = 0;
-      result = true;
-
-      // add `a` and `b` to the stack of traversed objects
-      stackA.push(a);
-      stackB.push(b);
-
-      // recursively compare objects and arrays (susceptible to call stack limits)
-      if (isArr) {
-        // compare lengths to determine if a deep comparison is necessary
-        length = a.length;
-        size = b.length;
-        result = size == length;
-
-        if (result || isWhere) {
-          // deep compare the contents, ignoring non-numeric properties
-          while (size--) {
-            var index = length,
-                value = b[size];
-
-            if (isWhere) {
-              while (index--) {
-                if ((result = baseIsEqual(a[index], value, callback, isWhere, stackA, stackB))) {
-                  break;
-                }
-              }
-            } else if (!(result = baseIsEqual(a[size], value, callback, isWhere, stackA, stackB))) {
-              break;
-            }
-          }
-        }
-      }
-      else {
-        // deep compare objects using `forIn`, instead of `forOwn`, to avoid `Object.keys`
-        // which, in this case, is more costly
-        forIn(b, function(value, key, b) {
-          if (hasOwnProperty.call(b, key)) {
-            // count the number of properties.
-            size++;
-            // deep compare each property value.
-            return (result = hasOwnProperty.call(a, key) && baseIsEqual(a[key], value, callback, isWhere, stackA, stackB));
-          }
-        });
-
-        if (result && !isWhere) {
-          // ensure both objects have the same number of properties
-          forIn(a, function(value, key, a) {
-            if (hasOwnProperty.call(a, key)) {
-              // `size` will be `-1` if `a` has more properties than `b`
-              return (result = --size > -1);
-            }
-          });
-        }
-      }
-      stackA.pop();
-      stackB.pop();
-
-      if (initedStack) {
-        releaseArray(stackA);
-        releaseArray(stackB);
-      }
-      return result;
-    }
-
-    /**
-     * The base implementation of `_.merge` without argument juggling or support
-     * for `thisArg` binding.
-     *
-     * @private
-     * @param {Object} object The destination object.
-     * @param {Object} source The source object.
-     * @param {Function} [callback] The function to customize merging properties.
-     * @param {Array} [stackA=[]] Tracks traversed source objects.
-     * @param {Array} [stackB=[]] Associates values with source counterparts.
-     */
-    function baseMerge(object, source, callback, stackA, stackB) {
-      (isArray(source) ? forEach : forOwn)(source, function(source, key) {
-        var found,
-            isArr,
-            result = source,
-            value = object[key];
-
-        if (source && ((isArr = isArray(source)) || isPlainObject(source))) {
-          // avoid merging previously merged cyclic sources
-          var stackLength = stackA.length;
-          while (stackLength--) {
-            if ((found = stackA[stackLength] == source)) {
-              value = stackB[stackLength];
-              break;
-            }
-          }
-          if (!found) {
-            var isShallow;
-            if (callback) {
-              result = callback(value, source);
-              if ((isShallow = typeof result != 'undefined')) {
-                value = result;
-              }
-            }
-            if (!isShallow) {
-              value = isArr
-                ? (isArray(value) ? value : [])
-                : (isPlainObject(value) ? value : {});
-            }
-            // add `source` and associated `value` to the stack of traversed objects
-            stackA.push(source);
-            stackB.push(value);
-
-            // recursively merge objects and arrays (susceptible to call stack limits)
-            if (!isShallow) {
-              baseMerge(value, source, callback, stackA, stackB);
-            }
-          }
-        }
-        else {
-          if (callback) {
-            result = callback(value, source);
-            if (typeof result == 'undefined') {
-              result = source;
-            }
-          }
-          if (typeof result != 'undefined') {
-            value = result;
-          }
-        }
-        object[key] = value;
-      });
-    }
-
-    /**
-     * The base implementation of `_.random` without argument juggling or support
-     * for returning floating-point numbers.
-     *
-     * @private
-     * @param {number} min The minimum possible value.
-     * @param {number} max The maximum possible value.
-     * @returns {number} Returns a random number.
-     */
-    function baseRandom(min, max) {
-      return min + floor(nativeRandom() * (max - min + 1));
-    }
-
-    /**
-     * The base implementation of `_.uniq` without support for callback shorthands
-     * or `thisArg` binding.
-     *
-     * @private
-     * @param {Array} array The array to process.
-     * @param {boolean} [isSorted=false] A flag to indicate that `array` is sorted.
-     * @param {Function} [callback] The function called per iteration.
-     * @returns {Array} Returns a duplicate-value-free array.
-     */
-    function baseUniq(array, isSorted, callback) {
-      var index = -1,
-          indexOf = getIndexOf(),
-          length = array ? array.length : 0,
-          result = [];
-
-      var isLarge = !isSorted && length >= largeArraySize && indexOf === baseIndexOf,
-          seen = (callback || isLarge) ? getArray() : result;
-
-      if (isLarge) {
-        var cache = createCache(seen);
-        indexOf = cacheIndexOf;
-        seen = cache;
-      }
-      while (++index < length) {
-        var value = array[index],
-            computed = callback ? callback(value, index, array) : value;
-
-        if (isSorted
-              ? !index || seen[seen.length - 1] !== computed
-              : indexOf(seen, computed) < 0
-            ) {
-          if (callback || isLarge) {
-            seen.push(computed);
-          }
-          result.push(value);
-        }
-      }
-      if (isLarge) {
-        releaseArray(seen.array);
-        releaseObject(seen);
-      } else if (callback) {
-        releaseArray(seen);
-      }
-      return result;
-    }
-
-    /**
-     * Creates a function that aggregates a collection, creating an object composed
-     * of keys generated from the results of running each element of the collection
-     * through a callback. The given `setter` function sets the keys and values
-     * of the composed object.
-     *
-     * @private
-     * @param {Function} setter The setter function.
-     * @returns {Function} Returns the new aggregator function.
-     */
-    function createAggregator(setter) {
-      return function(collection, callback, thisArg) {
-        var result = {};
-        callback = lodash.createCallback(callback, thisArg, 3);
-
-        var index = -1,
-            length = collection ? collection.length : 0;
-
-        if (typeof length == 'number') {
-          while (++index < length) {
-            var value = collection[index];
-            setter(result, value, callback(value, index, collection), collection);
-          }
-        } else {
-          forOwn(collection, function(value, key, collection) {
-            setter(result, value, callback(value, key, collection), collection);
-          });
-        }
-        return result;
-      };
-    }
-
-    /**
-     * Creates a function that, when called, either curries or invokes `func`
-     * with an optional `this` binding and partially applied arguments.
-     *
-     * @private
-     * @param {Function|string} func The function or method name to reference.
-     * @param {number} bitmask The bitmask of method flags to compose.
-     *  The bitmask may be composed of the following flags:
-     *  1 - `_.bind`
-     *  2 - `_.bindKey`
-     *  4 - `_.curry`
-     *  8 - `_.curry` (bound)
-     *  16 - `_.partial`
-     *  32 - `_.partialRight`
-     * @param {Array} [partialArgs] An array of arguments to prepend to those
-     *  provided to the new function.
-     * @param {Array} [partialRightArgs] An array of arguments to append to those
-     *  provided to the new function.
-     * @param {*} [thisArg] The `this` binding of `func`.
-     * @param {number} [arity] The arity of `func`.
-     * @returns {Function} Returns the new function.
-     */
-    function createWrapper(func, bitmask, partialArgs, partialRightArgs, thisArg, arity) {
-      var isBind = bitmask & 1,
-          isBindKey = bitmask & 2,
-          isCurry = bitmask & 4,
-          isCurryBound = bitmask & 8,
-          isPartial = bitmask & 16,
-          isPartialRight = bitmask & 32;
-
-      if (!isBindKey && !isFunction(func)) {
-        throw new TypeError;
-      }
-      if (isPartial && !partialArgs.length) {
-        bitmask &= ~16;
-        isPartial = partialArgs = false;
-      }
-      if (isPartialRight && !partialRightArgs.length) {
-        bitmask &= ~32;
-        isPartialRight = partialRightArgs = false;
-      }
-      var bindData = func && func.__bindData__;
-      if (bindData && bindData !== true) {
-        // clone `bindData`
-        bindData = slice(bindData);
-        if (bindData[2]) {
-          bindData[2] = slice(bindData[2]);
-        }
-        if (bindData[3]) {
-          bindData[3] = slice(bindData[3]);
-        }
-        // set `thisBinding` is not previously bound
-        if (isBind && !(bindData[1] & 1)) {
-          bindData[4] = thisArg;
-        }
-        // set if previously bound but not currently (subsequent curried functions)
-        if (!isBind && bindData[1] & 1) {
-          bitmask |= 8;
-        }
-        // set curried arity if not yet set
-        if (isCurry && !(bindData[1] & 4)) {
-          bindData[5] = arity;
-        }
-        // append partial left arguments
-        if (isPartial) {
-          push.apply(bindData[2] || (bindData[2] = []), partialArgs);
-        }
-        // append partial right arguments
-        if (isPartialRight) {
-          unshift.apply(bindData[3] || (bindData[3] = []), partialRightArgs);
-        }
-        // merge flags
-        bindData[1] |= bitmask;
-        return createWrapper.apply(null, bindData);
-      }
-      // fast path for `_.bind`
-      var creater = (bitmask == 1 || bitmask === 17) ? baseBind : baseCreateWrapper;
-      return creater([func, bitmask, partialArgs, partialRightArgs, thisArg, arity]);
-    }
-
-    /**
-     * Used by `escape` to convert characters to HTML entities.
-     *
-     * @private
-     * @param {string} match The matched character to escape.
-     * @returns {string} Returns the escaped character.
-     */
-    function escapeHtmlChar(match) {
-      return htmlEscapes[match];
-    }
-
-    /**
-     * Gets the appropriate "indexOf" function. If the `_.indexOf` method is
-     * customized, this method returns the custom method, otherwise it returns
-     * the `baseIndexOf` function.
-     *
-     * @private
-     * @returns {Function} Returns the "indexOf" function.
-     */
-    function getIndexOf() {
-      var result = (result = lodash.indexOf) === indexOf ? baseIndexOf : result;
-      return result;
-    }
-
-    /**
-     * Checks if `value` is a native function.
-     *
-     * @private
-     * @param {*} value The value to check.
-     * @returns {boolean} Returns `true` if the `value` is a native function, else `false`.
-     */
-    function isNative(value) {
-      return typeof value == 'function' && reNative.test(value);
-    }
-
-    /**
-     * Sets `this` binding data on a given function.
-     *
-     * @private
-     * @param {Function} func The function to set data on.
-     * @param {Array} value The data array to set.
-     */
-    var setBindData = !defineProperty ? noop : function(func, value) {
-      descriptor.value = value;
-      defineProperty(func, '__bindData__', descriptor);
-    };
-
-    /**
-     * A fallback implementation of `isPlainObject` which checks if a given value
-     * is an object created by the `Object` constructor, assuming objects created
-     * by the `Object` constructor have no inherited enumerable properties and that
-     * there are no `Object.prototype` extensions.
-     *
-     * @private
-     * @param {*} value The value to check.
-     * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
-     */
-    function shimIsPlainObject(value) {
-      var ctor,
-          result;
-
-      // avoid non Object objects, `arguments` objects, and DOM elements
-      if (!(value && toString.call(value) == objectClass) ||
-          (ctor = value.constructor, isFunction(ctor) && !(ctor instanceof ctor))) {
-        return false;
-      }
-      // In most environments an object's own properties are iterated before
-      // its inherited properties. If the last iterated property is an object's
-      // own property then there are no inherited enumerable properties.
-      forIn(value, function(value, key) {
-        result = key;
-      });
-      return typeof result == 'undefined' || hasOwnProperty.call(value, result);
-    }
-
-    /**
-     * Used by `unescape` to convert HTML entities to characters.
-     *
-     * @private
-     * @param {string} match The matched character to unescape.
-     * @returns {string} Returns the unescaped character.
-     */
-    function unescapeHtmlChar(match) {
-      return htmlUnescapes[match];
-    }
-
-    /*--------------------------------------------------------------------------*/
-
-    /**
-     * Checks if `value` is an `arguments` object.
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {*} value The value to check.
-     * @returns {boolean} Returns `true` if the `value` is an `arguments` object, else `false`.
-     * @example
-     *
-     * (function() { return _.isArguments(arguments); })(1, 2, 3);
-     * // => true
-     *
-     * _.isArguments([1, 2, 3]);
-     * // => false
-     */
-    function isArguments(value) {
-      return value && typeof value == 'object' && typeof value.length == 'number' &&
-        toString.call(value) == argsClass || false;
-    }
-
-    /**
-     * Checks if `value` is an array.
-     *
-     * @static
-     * @memberOf _
-     * @type Function
-     * @category Objects
-     * @param {*} value The value to check.
-     * @returns {boolean} Returns `true` if the `value` is an array, else `false`.
-     * @example
-     *
-     * (function() { return _.isArray(arguments); })();
-     * // => false
-     *
-     * _.isArray([1, 2, 3]);
-     * // => true
-     */
-    var isArray = nativeIsArray || function(value) {
-      return value && typeof value == 'object' && typeof value.length == 'number' &&
-        toString.call(value) == arrayClass || false;
-    };
-
-    /**
-     * A fallback implementation of `Object.keys` which produces an array of the
-     * given object's own enumerable property names.
-     *
-     * @private
-     * @type Function
-     * @param {Object} object The object to inspect.
-     * @returns {Array} Returns an array of property names.
-     */
-    var shimKeys = function(object) {
-      var index, iterable = object, result = [];
-      if (!iterable) return result;
-      if (!(objectTypes[typeof object])) return result;
-        for (index in iterable) {
-          if (hasOwnProperty.call(iterable, index)) {
-            result.push(index);
-          }
-        }
-      return result
-    };
-
-    /**
-     * Creates an array composed of the own enumerable property names of an object.
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {Object} object The object to inspect.
-     * @returns {Array} Returns an array of property names.
-     * @example
-     *
-     * _.keys({ 'one': 1, 'two': 2, 'three': 3 });
-     * // => ['one', 'two', 'three'] (property order is not guaranteed across environments)
-     */
-    var keys = !nativeKeys ? shimKeys : function(object) {
-      if (!isObject(object)) {
-        return [];
-      }
-      return nativeKeys(object);
-    };
-
-    /**
-     * Used to convert characters to HTML entities:
-     *
-     * Though the `>` character is escaped for symmetry, characters like `>` and `/`
-     * don't require escaping in HTML and have no special meaning unless they're part
-     * of a tag or an unquoted attribute value.
-     * http://mathiasbynens.be/notes/ambiguous-ampersands (under "semi-related fun fact")
-     */
-    var htmlEscapes = {
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#39;'
-    };
-
-    /** Used to convert HTML entities to characters */
-    var htmlUnescapes = invert(htmlEscapes);
-
-    /** Used to match HTML entities and HTML characters */
-    var reEscapedHtml = RegExp('(' + keys(htmlUnescapes).join('|') + ')', 'g'),
-        reUnescapedHtml = RegExp('[' + keys(htmlEscapes).join('') + ']', 'g');
-
-    /*--------------------------------------------------------------------------*/
-
-    /**
-     * Assigns own enumerable properties of source object(s) to the destination
-     * object. Subsequent sources will overwrite property assignments of previous
-     * sources. If a callback is provided it will be executed to produce the
-     * assigned values. The callback is bound to `thisArg` and invoked with two
-     * arguments; (objectValue, sourceValue).
-     *
-     * @static
-     * @memberOf _
-     * @type Function
-     * @alias extend
-     * @category Objects
-     * @param {Object} object The destination object.
-     * @param {...Object} [source] The source objects.
-     * @param {Function} [callback] The function to customize assigning values.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {Object} Returns the destination object.
-     * @example
-     *
-     * _.assign({ 'name': 'fred' }, { 'employer': 'slate' });
-     * // => { 'name': 'fred', 'employer': 'slate' }
-     *
-     * var defaults = _.partialRight(_.assign, function(a, b) {
-     *   return typeof a == 'undefined' ? b : a;
-     * });
-     *
-     * var object = { 'name': 'barney' };
-     * defaults(object, { 'name': 'fred', 'employer': 'slate' });
-     * // => { 'name': 'barney', 'employer': 'slate' }
-     */
-    var assign = function(object, source, guard) {
-      var index, iterable = object, result = iterable;
-      if (!iterable) return result;
-      var args = arguments,
-          argsIndex = 0,
-          argsLength = typeof guard == 'number' ? 2 : args.length;
-      if (argsLength > 3 && typeof args[argsLength - 2] == 'function') {
-        var callback = baseCreateCallback(args[--argsLength - 1], args[argsLength--], 2);
-      } else if (argsLength > 2 && typeof args[argsLength - 1] == 'function') {
-        callback = args[--argsLength];
-      }
-      while (++argsIndex < argsLength) {
-        iterable = args[argsIndex];
-        if (iterable && objectTypes[typeof iterable]) {
-        var ownIndex = -1,
-            ownProps = objectTypes[typeof iterable] && keys(iterable),
-            length = ownProps ? ownProps.length : 0;
-
-        while (++ownIndex < length) {
-          index = ownProps[ownIndex];
-          result[index] = callback ? callback(result[index], iterable[index]) : iterable[index];
-        }
-        }
-      }
-      return result
-    };
-
-    /**
-     * Creates a clone of `value`. If `isDeep` is `true` nested objects will also
-     * be cloned, otherwise they will be assigned by reference. If a callback
-     * is provided it will be executed to produce the cloned values. If the
-     * callback returns `undefined` cloning will be handled by the method instead.
-     * The callback is bound to `thisArg` and invoked with one argument; (value).
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {*} value The value to clone.
-     * @param {boolean} [isDeep=false] Specify a deep clone.
-     * @param {Function} [callback] The function to customize cloning values.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {*} Returns the cloned value.
-     * @example
-     *
-     * var characters = [
-     *   { 'name': 'barney', 'age': 36 },
-     *   { 'name': 'fred',   'age': 40 }
-     * ];
-     *
-     * var shallow = _.clone(characters);
-     * shallow[0] === characters[0];
-     * // => true
-     *
-     * var deep = _.clone(characters, true);
-     * deep[0] === characters[0];
-     * // => false
-     *
-     * _.mixin({
-     *   'clone': _.partialRight(_.clone, function(value) {
-     *     return _.isElement(value) ? value.cloneNode(false) : undefined;
-     *   })
-     * });
-     *
-     * var clone = _.clone(document.body);
-     * clone.childNodes.length;
-     * // => 0
-     */
-    function clone(value, isDeep, callback, thisArg) {
-      // allows working with "Collections" methods without using their `index`
-      // and `collection` arguments for `isDeep` and `callback`
-      if (typeof isDeep != 'boolean' && isDeep != null) {
-        thisArg = callback;
-        callback = isDeep;
-        isDeep = false;
-      }
-      return baseClone(value, isDeep, typeof callback == 'function' && baseCreateCallback(callback, thisArg, 1));
-    }
-
-    /**
-     * Creates a deep clone of `value`. If a callback is provided it will be
-     * executed to produce the cloned values. If the callback returns `undefined`
-     * cloning will be handled by the method instead. The callback is bound to
-     * `thisArg` and invoked with one argument; (value).
-     *
-     * Note: This method is loosely based on the structured clone algorithm. Functions
-     * and DOM nodes are **not** cloned. The enumerable properties of `arguments` objects and
-     * objects created by constructors other than `Object` are cloned to plain `Object` objects.
-     * See http://www.w3.org/TR/html5/infrastructure.html#internal-structured-cloning-algorithm.
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {*} value The value to deep clone.
-     * @param {Function} [callback] The function to customize cloning values.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {*} Returns the deep cloned value.
-     * @example
-     *
-     * var characters = [
-     *   { 'name': 'barney', 'age': 36 },
-     *   { 'name': 'fred',   'age': 40 }
-     * ];
-     *
-     * var deep = _.cloneDeep(characters);
-     * deep[0] === characters[0];
-     * // => false
-     *
-     * var view = {
-     *   'label': 'docs',
-     *   'node': element
-     * };
-     *
-     * var clone = _.cloneDeep(view, function(value) {
-     *   return _.isElement(value) ? value.cloneNode(true) : undefined;
-     * });
-     *
-     * clone.node == view.node;
-     * // => false
-     */
-    function cloneDeep(value, callback, thisArg) {
-      return baseClone(value, true, typeof callback == 'function' && baseCreateCallback(callback, thisArg, 1));
-    }
-
-    /**
-     * Creates an object that inherits from the given `prototype` object. If a
-     * `properties` object is provided its own enumerable properties are assigned
-     * to the created object.
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {Object} prototype The object to inherit from.
-     * @param {Object} [properties] The properties to assign to the object.
-     * @returns {Object} Returns the new object.
-     * @example
-     *
-     * function Shape() {
-     *   this.x = 0;
-     *   this.y = 0;
-     * }
-     *
-     * function Circle() {
-     *   Shape.call(this);
-     * }
-     *
-     * Circle.prototype = _.create(Shape.prototype, { 'constructor': Circle });
-     *
-     * var circle = new Circle;
-     * circle instanceof Circle;
-     * // => true
-     *
-     * circle instanceof Shape;
-     * // => true
-     */
-    function create(prototype, properties) {
-      var result = baseCreate(prototype);
-      return properties ? assign(result, properties) : result;
-    }
-
-    /**
-     * Assigns own enumerable properties of source object(s) to the destination
-     * object for all destination properties that resolve to `undefined`. Once a
-     * property is set, additional defaults of the same property will be ignored.
-     *
-     * @static
-     * @memberOf _
-     * @type Function
-     * @category Objects
-     * @param {Object} object The destination object.
-     * @param {...Object} [source] The source objects.
-     * @param- {Object} [guard] Allows working with `_.reduce` without using its
-     *  `key` and `object` arguments as sources.
-     * @returns {Object} Returns the destination object.
-     * @example
-     *
-     * var object = { 'name': 'barney' };
-     * _.defaults(object, { 'name': 'fred', 'employer': 'slate' });
-     * // => { 'name': 'barney', 'employer': 'slate' }
-     */
-    var defaults = function(object, source, guard) {
-      var index, iterable = object, result = iterable;
-      if (!iterable) return result;
-      var args = arguments,
-          argsIndex = 0,
-          argsLength = typeof guard == 'number' ? 2 : args.length;
-      while (++argsIndex < argsLength) {
-        iterable = args[argsIndex];
-        if (iterable && objectTypes[typeof iterable]) {
-        var ownIndex = -1,
-            ownProps = objectTypes[typeof iterable] && keys(iterable),
-            length = ownProps ? ownProps.length : 0;
-
-        while (++ownIndex < length) {
-          index = ownProps[ownIndex];
-          if (typeof result[index] == 'undefined') result[index] = iterable[index];
-        }
-        }
-      }
-      return result
-    };
-
-    /**
-     * This method is like `_.findIndex` except that it returns the key of the
-     * first element that passes the callback check, instead of the element itself.
-     *
-     * If a property name is provided for `callback` the created "_.pluck" style
-     * callback will return the property value of the given element.
-     *
-     * If an object is provided for `callback` the created "_.where" style callback
-     * will return `true` for elements that have the properties of the given object,
-     * else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {Object} object The object to search.
-     * @param {Function|Object|string} [callback=identity] The function called per
-     *  iteration. If a property name or object is provided it will be used to
-     *  create a "_.pluck" or "_.where" style callback, respectively.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {string|undefined} Returns the key of the found element, else `undefined`.
-     * @example
-     *
-     * var characters = {
-     *   'barney': {  'age': 36, 'blocked': false },
-     *   'fred': {    'age': 40, 'blocked': true },
-     *   'pebbles': { 'age': 1,  'blocked': false }
-     * };
-     *
-     * _.findKey(characters, function(chr) {
-     *   return chr.age < 40;
-     * });
-     * // => 'barney' (property order is not guaranteed across environments)
-     *
-     * // using "_.where" callback shorthand
-     * _.findKey(characters, { 'age': 1 });
-     * // => 'pebbles'
-     *
-     * // using "_.pluck" callback shorthand
-     * _.findKey(characters, 'blocked');
-     * // => 'fred'
-     */
-    function findKey(object, callback, thisArg) {
-      var result;
-      callback = lodash.createCallback(callback, thisArg, 3);
-      forOwn(object, function(value, key, object) {
-        if (callback(value, key, object)) {
-          result = key;
-          return false;
-        }
-      });
-      return result;
-    }
-
-    /**
-     * This method is like `_.findKey` except that it iterates over elements
-     * of a `collection` in the opposite order.
-     *
-     * If a property name is provided for `callback` the created "_.pluck" style
-     * callback will return the property value of the given element.
-     *
-     * If an object is provided for `callback` the created "_.where" style callback
-     * will return `true` for elements that have the properties of the given object,
-     * else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {Object} object The object to search.
-     * @param {Function|Object|string} [callback=identity] The function called per
-     *  iteration. If a property name or object is provided it will be used to
-     *  create a "_.pluck" or "_.where" style callback, respectively.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {string|undefined} Returns the key of the found element, else `undefined`.
-     * @example
-     *
-     * var characters = {
-     *   'barney': {  'age': 36, 'blocked': true },
-     *   'fred': {    'age': 40, 'blocked': false },
-     *   'pebbles': { 'age': 1,  'blocked': true }
-     * };
-     *
-     * _.findLastKey(characters, function(chr) {
-     *   return chr.age < 40;
-     * });
-     * // => returns `pebbles`, assuming `_.findKey` returns `barney`
-     *
-     * // using "_.where" callback shorthand
-     * _.findLastKey(characters, { 'age': 40 });
-     * // => 'fred'
-     *
-     * // using "_.pluck" callback shorthand
-     * _.findLastKey(characters, 'blocked');
-     * // => 'pebbles'
-     */
-    function findLastKey(object, callback, thisArg) {
-      var result;
-      callback = lodash.createCallback(callback, thisArg, 3);
-      forOwnRight(object, function(value, key, object) {
-        if (callback(value, key, object)) {
-          result = key;
-          return false;
-        }
-      });
-      return result;
-    }
-
-    /**
-     * Iterates over own and inherited enumerable properties of an object,
-     * executing the callback for each property. The callback is bound to `thisArg`
-     * and invoked with three arguments; (value, key, object). Callbacks may exit
-     * iteration early by explicitly returning `false`.
-     *
-     * @static
-     * @memberOf _
-     * @type Function
-     * @category Objects
-     * @param {Object} object The object to iterate over.
-     * @param {Function} [callback=identity] The function called per iteration.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {Object} Returns `object`.
-     * @example
-     *
-     * function Shape() {
-     *   this.x = 0;
-     *   this.y = 0;
-     * }
-     *
-     * Shape.prototype.move = function(x, y) {
-     *   this.x += x;
-     *   this.y += y;
-     * };
-     *
-     * _.forIn(new Shape, function(value, key) {
-     *   console.log(key);
-     * });
-     * // => logs 'x', 'y', and 'move' (property order is not guaranteed across environments)
-     */
-    var forIn = function(collection, callback, thisArg) {
-      var index, iterable = collection, result = iterable;
-      if (!iterable) return result;
-      if (!objectTypes[typeof iterable]) return result;
-      callback = callback && typeof thisArg == 'undefined' ? callback : baseCreateCallback(callback, thisArg, 3);
-        for (index in iterable) {
-          if (callback(iterable[index], index, collection) === false) return result;
-        }
-      return result
-    };
-
-    /**
-     * This method is like `_.forIn` except that it iterates over elements
-     * of a `collection` in the opposite order.
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {Object} object The object to iterate over.
-     * @param {Function} [callback=identity] The function called per iteration.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {Object} Returns `object`.
-     * @example
-     *
-     * function Shape() {
-     *   this.x = 0;
-     *   this.y = 0;
-     * }
-     *
-     * Shape.prototype.move = function(x, y) {
-     *   this.x += x;
-     *   this.y += y;
-     * };
-     *
-     * _.forInRight(new Shape, function(value, key) {
-     *   console.log(key);
-     * });
-     * // => logs 'move', 'y', and 'x' assuming `_.forIn ` logs 'x', 'y', and 'move'
-     */
-    function forInRight(object, callback, thisArg) {
-      var pairs = [];
-
-      forIn(object, function(value, key) {
-        pairs.push(key, value);
-      });
-
-      var length = pairs.length;
-      callback = baseCreateCallback(callback, thisArg, 3);
-      while (length--) {
-        if (callback(pairs[length--], pairs[length], object) === false) {
-          break;
-        }
-      }
-      return object;
-    }
-
-    /**
-     * Iterates over own enumerable properties of an object, executing the callback
-     * for each property. The callback is bound to `thisArg` and invoked with three
-     * arguments; (value, key, object). Callbacks may exit iteration early by
-     * explicitly returning `false`.
-     *
-     * @static
-     * @memberOf _
-     * @type Function
-     * @category Objects
-     * @param {Object} object The object to iterate over.
-     * @param {Function} [callback=identity] The function called per iteration.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {Object} Returns `object`.
-     * @example
-     *
-     * _.forOwn({ '0': 'zero', '1': 'one', 'length': 2 }, function(num, key) {
-     *   console.log(key);
-     * });
-     * // => logs '0', '1', and 'length' (property order is not guaranteed across environments)
-     */
-    var forOwn = function(collection, callback, thisArg) {
-      var index, iterable = collection, result = iterable;
-      if (!iterable) return result;
-      if (!objectTypes[typeof iterable]) return result;
-      callback = callback && typeof thisArg == 'undefined' ? callback : baseCreateCallback(callback, thisArg, 3);
-        var ownIndex = -1,
-            ownProps = objectTypes[typeof iterable] && keys(iterable),
-            length = ownProps ? ownProps.length : 0;
-
-        while (++ownIndex < length) {
-          index = ownProps[ownIndex];
-          if (callback(iterable[index], index, collection) === false) return result;
-        }
-      return result
-    };
-
-    /**
-     * This method is like `_.forOwn` except that it iterates over elements
-     * of a `collection` in the opposite order.
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {Object} object The object to iterate over.
-     * @param {Function} [callback=identity] The function called per iteration.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {Object} Returns `object`.
-     * @example
-     *
-     * _.forOwnRight({ '0': 'zero', '1': 'one', 'length': 2 }, function(num, key) {
-     *   console.log(key);
-     * });
-     * // => logs 'length', '1', and '0' assuming `_.forOwn` logs '0', '1', and 'length'
-     */
-    function forOwnRight(object, callback, thisArg) {
-      var props = keys(object),
-          length = props.length;
-
-      callback = baseCreateCallback(callback, thisArg, 3);
-      while (length--) {
-        var key = props[length];
-        if (callback(object[key], key, object) === false) {
-          break;
-        }
-      }
-      return object;
-    }
-
-    /**
-     * Creates a sorted array of property names of all enumerable properties,
-     * own and inherited, of `object` that have function values.
-     *
-     * @static
-     * @memberOf _
-     * @alias methods
-     * @category Objects
-     * @param {Object} object The object to inspect.
-     * @returns {Array} Returns an array of property names that have function values.
-     * @example
-     *
-     * _.functions(_);
-     * // => ['all', 'any', 'bind', 'bindAll', 'clone', 'compact', 'compose', ...]
-     */
-    function functions(object) {
-      var result = [];
-      forIn(object, function(value, key) {
-        if (isFunction(value)) {
-          result.push(key);
-        }
-      });
-      return result.sort();
-    }
-
-    /**
-     * Checks if the specified property name exists as a direct property of `object`,
-     * instead of an inherited property.
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {Object} object The object to inspect.
-     * @param {string} key The name of the property to check.
-     * @returns {boolean} Returns `true` if key is a direct property, else `false`.
-     * @example
-     *
-     * _.has({ 'a': 1, 'b': 2, 'c': 3 }, 'b');
-     * // => true
-     */
-    function has(object, key) {
-      return object ? hasOwnProperty.call(object, key) : false;
-    }
-
-    /**
-     * Creates an object composed of the inverted keys and values of the given object.
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {Object} object The object to invert.
-     * @returns {Object} Returns the created inverted object.
-     * @example
-     *
-     * _.invert({ 'first': 'fred', 'second': 'barney' });
-     * // => { 'fred': 'first', 'barney': 'second' }
-     */
-    function invert(object) {
-      var index = -1,
-          props = keys(object),
-          length = props.length,
-          result = {};
-
-      while (++index < length) {
-        var key = props[index];
-        result[object[key]] = key;
-      }
-      return result;
-    }
-
-    /**
-     * Checks if `value` is a boolean value.
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {*} value The value to check.
-     * @returns {boolean} Returns `true` if the `value` is a boolean value, else `false`.
-     * @example
-     *
-     * _.isBoolean(null);
-     * // => false
-     */
-    function isBoolean(value) {
-      return value === true || value === false ||
-        value && typeof value == 'object' && toString.call(value) == boolClass || false;
-    }
-
-    /**
-     * Checks if `value` is a date.
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {*} value The value to check.
-     * @returns {boolean} Returns `true` if the `value` is a date, else `false`.
-     * @example
-     *
-     * _.isDate(new Date);
-     * // => true
-     */
-    function isDate(value) {
-      return value && typeof value == 'object' && toString.call(value) == dateClass || false;
-    }
-
-    /**
-     * Checks if `value` is a DOM element.
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {*} value The value to check.
-     * @returns {boolean} Returns `true` if the `value` is a DOM element, else `false`.
-     * @example
-     *
-     * _.isElement(document.body);
-     * // => true
-     */
-    function isElement(value) {
-      return value && value.nodeType === 1 || false;
-    }
-
-    /**
-     * Checks if `value` is empty. Arrays, strings, or `arguments` objects with a
-     * length of `0` and objects with no own enumerable properties are considered
-     * "empty".
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {Array|Object|string} value The value to inspect.
-     * @returns {boolean} Returns `true` if the `value` is empty, else `false`.
-     * @example
-     *
-     * _.isEmpty([1, 2, 3]);
-     * // => false
-     *
-     * _.isEmpty({});
-     * // => true
-     *
-     * _.isEmpty('');
-     * // => true
-     */
-    function isEmpty(value) {
-      var result = true;
-      if (!value) {
-        return result;
-      }
-      var className = toString.call(value),
-          length = value.length;
-
-      if ((className == arrayClass || className == stringClass || className == argsClass ) ||
-          (className == objectClass && typeof length == 'number' && isFunction(value.splice))) {
-        return !length;
-      }
-      forOwn(value, function() {
-        return (result = false);
-      });
-      return result;
-    }
-
-    /**
-     * Performs a deep comparison between two values to determine if they are
-     * equivalent to each other. If a callback is provided it will be executed
-     * to compare values. If the callback returns `undefined` comparisons will
-     * be handled by the method instead. The callback is bound to `thisArg` and
-     * invoked with two arguments; (a, b).
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {*} a The value to compare.
-     * @param {*} b The other value to compare.
-     * @param {Function} [callback] The function to customize comparing values.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
-     * @example
-     *
-     * var object = { 'name': 'fred' };
-     * var copy = { 'name': 'fred' };
-     *
-     * object == copy;
-     * // => false
-     *
-     * _.isEqual(object, copy);
-     * // => true
-     *
-     * var words = ['hello', 'goodbye'];
-     * var otherWords = ['hi', 'goodbye'];
-     *
-     * _.isEqual(words, otherWords, function(a, b) {
-     *   var reGreet = /^(?:hello|hi)$/i,
-     *       aGreet = _.isString(a) && reGreet.test(a),
-     *       bGreet = _.isString(b) && reGreet.test(b);
-     *
-     *   return (aGreet || bGreet) ? (aGreet == bGreet) : undefined;
-     * });
-     * // => true
-     */
-    function isEqual(a, b, callback, thisArg) {
-      return baseIsEqual(a, b, typeof callback == 'function' && baseCreateCallback(callback, thisArg, 2));
-    }
-
-    /**
-     * Checks if `value` is, or can be coerced to, a finite number.
-     *
-     * Note: This is not the same as native `isFinite` which will return true for
-     * booleans and empty strings. See http://es5.github.io/#x15.1.2.5.
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {*} value The value to check.
-     * @returns {boolean} Returns `true` if the `value` is finite, else `false`.
-     * @example
-     *
-     * _.isFinite(-101);
-     * // => true
-     *
-     * _.isFinite('10');
-     * // => true
-     *
-     * _.isFinite(true);
-     * // => false
-     *
-     * _.isFinite('');
-     * // => false
-     *
-     * _.isFinite(Infinity);
-     * // => false
-     */
-    function isFinite(value) {
-      return nativeIsFinite(value) && !nativeIsNaN(parseFloat(value));
-    }
-
-    /**
-     * Checks if `value` is a function.
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {*} value The value to check.
-     * @returns {boolean} Returns `true` if the `value` is a function, else `false`.
-     * @example
-     *
-     * _.isFunction(_);
-     * // => true
-     */
-    function isFunction(value) {
-      return typeof value == 'function';
-    }
-
-    /**
-     * Checks if `value` is the language type of Object.
-     * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {*} value The value to check.
-     * @returns {boolean} Returns `true` if the `value` is an object, else `false`.
-     * @example
-     *
-     * _.isObject({});
-     * // => true
-     *
-     * _.isObject([1, 2, 3]);
-     * // => true
-     *
-     * _.isObject(1);
-     * // => false
-     */
-    function isObject(value) {
-      // check if the value is the ECMAScript language type of Object
-      // http://es5.github.io/#x8
-      // and avoid a V8 bug
-      // http://code.google.com/p/v8/issues/detail?id=2291
-      return !!(value && objectTypes[typeof value]);
-    }
-
-    /**
-     * Checks if `value` is `NaN`.
-     *
-     * Note: This is not the same as native `isNaN` which will return `true` for
-     * `undefined` and other non-numeric values. See http://es5.github.io/#x15.1.2.4.
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {*} value The value to check.
-     * @returns {boolean} Returns `true` if the `value` is `NaN`, else `false`.
-     * @example
-     *
-     * _.isNaN(NaN);
-     * // => true
-     *
-     * _.isNaN(new Number(NaN));
-     * // => true
-     *
-     * isNaN(undefined);
-     * // => true
-     *
-     * _.isNaN(undefined);
-     * // => false
-     */
-    function isNaN(value) {
-      // `NaN` as a primitive is the only value that is not equal to itself
-      // (perform the [[Class]] check first to avoid errors with some host objects in IE)
-      return isNumber(value) && value != +value;
-    }
-
-    /**
-     * Checks if `value` is `null`.
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {*} value The value to check.
-     * @returns {boolean} Returns `true` if the `value` is `null`, else `false`.
-     * @example
-     *
-     * _.isNull(null);
-     * // => true
-     *
-     * _.isNull(undefined);
-     * // => false
-     */
-    function isNull(value) {
-      return value === null;
-    }
-
-    /**
-     * Checks if `value` is a number.
-     *
-     * Note: `NaN` is considered a number. See http://es5.github.io/#x8.5.
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {*} value The value to check.
-     * @returns {boolean} Returns `true` if the `value` is a number, else `false`.
-     * @example
-     *
-     * _.isNumber(8.4 * 5);
-     * // => true
-     */
-    function isNumber(value) {
-      return typeof value == 'number' ||
-        value && typeof value == 'object' && toString.call(value) == numberClass || false;
-    }
-
-    /**
-     * Checks if `value` is an object created by the `Object` constructor.
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {*} value The value to check.
-     * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
-     * @example
-     *
-     * function Shape() {
-     *   this.x = 0;
-     *   this.y = 0;
-     * }
-     *
-     * _.isPlainObject(new Shape);
-     * // => false
-     *
-     * _.isPlainObject([1, 2, 3]);
-     * // => false
-     *
-     * _.isPlainObject({ 'x': 0, 'y': 0 });
-     * // => true
-     */
-    var isPlainObject = !getPrototypeOf ? shimIsPlainObject : function(value) {
-      if (!(value && toString.call(value) == objectClass)) {
-        return false;
-      }
-      var valueOf = value.valueOf,
-          objProto = isNative(valueOf) && (objProto = getPrototypeOf(valueOf)) && getPrototypeOf(objProto);
-
-      return objProto
-        ? (value == objProto || getPrototypeOf(value) == objProto)
-        : shimIsPlainObject(value);
-    };
-
-    /**
-     * Checks if `value` is a regular expression.
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {*} value The value to check.
-     * @returns {boolean} Returns `true` if the `value` is a regular expression, else `false`.
-     * @example
-     *
-     * _.isRegExp(/fred/);
-     * // => true
-     */
-    function isRegExp(value) {
-      return value && typeof value == 'object' && toString.call(value) == regexpClass || false;
-    }
-
-    /**
-     * Checks if `value` is a string.
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {*} value The value to check.
-     * @returns {boolean} Returns `true` if the `value` is a string, else `false`.
-     * @example
-     *
-     * _.isString('fred');
-     * // => true
-     */
-    function isString(value) {
-      return typeof value == 'string' ||
-        value && typeof value == 'object' && toString.call(value) == stringClass || false;
-    }
-
-    /**
-     * Checks if `value` is `undefined`.
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {*} value The value to check.
-     * @returns {boolean} Returns `true` if the `value` is `undefined`, else `false`.
-     * @example
-     *
-     * _.isUndefined(void 0);
-     * // => true
-     */
-    function isUndefined(value) {
-      return typeof value == 'undefined';
-    }
-
-    /**
-     * Creates an object with the same keys as `object` and values generated by
-     * running each own enumerable property of `object` through the callback.
-     * The callback is bound to `thisArg` and invoked with three arguments;
-     * (value, key, object).
-     *
-     * If a property name is provided for `callback` the created "_.pluck" style
-     * callback will return the property value of the given element.
-     *
-     * If an object is provided for `callback` the created "_.where" style callback
-     * will return `true` for elements that have the properties of the given object,
-     * else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {Object} object The object to iterate over.
-     * @param {Function|Object|string} [callback=identity] The function called
-     *  per iteration. If a property name or object is provided it will be used
-     *  to create a "_.pluck" or "_.where" style callback, respectively.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {Array} Returns a new object with values of the results of each `callback` execution.
-     * @example
-     *
-     * _.mapValues({ 'a': 1, 'b': 2, 'c': 3} , function(num) { return num * 3; });
-     * // => { 'a': 3, 'b': 6, 'c': 9 }
-     *
-     * var characters = {
-     *   'fred': { 'name': 'fred', 'age': 40 },
-     *   'pebbles': { 'name': 'pebbles', 'age': 1 }
-     * };
-     *
-     * // using "_.pluck" callback shorthand
-     * _.mapValues(characters, 'age');
-     * // => { 'fred': 40, 'pebbles': 1 }
-     */
-    function mapValues(object, callback, thisArg) {
-      var result = {};
-      callback = lodash.createCallback(callback, thisArg, 3);
-
-      forOwn(object, function(value, key, object) {
-        result[key] = callback(value, key, object);
-      });
-      return result;
-    }
-
-    /**
-     * Recursively merges own enumerable properties of the source object(s), that
-     * don't resolve to `undefined` into the destination object. Subsequent sources
-     * will overwrite property assignments of previous sources. If a callback is
-     * provided it will be executed to produce the merged values of the destination
-     * and source properties. If the callback returns `undefined` merging will
-     * be handled by the method instead. The callback is bound to `thisArg` and
-     * invoked with two arguments; (objectValue, sourceValue).
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {Object} object The destination object.
-     * @param {...Object} [source] The source objects.
-     * @param {Function} [callback] The function to customize merging properties.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {Object} Returns the destination object.
-     * @example
-     *
-     * var names = {
-     *   'characters': [
-     *     { 'name': 'barney' },
-     *     { 'name': 'fred' }
-     *   ]
-     * };
-     *
-     * var ages = {
-     *   'characters': [
-     *     { 'age': 36 },
-     *     { 'age': 40 }
-     *   ]
-     * };
-     *
-     * _.merge(names, ages);
-     * // => { 'characters': [{ 'name': 'barney', 'age': 36 }, { 'name': 'fred', 'age': 40 }] }
-     *
-     * var food = {
-     *   'fruits': ['apple'],
-     *   'vegetables': ['beet']
-     * };
-     *
-     * var otherFood = {
-     *   'fruits': ['banana'],
-     *   'vegetables': ['carrot']
-     * };
-     *
-     * _.merge(food, otherFood, function(a, b) {
-     *   return _.isArray(a) ? a.concat(b) : undefined;
-     * });
-     * // => { 'fruits': ['apple', 'banana'], 'vegetables': ['beet', 'carrot] }
-     */
-    function merge(object) {
-      var args = arguments,
-          length = 2;
-
-      if (!isObject(object)) {
-        return object;
-      }
-      // allows working with `_.reduce` and `_.reduceRight` without using
-      // their `index` and `collection` arguments
-      if (typeof args[2] != 'number') {
-        length = args.length;
-      }
-      if (length > 3 && typeof args[length - 2] == 'function') {
-        var callback = baseCreateCallback(args[--length - 1], args[length--], 2);
-      } else if (length > 2 && typeof args[length - 1] == 'function') {
-        callback = args[--length];
-      }
-      var sources = slice(arguments, 1, length),
-          index = -1,
-          stackA = getArray(),
-          stackB = getArray();
-
-      while (++index < length) {
-        baseMerge(object, sources[index], callback, stackA, stackB);
-      }
-      releaseArray(stackA);
-      releaseArray(stackB);
-      return object;
-    }
-
-    /**
-     * Creates a shallow clone of `object` excluding the specified properties.
-     * Property names may be specified as individual arguments or as arrays of
-     * property names. If a callback is provided it will be executed for each
-     * property of `object` omitting the properties the callback returns truey
-     * for. The callback is bound to `thisArg` and invoked with three arguments;
-     * (value, key, object).
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {Object} object The source object.
-     * @param {Function|...string|string[]} [callback] The properties to omit or the
-     *  function called per iteration.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {Object} Returns an object without the omitted properties.
-     * @example
-     *
-     * _.omit({ 'name': 'fred', 'age': 40 }, 'age');
-     * // => { 'name': 'fred' }
-     *
-     * _.omit({ 'name': 'fred', 'age': 40 }, function(value) {
-     *   return typeof value == 'number';
-     * });
-     * // => { 'name': 'fred' }
-     */
-    function omit(object, callback, thisArg) {
-      var result = {};
-      if (typeof callback != 'function') {
-        var props = [];
-        forIn(object, function(value, key) {
-          props.push(key);
-        });
-        props = baseDifference(props, baseFlatten(arguments, true, false, 1));
-
-        var index = -1,
-            length = props.length;
-
-        while (++index < length) {
-          var key = props[index];
-          result[key] = object[key];
-        }
-      } else {
-        callback = lodash.createCallback(callback, thisArg, 3);
-        forIn(object, function(value, key, object) {
-          if (!callback(value, key, object)) {
-            result[key] = value;
-          }
-        });
-      }
-      return result;
-    }
-
-    /**
-     * Creates a two dimensional array of an object's key-value pairs,
-     * i.e. `[[key1, value1], [key2, value2]]`.
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {Object} object The object to inspect.
-     * @returns {Array} Returns new array of key-value pairs.
-     * @example
-     *
-     * _.pairs({ 'barney': 36, 'fred': 40 });
-     * // => [['barney', 36], ['fred', 40]] (property order is not guaranteed across environments)
-     */
-    function pairs(object) {
-      var index = -1,
-          props = keys(object),
-          length = props.length,
-          result = Array(length);
-
-      while (++index < length) {
-        var key = props[index];
-        result[index] = [key, object[key]];
-      }
-      return result;
-    }
-
-    /**
-     * Creates a shallow clone of `object` composed of the specified properties.
-     * Property names may be specified as individual arguments or as arrays of
-     * property names. If a callback is provided it will be executed for each
-     * property of `object` picking the properties the callback returns truey
-     * for. The callback is bound to `thisArg` and invoked with three arguments;
-     * (value, key, object).
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {Object} object The source object.
-     * @param {Function|...string|string[]} [callback] The function called per
-     *  iteration or property names to pick, specified as individual property
-     *  names or arrays of property names.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {Object} Returns an object composed of the picked properties.
-     * @example
-     *
-     * _.pick({ 'name': 'fred', '_userid': 'fred1' }, 'name');
-     * // => { 'name': 'fred' }
-     *
-     * _.pick({ 'name': 'fred', '_userid': 'fred1' }, function(value, key) {
-     *   return key.charAt(0) != '_';
-     * });
-     * // => { 'name': 'fred' }
-     */
-    function pick(object, callback, thisArg) {
-      var result = {};
-      if (typeof callback != 'function') {
-        var index = -1,
-            props = baseFlatten(arguments, true, false, 1),
-            length = isObject(object) ? props.length : 0;
-
-        while (++index < length) {
-          var key = props[index];
-          if (key in object) {
-            result[key] = object[key];
-          }
-        }
-      } else {
-        callback = lodash.createCallback(callback, thisArg, 3);
-        forIn(object, function(value, key, object) {
-          if (callback(value, key, object)) {
-            result[key] = value;
-          }
-        });
-      }
-      return result;
-    }
-
-    /**
-     * An alternative to `_.reduce` this method transforms `object` to a new
-     * `accumulator` object which is the result of running each of its own
-     * enumerable properties through a callback, with each callback execution
-     * potentially mutating the `accumulator` object. The callback is bound to
-     * `thisArg` and invoked with four arguments; (accumulator, value, key, object).
-     * Callbacks may exit iteration early by explicitly returning `false`.
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {Array|Object} object The object to iterate over.
-     * @param {Function} [callback=identity] The function called per iteration.
-     * @param {*} [accumulator] The custom accumulator value.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {*} Returns the accumulated value.
-     * @example
-     *
-     * var squares = _.transform([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], function(result, num) {
-     *   num *= num;
-     *   if (num % 2) {
-     *     return result.push(num) < 3;
-     *   }
-     * });
-     * // => [1, 9, 25]
-     *
-     * var mapped = _.transform({ 'a': 1, 'b': 2, 'c': 3 }, function(result, num, key) {
-     *   result[key] = num * 3;
-     * });
-     * // => { 'a': 3, 'b': 6, 'c': 9 }
-     */
-    function transform(object, callback, accumulator, thisArg) {
-      var isArr = isArray(object);
-      if (accumulator == null) {
-        if (isArr) {
-          accumulator = [];
-        } else {
-          var ctor = object && object.constructor,
-              proto = ctor && ctor.prototype;
-
-          accumulator = baseCreate(proto);
-        }
-      }
-      if (callback) {
-        callback = lodash.createCallback(callback, thisArg, 4);
-        (isArr ? forEach : forOwn)(object, function(value, index, object) {
-          return callback(accumulator, value, index, object);
-        });
-      }
-      return accumulator;
-    }
-
-    /**
-     * Creates an array composed of the own enumerable property values of `object`.
-     *
-     * @static
-     * @memberOf _
-     * @category Objects
-     * @param {Object} object The object to inspect.
-     * @returns {Array} Returns an array of property values.
-     * @example
-     *
-     * _.values({ 'one': 1, 'two': 2, 'three': 3 });
-     * // => [1, 2, 3] (property order is not guaranteed across environments)
-     */
-    function values(object) {
-      var index = -1,
-          props = keys(object),
-          length = props.length,
-          result = Array(length);
-
-      while (++index < length) {
-        result[index] = object[props[index]];
-      }
-      return result;
-    }
-
-    /*--------------------------------------------------------------------------*/
-
-    /**
-     * Creates an array of elements from the specified indexes, or keys, of the
-     * `collection`. Indexes may be specified as individual arguments or as arrays
-     * of indexes.
-     *
-     * @static
-     * @memberOf _
-     * @category Collections
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {...(number|number[]|string|string[])} [index] The indexes of `collection`
-     *   to retrieve, specified as individual indexes or arrays of indexes.
-     * @returns {Array} Returns a new array of elements corresponding to the
-     *  provided indexes.
-     * @example
-     *
-     * _.at(['a', 'b', 'c', 'd', 'e'], [0, 2, 4]);
-     * // => ['a', 'c', 'e']
-     *
-     * _.at(['fred', 'barney', 'pebbles'], 0, 2);
-     * // => ['fred', 'pebbles']
-     */
-    function at(collection) {
-      var args = arguments,
-          index = -1,
-          props = baseFlatten(args, true, false, 1),
-          length = (args[2] && args[2][args[1]] === collection) ? 1 : props.length,
-          result = Array(length);
-
-      while(++index < length) {
-        result[index] = collection[props[index]];
-      }
-      return result;
-    }
-
-    /**
-     * Checks if a given value is present in a collection using strict equality
-     * for comparisons, i.e. `===`. If `fromIndex` is negative, it is used as the
-     * offset from the end of the collection.
-     *
-     * @static
-     * @memberOf _
-     * @alias include
-     * @category Collections
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {*} target The value to check for.
-     * @param {number} [fromIndex=0] The index to search from.
-     * @returns {boolean} Returns `true` if the `target` element is found, else `false`.
-     * @example
-     *
-     * _.contains([1, 2, 3], 1);
-     * // => true
-     *
-     * _.contains([1, 2, 3], 1, 2);
-     * // => false
-     *
-     * _.contains({ 'name': 'fred', 'age': 40 }, 'fred');
-     * // => true
-     *
-     * _.contains('pebbles', 'eb');
-     * // => true
-     */
-    function contains(collection, target, fromIndex) {
-      var index = -1,
-          indexOf = getIndexOf(),
-          length = collection ? collection.length : 0,
-          result = false;
-
-      fromIndex = (fromIndex < 0 ? nativeMax(0, length + fromIndex) : fromIndex) || 0;
-      if (isArray(collection)) {
-        result = indexOf(collection, target, fromIndex) > -1;
-      } else if (typeof length == 'number') {
-        result = (isString(collection) ? collection.indexOf(target, fromIndex) : indexOf(collection, target, fromIndex)) > -1;
-      } else {
-        forOwn(collection, function(value) {
-          if (++index >= fromIndex) {
-            return !(result = value === target);
-          }
-        });
-      }
-      return result;
-    }
-
-    /**
-     * Creates an object composed of keys generated from the results of running
-     * each element of `collection` through the callback. The corresponding value
-     * of each key is the number of times the key was returned by the callback.
-     * The callback is bound to `thisArg` and invoked with three arguments;
-     * (value, index|key, collection).
-     *
-     * If a property name is provided for `callback` the created "_.pluck" style
-     * callback will return the property value of the given element.
-     *
-     * If an object is provided for `callback` the created "_.where" style callback
-     * will return `true` for elements that have the properties of the given object,
-     * else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @category Collections
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Function|Object|string} [callback=identity] The function called
-     *  per iteration. If a property name or object is provided it will be used
-     *  to create a "_.pluck" or "_.where" style callback, respectively.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {Object} Returns the composed aggregate object.
-     * @example
-     *
-     * _.countBy([4.3, 6.1, 6.4], function(num) { return Math.floor(num); });
-     * // => { '4': 1, '6': 2 }
-     *
-     * _.countBy([4.3, 6.1, 6.4], function(num) { return this.floor(num); }, Math);
-     * // => { '4': 1, '6': 2 }
-     *
-     * _.countBy(['one', 'two', 'three'], 'length');
-     * // => { '3': 2, '5': 1 }
-     */
-    var countBy = createAggregator(function(result, value, key) {
-      (hasOwnProperty.call(result, key) ? result[key]++ : result[key] = 1);
-    });
-
-    /**
-     * Checks if the given callback returns truey value for **all** elements of
-     * a collection. The callback is bound to `thisArg` and invoked with three
-     * arguments; (value, index|key, collection).
-     *
-     * If a property name is provided for `callback` the created "_.pluck" style
-     * callback will return the property value of the given element.
-     *
-     * If an object is provided for `callback` the created "_.where" style callback
-     * will return `true` for elements that have the properties of the given object,
-     * else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @alias all
-     * @category Collections
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Function|Object|string} [callback=identity] The function called
-     *  per iteration. If a property name or object is provided it will be used
-     *  to create a "_.pluck" or "_.where" style callback, respectively.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {boolean} Returns `true` if all elements passed the callback check,
-     *  else `false`.
-     * @example
-     *
-     * _.every([true, 1, null, 'yes']);
-     * // => false
-     *
-     * var characters = [
-     *   { 'name': 'barney', 'age': 36 },
-     *   { 'name': 'fred',   'age': 40 }
-     * ];
-     *
-     * // using "_.pluck" callback shorthand
-     * _.every(characters, 'age');
-     * // => true
-     *
-     * // using "_.where" callback shorthand
-     * _.every(characters, { 'age': 36 });
-     * // => false
-     */
-    function every(collection, callback, thisArg) {
-      var result = true;
-      callback = lodash.createCallback(callback, thisArg, 3);
-
-      var index = -1,
-          length = collection ? collection.length : 0;
-
-      if (typeof length == 'number') {
-        while (++index < length) {
-          if (!(result = !!callback(collection[index], index, collection))) {
-            break;
-          }
-        }
-      } else {
-        forOwn(collection, function(value, index, collection) {
-          return (result = !!callback(value, index, collection));
-        });
-      }
-      return result;
-    }
-
-    /**
-     * Iterates over elements of a collection, returning an array of all elements
-     * the callback returns truey for. The callback is bound to `thisArg` and
-     * invoked with three arguments; (value, index|key, collection).
-     *
-     * If a property name is provided for `callback` the created "_.pluck" style
-     * callback will return the property value of the given element.
-     *
-     * If an object is provided for `callback` the created "_.where" style callback
-     * will return `true` for elements that have the properties of the given object,
-     * else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @alias select
-     * @category Collections
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Function|Object|string} [callback=identity] The function called
-     *  per iteration. If a property name or object is provided it will be used
-     *  to create a "_.pluck" or "_.where" style callback, respectively.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {Array} Returns a new array of elements that passed the callback check.
-     * @example
-     *
-     * var evens = _.filter([1, 2, 3, 4, 5, 6], function(num) { return num % 2 == 0; });
-     * // => [2, 4, 6]
-     *
-     * var characters = [
-     *   { 'name': 'barney', 'age': 36, 'blocked': false },
-     *   { 'name': 'fred',   'age': 40, 'blocked': true }
-     * ];
-     *
-     * // using "_.pluck" callback shorthand
-     * _.filter(characters, 'blocked');
-     * // => [{ 'name': 'fred', 'age': 40, 'blocked': true }]
-     *
-     * // using "_.where" callback shorthand
-     * _.filter(characters, { 'age': 36 });
-     * // => [{ 'name': 'barney', 'age': 36, 'blocked': false }]
-     */
-    function filter(collection, callback, thisArg) {
-      var result = [];
-      callback = lodash.createCallback(callback, thisArg, 3);
-
-      var index = -1,
-          length = collection ? collection.length : 0;
-
-      if (typeof length == 'number') {
-        while (++index < length) {
-          var value = collection[index];
-          if (callback(value, index, collection)) {
-            result.push(value);
-          }
-        }
-      } else {
-        forOwn(collection, function(value, index, collection) {
-          if (callback(value, index, collection)) {
-            result.push(value);
-          }
-        });
-      }
-      return result;
-    }
-
-    /**
-     * Iterates over elements of a collection, returning the first element that
-     * the callback returns truey for. The callback is bound to `thisArg` and
-     * invoked with three arguments; (value, index|key, collection).
-     *
-     * If a property name is provided for `callback` the created "_.pluck" style
-     * callback will return the property value of the given element.
-     *
-     * If an object is provided for `callback` the created "_.where" style callback
-     * will return `true` for elements that have the properties of the given object,
-     * else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @alias detect, findWhere
-     * @category Collections
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Function|Object|string} [callback=identity] The function called
-     *  per iteration. If a property name or object is provided it will be used
-     *  to create a "_.pluck" or "_.where" style callback, respectively.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {*} Returns the found element, else `undefined`.
-     * @example
-     *
-     * var characters = [
-     *   { 'name': 'barney',  'age': 36, 'blocked': false },
-     *   { 'name': 'fred',    'age': 40, 'blocked': true },
-     *   { 'name': 'pebbles', 'age': 1,  'blocked': false }
-     * ];
-     *
-     * _.find(characters, function(chr) {
-     *   return chr.age < 40;
-     * });
-     * // => { 'name': 'barney', 'age': 36, 'blocked': false }
-     *
-     * // using "_.where" callback shorthand
-     * _.find(characters, { 'age': 1 });
-     * // =>  { 'name': 'pebbles', 'age': 1, 'blocked': false }
-     *
-     * // using "_.pluck" callback shorthand
-     * _.find(characters, 'blocked');
-     * // => { 'name': 'fred', 'age': 40, 'blocked': true }
-     */
-    function find(collection, callback, thisArg) {
-      callback = lodash.createCallback(callback, thisArg, 3);
-
-      var index = -1,
-          length = collection ? collection.length : 0;
-
-      if (typeof length == 'number') {
-        while (++index < length) {
-          var value = collection[index];
-          if (callback(value, index, collection)) {
-            return value;
-          }
-        }
-      } else {
-        var result;
-        forOwn(collection, function(value, index, collection) {
-          if (callback(value, index, collection)) {
-            result = value;
-            return false;
-          }
-        });
-        return result;
-      }
-    }
-
-    /**
-     * This method is like `_.find` except that it iterates over elements
-     * of a `collection` from right to left.
-     *
-     * @static
-     * @memberOf _
-     * @category Collections
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Function|Object|string} [callback=identity] The function called
-     *  per iteration. If a property name or object is provided it will be used
-     *  to create a "_.pluck" or "_.where" style callback, respectively.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {*} Returns the found element, else `undefined`.
-     * @example
-     *
-     * _.findLast([1, 2, 3, 4], function(num) {
-     *   return num % 2 == 1;
-     * });
-     * // => 3
-     */
-    function findLast(collection, callback, thisArg) {
-      var result;
-      callback = lodash.createCallback(callback, thisArg, 3);
-      forEachRight(collection, function(value, index, collection) {
-        if (callback(value, index, collection)) {
-          result = value;
-          return false;
-        }
-      });
-      return result;
-    }
-
-    /**
-     * Iterates over elements of a collection, executing the callback for each
-     * element. The callback is bound to `thisArg` and invoked with three arguments;
-     * (value, index|key, collection). Callbacks may exit iteration early by
-     * explicitly returning `false`.
-     *
-     * Note: As with other "Collections" methods, objects with a `length` property
-     * are iterated like arrays. To avoid this behavior `_.forIn` or `_.forOwn`
-     * may be used for object iteration.
-     *
-     * @static
-     * @memberOf _
-     * @alias each
-     * @category Collections
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Function} [callback=identity] The function called per iteration.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {Array|Object|string} Returns `collection`.
-     * @example
-     *
-     * _([1, 2, 3]).forEach(function(num) { console.log(num); }).join(',');
-     * // => logs each number and returns '1,2,3'
-     *
-     * _.forEach({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { console.log(num); });
-     * // => logs each number and returns the object (property order is not guaranteed across environments)
-     */
-    function forEach(collection, callback, thisArg) {
-      var index = -1,
-          length = collection ? collection.length : 0;
-
-      callback = callback && typeof thisArg == 'undefined' ? callback : baseCreateCallback(callback, thisArg, 3);
-      if (typeof length == 'number') {
-        while (++index < length) {
-          if (callback(collection[index], index, collection) === false) {
-            break;
-          }
-        }
-      } else {
-        forOwn(collection, callback);
-      }
-      return collection;
-    }
-
-    /**
-     * This method is like `_.forEach` except that it iterates over elements
-     * of a `collection` from right to left.
-     *
-     * @static
-     * @memberOf _
-     * @alias eachRight
-     * @category Collections
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Function} [callback=identity] The function called per iteration.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {Array|Object|string} Returns `collection`.
-     * @example
-     *
-     * _([1, 2, 3]).forEachRight(function(num) { console.log(num); }).join(',');
-     * // => logs each number from right to left and returns '3,2,1'
-     */
-    function forEachRight(collection, callback, thisArg) {
-      var length = collection ? collection.length : 0;
-      callback = callback && typeof thisArg == 'undefined' ? callback : baseCreateCallback(callback, thisArg, 3);
-      if (typeof length == 'number') {
-        while (length--) {
-          if (callback(collection[length], length, collection) === false) {
-            break;
-          }
-        }
-      } else {
-        var props = keys(collection);
-        length = props.length;
-        forOwn(collection, function(value, key, collection) {
-          key = props ? props[--length] : --length;
-          return callback(collection[key], key, collection);
-        });
-      }
-      return collection;
-    }
-
-    /**
-     * Creates an object composed of keys generated from the results of running
-     * each element of a collection through the callback. The corresponding value
-     * of each key is an array of the elements responsible for generating the key.
-     * The callback is bound to `thisArg` and invoked with three arguments;
-     * (value, index|key, collection).
-     *
-     * If a property name is provided for `callback` the created "_.pluck" style
-     * callback will return the property value of the given element.
-     *
-     * If an object is provided for `callback` the created "_.where" style callback
-     * will return `true` for elements that have the properties of the given object,
-     * else `false`
-     *
-     * @static
-     * @memberOf _
-     * @category Collections
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Function|Object|string} [callback=identity] The function called
-     *  per iteration. If a property name or object is provided it will be used
-     *  to create a "_.pluck" or "_.where" style callback, respectively.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {Object} Returns the composed aggregate object.
-     * @example
-     *
-     * _.groupBy([4.2, 6.1, 6.4], function(num) { return Math.floor(num); });
-     * // => { '4': [4.2], '6': [6.1, 6.4] }
-     *
-     * _.groupBy([4.2, 6.1, 6.4], function(num) { return this.floor(num); }, Math);
-     * // => { '4': [4.2], '6': [6.1, 6.4] }
-     *
-     * // using "_.pluck" callback shorthand
-     * _.groupBy(['one', 'two', 'three'], 'length');
-     * // => { '3': ['one', 'two'], '5': ['three'] }
-     */
-    var groupBy = createAggregator(function(result, value, key) {
-      (hasOwnProperty.call(result, key) ? result[key] : result[key] = []).push(value);
-    });
-
-    /**
-     * Creates an object composed of keys generated from the results of running
-     * each element of the collection through the given callback. The corresponding
-     * value of each key is the last element responsible for generating the key.
-     * The callback is bound to `thisArg` and invoked with three arguments;
-     * (value, index|key, collection).
-     *
-     * If a property name is provided for `callback` the created "_.pluck" style
-     * callback will return the property value of the given element.
-     *
-     * If an object is provided for `callback` the created "_.where" style callback
-     * will return `true` for elements that have the properties of the given object,
-     * else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @category Collections
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Function|Object|string} [callback=identity] The function called
-     *  per iteration. If a property name or object is provided it will be used
-     *  to create a "_.pluck" or "_.where" style callback, respectively.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {Object} Returns the composed aggregate object.
-     * @example
-     *
-     * var keys = [
-     *   { 'dir': 'left', 'code': 97 },
-     *   { 'dir': 'right', 'code': 100 }
-     * ];
-     *
-     * _.indexBy(keys, 'dir');
-     * // => { 'left': { 'dir': 'left', 'code': 97 }, 'right': { 'dir': 'right', 'code': 100 } }
-     *
-     * _.indexBy(keys, function(key) { return String.fromCharCode(key.code); });
-     * // => { 'a': { 'dir': 'left', 'code': 97 }, 'd': { 'dir': 'right', 'code': 100 } }
-     *
-     * _.indexBy(characters, function(key) { this.fromCharCode(key.code); }, String);
-     * // => { 'a': { 'dir': 'left', 'code': 97 }, 'd': { 'dir': 'right', 'code': 100 } }
-     */
-    var indexBy = createAggregator(function(result, value, key) {
-      result[key] = value;
-    });
-
-    /**
-     * Invokes the method named by `methodName` on each element in the `collection`
-     * returning an array of the results of each invoked method. Additional arguments
-     * will be provided to each invoked method. If `methodName` is a function it
-     * will be invoked for, and `this` bound to, each element in the `collection`.
-     *
-     * @static
-     * @memberOf _
-     * @category Collections
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Function|string} methodName The name of the method to invoke or
-     *  the function invoked per iteration.
-     * @param {...*} [arg] Arguments to invoke the method with.
-     * @returns {Array} Returns a new array of the results of each invoked method.
-     * @example
-     *
-     * _.invoke([[5, 1, 7], [3, 2, 1]], 'sort');
-     * // => [[1, 5, 7], [1, 2, 3]]
-     *
-     * _.invoke([123, 456], String.prototype.split, '');
-     * // => [['1', '2', '3'], ['4', '5', '6']]
-     */
-    function invoke(collection, methodName) {
-      var args = slice(arguments, 2),
-          index = -1,
-          isFunc = typeof methodName == 'function',
-          length = collection ? collection.length : 0,
-          result = Array(typeof length == 'number' ? length : 0);
-
-      forEach(collection, function(value) {
-        result[++index] = (isFunc ? methodName : value[methodName]).apply(value, args);
-      });
-      return result;
-    }
-
-    /**
-     * Creates an array of values by running each element in the collection
-     * through the callback. The callback is bound to `thisArg` and invoked with
-     * three arguments; (value, index|key, collection).
-     *
-     * If a property name is provided for `callback` the created "_.pluck" style
-     * callback will return the property value of the given element.
-     *
-     * If an object is provided for `callback` the created "_.where" style callback
-     * will return `true` for elements that have the properties of the given object,
-     * else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @alias collect
-     * @category Collections
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Function|Object|string} [callback=identity] The function called
-     *  per iteration. If a property name or object is provided it will be used
-     *  to create a "_.pluck" or "_.where" style callback, respectively.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {Array} Returns a new array of the results of each `callback` execution.
-     * @example
-     *
-     * _.map([1, 2, 3], function(num) { return num * 3; });
-     * // => [3, 6, 9]
-     *
-     * _.map({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { return num * 3; });
-     * // => [3, 6, 9] (property order is not guaranteed across environments)
-     *
-     * var characters = [
-     *   { 'name': 'barney', 'age': 36 },
-     *   { 'name': 'fred',   'age': 40 }
-     * ];
-     *
-     * // using "_.pluck" callback shorthand
-     * _.map(characters, 'name');
-     * // => ['barney', 'fred']
-     */
-    function map(collection, callback, thisArg) {
-      var index = -1,
-          length = collection ? collection.length : 0;
-
-      callback = lodash.createCallback(callback, thisArg, 3);
-      if (typeof length == 'number') {
-        var result = Array(length);
-        while (++index < length) {
-          result[index] = callback(collection[index], index, collection);
-        }
-      } else {
-        result = [];
-        forOwn(collection, function(value, key, collection) {
-          result[++index] = callback(value, key, collection);
-        });
-      }
-      return result;
-    }
-
-    /**
-     * Retrieves the maximum value of a collection. If the collection is empty or
-     * falsey `-Infinity` is returned. If a callback is provided it will be executed
-     * for each value in the collection to generate the criterion by which the value
-     * is ranked. The callback is bound to `thisArg` and invoked with three
-     * arguments; (value, index, collection).
-     *
-     * If a property name is provided for `callback` the created "_.pluck" style
-     * callback will return the property value of the given element.
-     *
-     * If an object is provided for `callback` the created "_.where" style callback
-     * will return `true` for elements that have the properties of the given object,
-     * else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @category Collections
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Function|Object|string} [callback=identity] The function called
-     *  per iteration. If a property name or object is provided it will be used
-     *  to create a "_.pluck" or "_.where" style callback, respectively.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {*} Returns the maximum value.
-     * @example
-     *
-     * _.max([4, 2, 8, 6]);
-     * // => 8
-     *
-     * var characters = [
-     *   { 'name': 'barney', 'age': 36 },
-     *   { 'name': 'fred',   'age': 40 }
-     * ];
-     *
-     * _.max(characters, function(chr) { return chr.age; });
-     * // => { 'name': 'fred', 'age': 40 };
-     *
-     * // using "_.pluck" callback shorthand
-     * _.max(characters, 'age');
-     * // => { 'name': 'fred', 'age': 40 };
-     */
-    function max(collection, callback, thisArg) {
-      var computed = -Infinity,
-          result = computed;
-
-      // allows working with functions like `_.map` without using
-      // their `index` argument as a callback
-      if (typeof callback != 'function' && thisArg && thisArg[callback] === collection) {
-        callback = null;
-      }
-      if (callback == null && isArray(collection)) {
-        var index = -1,
-            length = collection.length;
-
-        while (++index < length) {
-          var value = collection[index];
-          if (value > result) {
-            result = value;
-          }
-        }
-      } else {
-        callback = (callback == null && isString(collection))
-          ? charAtCallback
-          : lodash.createCallback(callback, thisArg, 3);
-
-        forEach(collection, function(value, index, collection) {
-          var current = callback(value, index, collection);
-          if (current > computed) {
-            computed = current;
-            result = value;
-          }
-        });
-      }
-      return result;
-    }
-
-    /**
-     * Retrieves the minimum value of a collection. If the collection is empty or
-     * falsey `Infinity` is returned. If a callback is provided it will be executed
-     * for each value in the collection to generate the criterion by which the value
-     * is ranked. The callback is bound to `thisArg` and invoked with three
-     * arguments; (value, index, collection).
-     *
-     * If a property name is provided for `callback` the created "_.pluck" style
-     * callback will return the property value of the given element.
-     *
-     * If an object is provided for `callback` the created "_.where" style callback
-     * will return `true` for elements that have the properties of the given object,
-     * else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @category Collections
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Function|Object|string} [callback=identity] The function called
-     *  per iteration. If a property name or object is provided it will be used
-     *  to create a "_.pluck" or "_.where" style callback, respectively.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {*} Returns the minimum value.
-     * @example
-     *
-     * _.min([4, 2, 8, 6]);
-     * // => 2
-     *
-     * var characters = [
-     *   { 'name': 'barney', 'age': 36 },
-     *   { 'name': 'fred',   'age': 40 }
-     * ];
-     *
-     * _.min(characters, function(chr) { return chr.age; });
-     * // => { 'name': 'barney', 'age': 36 };
-     *
-     * // using "_.pluck" callback shorthand
-     * _.min(characters, 'age');
-     * // => { 'name': 'barney', 'age': 36 };
-     */
-    function min(collection, callback, thisArg) {
-      var computed = Infinity,
-          result = computed;
-
-      // allows working with functions like `_.map` without using
-      // their `index` argument as a callback
-      if (typeof callback != 'function' && thisArg && thisArg[callback] === collection) {
-        callback = null;
-      }
-      if (callback == null && isArray(collection)) {
-        var index = -1,
-            length = collection.length;
-
-        while (++index < length) {
-          var value = collection[index];
-          if (value < result) {
-            result = value;
-          }
-        }
-      } else {
-        callback = (callback == null && isString(collection))
-          ? charAtCallback
-          : lodash.createCallback(callback, thisArg, 3);
-
-        forEach(collection, function(value, index, collection) {
-          var current = callback(value, index, collection);
-          if (current < computed) {
-            computed = current;
-            result = value;
-          }
-        });
-      }
-      return result;
-    }
-
-    /**
-     * Retrieves the value of a specified property from all elements in the collection.
-     *
-     * @static
-     * @memberOf _
-     * @type Function
-     * @category Collections
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {string} property The name of the property to pluck.
-     * @returns {Array} Returns a new array of property values.
-     * @example
-     *
-     * var characters = [
-     *   { 'name': 'barney', 'age': 36 },
-     *   { 'name': 'fred',   'age': 40 }
-     * ];
-     *
-     * _.pluck(characters, 'name');
-     * // => ['barney', 'fred']
-     */
-    var pluck = map;
-
-    /**
-     * Reduces a collection to a value which is the accumulated result of running
-     * each element in the collection through the callback, where each successive
-     * callback execution consumes the return value of the previous execution. If
-     * `accumulator` is not provided the first element of the collection will be
-     * used as the initial `accumulator` value. The callback is bound to `thisArg`
-     * and invoked with four arguments; (accumulator, value, index|key, collection).
-     *
-     * @static
-     * @memberOf _
-     * @alias foldl, inject
-     * @category Collections
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Function} [callback=identity] The function called per iteration.
-     * @param {*} [accumulator] Initial value of the accumulator.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {*} Returns the accumulated value.
-     * @example
-     *
-     * var sum = _.reduce([1, 2, 3], function(sum, num) {
-     *   return sum + num;
-     * });
-     * // => 6
-     *
-     * var mapped = _.reduce({ 'a': 1, 'b': 2, 'c': 3 }, function(result, num, key) {
-     *   result[key] = num * 3;
-     *   return result;
-     * }, {});
-     * // => { 'a': 3, 'b': 6, 'c': 9 }
-     */
-    function reduce(collection, callback, accumulator, thisArg) {
-      if (!collection) return accumulator;
-      var noaccum = arguments.length < 3;
-      callback = lodash.createCallback(callback, thisArg, 4);
-
-      var index = -1,
-          length = collection.length;
-
-      if (typeof length == 'number') {
-        if (noaccum) {
-          accumulator = collection[++index];
-        }
-        while (++index < length) {
-          accumulator = callback(accumulator, collection[index], index, collection);
-        }
-      } else {
-        forOwn(collection, function(value, index, collection) {
-          accumulator = noaccum
-            ? (noaccum = false, value)
-            : callback(accumulator, value, index, collection)
-        });
-      }
-      return accumulator;
-    }
-
-    /**
-     * This method is like `_.reduce` except that it iterates over elements
-     * of a `collection` from right to left.
-     *
-     * @static
-     * @memberOf _
-     * @alias foldr
-     * @category Collections
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Function} [callback=identity] The function called per iteration.
-     * @param {*} [accumulator] Initial value of the accumulator.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {*} Returns the accumulated value.
-     * @example
-     *
-     * var list = [[0, 1], [2, 3], [4, 5]];
-     * var flat = _.reduceRight(list, function(a, b) { return a.concat(b); }, []);
-     * // => [4, 5, 2, 3, 0, 1]
-     */
-    function reduceRight(collection, callback, accumulator, thisArg) {
-      var noaccum = arguments.length < 3;
-      callback = lodash.createCallback(callback, thisArg, 4);
-      forEachRight(collection, function(value, index, collection) {
-        accumulator = noaccum
-          ? (noaccum = false, value)
-          : callback(accumulator, value, index, collection);
-      });
-      return accumulator;
-    }
-
-    /**
-     * The opposite of `_.filter` this method returns the elements of a
-     * collection that the callback does **not** return truey for.
-     *
-     * If a property name is provided for `callback` the created "_.pluck" style
-     * callback will return the property value of the given element.
-     *
-     * If an object is provided for `callback` the created "_.where" style callback
-     * will return `true` for elements that have the properties of the given object,
-     * else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @category Collections
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Function|Object|string} [callback=identity] The function called
-     *  per iteration. If a property name or object is provided it will be used
-     *  to create a "_.pluck" or "_.where" style callback, respectively.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {Array} Returns a new array of elements that failed the callback check.
-     * @example
-     *
-     * var odds = _.reject([1, 2, 3, 4, 5, 6], function(num) { return num % 2 == 0; });
-     * // => [1, 3, 5]
-     *
-     * var characters = [
-     *   { 'name': 'barney', 'age': 36, 'blocked': false },
-     *   { 'name': 'fred',   'age': 40, 'blocked': true }
-     * ];
-     *
-     * // using "_.pluck" callback shorthand
-     * _.reject(characters, 'blocked');
-     * // => [{ 'name': 'barney', 'age': 36, 'blocked': false }]
-     *
-     * // using "_.where" callback shorthand
-     * _.reject(characters, { 'age': 36 });
-     * // => [{ 'name': 'fred', 'age': 40, 'blocked': true }]
-     */
-    function reject(collection, callback, thisArg) {
-      callback = lodash.createCallback(callback, thisArg, 3);
-      return filter(collection, function(value, index, collection) {
-        return !callback(value, index, collection);
-      });
-    }
-
-    /**
-     * Retrieves a random element or `n` random elements from a collection.
-     *
-     * @static
-     * @memberOf _
-     * @category Collections
-     * @param {Array|Object|string} collection The collection to sample.
-     * @param {number} [n] The number of elements to sample.
-     * @param- {Object} [guard] Allows working with functions like `_.map`
-     *  without using their `index` arguments as `n`.
-     * @returns {Array} Returns the random sample(s) of `collection`.
-     * @example
-     *
-     * _.sample([1, 2, 3, 4]);
-     * // => 2
-     *
-     * _.sample([1, 2, 3, 4], 2);
-     * // => [3, 1]
-     */
-    function sample(collection, n, guard) {
-      if (collection && typeof collection.length != 'number') {
-        collection = values(collection);
-      }
-      if (n == null || guard) {
-        return collection ? collection[baseRandom(0, collection.length - 1)] : undefined;
-      }
-      var result = shuffle(collection);
-      result.length = nativeMin(nativeMax(0, n), result.length);
-      return result;
-    }
-
-    /**
-     * Creates an array of shuffled values, using a version of the Fisher-Yates
-     * shuffle. See http://en.wikipedia.org/wiki/Fisher-Yates_shuffle.
-     *
-     * @static
-     * @memberOf _
-     * @category Collections
-     * @param {Array|Object|string} collection The collection to shuffle.
-     * @returns {Array} Returns a new shuffled collection.
-     * @example
-     *
-     * _.shuffle([1, 2, 3, 4, 5, 6]);
-     * // => [4, 1, 6, 3, 5, 2]
-     */
-    function shuffle(collection) {
-      var index = -1,
-          length = collection ? collection.length : 0,
-          result = Array(typeof length == 'number' ? length : 0);
-
-      forEach(collection, function(value) {
-        var rand = baseRandom(0, ++index);
-        result[index] = result[rand];
-        result[rand] = value;
-      });
-      return result;
-    }
-
-    /**
-     * Gets the size of the `collection` by returning `collection.length` for arrays
-     * and array-like objects or the number of own enumerable properties for objects.
-     *
-     * @static
-     * @memberOf _
-     * @category Collections
-     * @param {Array|Object|string} collection The collection to inspect.
-     * @returns {number} Returns `collection.length` or number of own enumerable properties.
-     * @example
-     *
-     * _.size([1, 2]);
-     * // => 2
-     *
-     * _.size({ 'one': 1, 'two': 2, 'three': 3 });
-     * // => 3
-     *
-     * _.size('pebbles');
-     * // => 7
-     */
-    function size(collection) {
-      var length = collection ? collection.length : 0;
-      return typeof length == 'number' ? length : keys(collection).length;
-    }
-
-    /**
-     * Checks if the callback returns a truey value for **any** element of a
-     * collection. The function returns as soon as it finds a passing value and
-     * does not iterate over the entire collection. The callback is bound to
-     * `thisArg` and invoked with three arguments; (value, index|key, collection).
-     *
-     * If a property name is provided for `callback` the created "_.pluck" style
-     * callback will return the property value of the given element.
-     *
-     * If an object is provided for `callback` the created "_.where" style callback
-     * will return `true` for elements that have the properties of the given object,
-     * else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @alias any
-     * @category Collections
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Function|Object|string} [callback=identity] The function called
-     *  per iteration. If a property name or object is provided it will be used
-     *  to create a "_.pluck" or "_.where" style callback, respectively.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {boolean} Returns `true` if any element passed the callback check,
-     *  else `false`.
-     * @example
-     *
-     * _.some([null, 0, 'yes', false], Boolean);
-     * // => true
-     *
-     * var characters = [
-     *   { 'name': 'barney', 'age': 36, 'blocked': false },
-     *   { 'name': 'fred',   'age': 40, 'blocked': true }
-     * ];
-     *
-     * // using "_.pluck" callback shorthand
-     * _.some(characters, 'blocked');
-     * // => true
-     *
-     * // using "_.where" callback shorthand
-     * _.some(characters, { 'age': 1 });
-     * // => false
-     */
-    function some(collection, callback, thisArg) {
-      var result;
-      callback = lodash.createCallback(callback, thisArg, 3);
-
-      var index = -1,
-          length = collection ? collection.length : 0;
-
-      if (typeof length == 'number') {
-        while (++index < length) {
-          if ((result = callback(collection[index], index, collection))) {
-            break;
-          }
-        }
-      } else {
-        forOwn(collection, function(value, index, collection) {
-          return !(result = callback(value, index, collection));
-        });
-      }
-      return !!result;
-    }
-
-    /**
-     * Creates an array of elements, sorted in ascending order by the results of
-     * running each element in a collection through the callback. This method
-     * performs a stable sort, that is, it will preserve the original sort order
-     * of equal elements. The callback is bound to `thisArg` and invoked with
-     * three arguments; (value, index|key, collection).
-     *
-     * If a property name is provided for `callback` the created "_.pluck" style
-     * callback will return the property value of the given element.
-     *
-     * If an array of property names is provided for `callback` the collection
-     * will be sorted by each property value.
-     *
-     * If an object is provided for `callback` the created "_.where" style callback
-     * will return `true` for elements that have the properties of the given object,
-     * else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @category Collections
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Array|Function|Object|string} [callback=identity] The function called
-     *  per iteration. If a property name or object is provided it will be used
-     *  to create a "_.pluck" or "_.where" style callback, respectively.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {Array} Returns a new array of sorted elements.
-     * @example
-     *
-     * _.sortBy([1, 2, 3], function(num) { return Math.sin(num); });
-     * // => [3, 1, 2]
-     *
-     * _.sortBy([1, 2, 3], function(num) { return this.sin(num); }, Math);
-     * // => [3, 1, 2]
-     *
-     * var characters = [
-     *   { 'name': 'barney',  'age': 36 },
-     *   { 'name': 'fred',    'age': 40 },
-     *   { 'name': 'barney',  'age': 26 },
-     *   { 'name': 'fred',    'age': 30 }
-     * ];
-     *
-     * // using "_.pluck" callback shorthand
-     * _.map(_.sortBy(characters, 'age'), _.values);
-     * // => [['barney', 26], ['fred', 30], ['barney', 36], ['fred', 40]]
-     *
-     * // sorting by multiple properties
-     * _.map(_.sortBy(characters, ['name', 'age']), _.values);
-     * // = > [['barney', 26], ['barney', 36], ['fred', 30], ['fred', 40]]
-     */
-    function sortBy(collection, callback, thisArg) {
-      var index = -1,
-          isArr = isArray(callback),
-          length = collection ? collection.length : 0,
-          result = Array(typeof length == 'number' ? length : 0);
-
-      if (!isArr) {
-        callback = lodash.createCallback(callback, thisArg, 3);
-      }
-      forEach(collection, function(value, key, collection) {
-        var object = result[++index] = getObject();
-        if (isArr) {
-          object.criteria = map(callback, function(key) { return value[key]; });
-        } else {
-          (object.criteria = getArray())[0] = callback(value, key, collection);
-        }
-        object.index = index;
-        object.value = value;
-      });
-
-      length = result.length;
-      result.sort(compareAscending);
-      while (length--) {
-        var object = result[length];
-        result[length] = object.value;
-        if (!isArr) {
-          releaseArray(object.criteria);
-        }
-        releaseObject(object);
-      }
-      return result;
-    }
-
-    /**
-     * Converts the `collection` to an array.
-     *
-     * @static
-     * @memberOf _
-     * @category Collections
-     * @param {Array|Object|string} collection The collection to convert.
-     * @returns {Array} Returns the new converted array.
-     * @example
-     *
-     * (function() { return _.toArray(arguments).slice(1); })(1, 2, 3, 4);
-     * // => [2, 3, 4]
-     */
-    function toArray(collection) {
-      if (collection && typeof collection.length == 'number') {
-        return slice(collection);
-      }
-      return values(collection);
-    }
-
-    /**
-     * Performs a deep comparison of each element in a `collection` to the given
-     * `properties` object, returning an array of all elements that have equivalent
-     * property values.
-     *
-     * @static
-     * @memberOf _
-     * @type Function
-     * @category Collections
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Object} props The object of property values to filter by.
-     * @returns {Array} Returns a new array of elements that have the given properties.
-     * @example
-     *
-     * var characters = [
-     *   { 'name': 'barney', 'age': 36, 'pets': ['hoppy'] },
-     *   { 'name': 'fred',   'age': 40, 'pets': ['baby puss', 'dino'] }
-     * ];
-     *
-     * _.where(characters, { 'age': 36 });
-     * // => [{ 'name': 'barney', 'age': 36, 'pets': ['hoppy'] }]
-     *
-     * _.where(characters, { 'pets': ['dino'] });
-     * // => [{ 'name': 'fred', 'age': 40, 'pets': ['baby puss', 'dino'] }]
-     */
-    var where = filter;
-
-    /*--------------------------------------------------------------------------*/
-
-    /**
-     * Creates an array with all falsey values removed. The values `false`, `null`,
-     * `0`, `""`, `undefined`, and `NaN` are all falsey.
-     *
-     * @static
-     * @memberOf _
-     * @category Arrays
-     * @param {Array} array The array to compact.
-     * @returns {Array} Returns a new array of filtered values.
-     * @example
-     *
-     * _.compact([0, 1, false, 2, '', 3]);
-     * // => [1, 2, 3]
-     */
-    function compact(array) {
-      var index = -1,
-          length = array ? array.length : 0,
-          result = [];
-
-      while (++index < length) {
-        var value = array[index];
-        if (value) {
-          result.push(value);
-        }
-      }
-      return result;
-    }
-
-    /**
-     * Creates an array excluding all values of the provided arrays using strict
-     * equality for comparisons, i.e. `===`.
-     *
-     * @static
-     * @memberOf _
-     * @category Arrays
-     * @param {Array} array The array to process.
-     * @param {...Array} [values] The arrays of values to exclude.
-     * @returns {Array} Returns a new array of filtered values.
-     * @example
-     *
-     * _.difference([1, 2, 3, 4, 5], [5, 2, 10]);
-     * // => [1, 3, 4]
-     */
-    function difference(array) {
-      return baseDifference(array, baseFlatten(arguments, true, true, 1));
-    }
-
-    /**
-     * This method is like `_.find` except that it returns the index of the first
-     * element that passes the callback check, instead of the element itself.
-     *
-     * If a property name is provided for `callback` the created "_.pluck" style
-     * callback will return the property value of the given element.
-     *
-     * If an object is provided for `callback` the created "_.where" style callback
-     * will return `true` for elements that have the properties of the given object,
-     * else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @category Arrays
-     * @param {Array} array The array to search.
-     * @param {Function|Object|string} [callback=identity] The function called
-     *  per iteration. If a property name or object is provided it will be used
-     *  to create a "_.pluck" or "_.where" style callback, respectively.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {number} Returns the index of the found element, else `-1`.
-     * @example
-     *
-     * var characters = [
-     *   { 'name': 'barney',  'age': 36, 'blocked': false },
-     *   { 'name': 'fred',    'age': 40, 'blocked': true },
-     *   { 'name': 'pebbles', 'age': 1,  'blocked': false }
-     * ];
-     *
-     * _.findIndex(characters, function(chr) {
-     *   return chr.age < 20;
-     * });
-     * // => 2
-     *
-     * // using "_.where" callback shorthand
-     * _.findIndex(characters, { 'age': 36 });
-     * // => 0
-     *
-     * // using "_.pluck" callback shorthand
-     * _.findIndex(characters, 'blocked');
-     * // => 1
-     */
-    function findIndex(array, callback, thisArg) {
-      var index = -1,
-          length = array ? array.length : 0;
-
-      callback = lodash.createCallback(callback, thisArg, 3);
-      while (++index < length) {
-        if (callback(array[index], index, array)) {
-          return index;
-        }
-      }
-      return -1;
-    }
-
-    /**
-     * This method is like `_.findIndex` except that it iterates over elements
-     * of a `collection` from right to left.
-     *
-     * If a property name is provided for `callback` the created "_.pluck" style
-     * callback will return the property value of the given element.
-     *
-     * If an object is provided for `callback` the created "_.where" style callback
-     * will return `true` for elements that have the properties of the given object,
-     * else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @category Arrays
-     * @param {Array} array The array to search.
-     * @param {Function|Object|string} [callback=identity] The function called
-     *  per iteration. If a property name or object is provided it will be used
-     *  to create a "_.pluck" or "_.where" style callback, respectively.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {number} Returns the index of the found element, else `-1`.
-     * @example
-     *
-     * var characters = [
-     *   { 'name': 'barney',  'age': 36, 'blocked': true },
-     *   { 'name': 'fred',    'age': 40, 'blocked': false },
-     *   { 'name': 'pebbles', 'age': 1,  'blocked': true }
-     * ];
-     *
-     * _.findLastIndex(characters, function(chr) {
-     *   return chr.age > 30;
-     * });
-     * // => 1
-     *
-     * // using "_.where" callback shorthand
-     * _.findLastIndex(characters, { 'age': 36 });
-     * // => 0
-     *
-     * // using "_.pluck" callback shorthand
-     * _.findLastIndex(characters, 'blocked');
-     * // => 2
-     */
-    function findLastIndex(array, callback, thisArg) {
-      var length = array ? array.length : 0;
-      callback = lodash.createCallback(callback, thisArg, 3);
-      while (length--) {
-        if (callback(array[length], length, array)) {
-          return length;
-        }
-      }
-      return -1;
-    }
-
-    /**
-     * Gets the first element or first `n` elements of an array. If a callback
-     * is provided elements at the beginning of the array are returned as long
-     * as the callback returns truey. The callback is bound to `thisArg` and
-     * invoked with three arguments; (value, index, array).
-     *
-     * If a property name is provided for `callback` the created "_.pluck" style
-     * callback will return the property value of the given element.
-     *
-     * If an object is provided for `callback` the created "_.where" style callback
-     * will return `true` for elements that have the properties of the given object,
-     * else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @alias head, take
-     * @category Arrays
-     * @param {Array} array The array to query.
-     * @param {Function|Object|number|string} [callback] The function called
-     *  per element or the number of elements to return. If a property name or
-     *  object is provided it will be used to create a "_.pluck" or "_.where"
-     *  style callback, respectively.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {*} Returns the first element(s) of `array`.
-     * @example
-     *
-     * _.first([1, 2, 3]);
-     * // => 1
-     *
-     * _.first([1, 2, 3], 2);
-     * // => [1, 2]
-     *
-     * _.first([1, 2, 3], function(num) {
-     *   return num < 3;
-     * });
-     * // => [1, 2]
-     *
-     * var characters = [
-     *   { 'name': 'barney',  'blocked': true,  'employer': 'slate' },
-     *   { 'name': 'fred',    'blocked': false, 'employer': 'slate' },
-     *   { 'name': 'pebbles', 'blocked': true,  'employer': 'na' }
-     * ];
-     *
-     * // using "_.pluck" callback shorthand
-     * _.first(characters, 'blocked');
-     * // => [{ 'name': 'barney', 'blocked': true, 'employer': 'slate' }]
-     *
-     * // using "_.where" callback shorthand
-     * _.pluck(_.first(characters, { 'employer': 'slate' }), 'name');
-     * // => ['barney', 'fred']
-     */
-    function first(array, callback, thisArg) {
-      var n = 0,
-          length = array ? array.length : 0;
-
-      if (typeof callback != 'number' && callback != null) {
-        var index = -1;
-        callback = lodash.createCallback(callback, thisArg, 3);
-        while (++index < length && callback(array[index], index, array)) {
-          n++;
-        }
-      } else {
-        n = callback;
-        if (n == null || thisArg) {
-          return array ? array[0] : undefined;
-        }
-      }
-      return slice(array, 0, nativeMin(nativeMax(0, n), length));
-    }
-
-    /**
-     * Flattens a nested array (the nesting can be to any depth). If `isShallow`
-     * is truey, the array will only be flattened a single level. If a callback
-     * is provided each element of the array is passed through the callback before
-     * flattening. The callback is bound to `thisArg` and invoked with three
-     * arguments; (value, index, array).
-     *
-     * If a property name is provided for `callback` the created "_.pluck" style
-     * callback will return the property value of the given element.
-     *
-     * If an object is provided for `callback` the created "_.where" style callback
-     * will return `true` for elements that have the properties of the given object,
-     * else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @category Arrays
-     * @param {Array} array The array to flatten.
-     * @param {boolean} [isShallow=false] A flag to restrict flattening to a single level.
-     * @param {Function|Object|string} [callback=identity] The function called
-     *  per iteration. If a property name or object is provided it will be used
-     *  to create a "_.pluck" or "_.where" style callback, respectively.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {Array} Returns a new flattened array.
-     * @example
-     *
-     * _.flatten([1, [2], [3, [[4]]]]);
-     * // => [1, 2, 3, 4];
-     *
-     * _.flatten([1, [2], [3, [[4]]]], true);
-     * // => [1, 2, 3, [[4]]];
-     *
-     * var characters = [
-     *   { 'name': 'barney', 'age': 30, 'pets': ['hoppy'] },
-     *   { 'name': 'fred',   'age': 40, 'pets': ['baby puss', 'dino'] }
-     * ];
-     *
-     * // using "_.pluck" callback shorthand
-     * _.flatten(characters, 'pets');
-     * // => ['hoppy', 'baby puss', 'dino']
-     */
-    function flatten(array, isShallow, callback, thisArg) {
-      // juggle arguments
-      if (typeof isShallow != 'boolean' && isShallow != null) {
-        thisArg = callback;
-        callback = (typeof isShallow != 'function' && thisArg && thisArg[isShallow] === array) ? null : isShallow;
-        isShallow = false;
-      }
-      if (callback != null) {
-        array = map(array, callback, thisArg);
-      }
-      return baseFlatten(array, isShallow);
-    }
-
-    /**
-     * Gets the index at which the first occurrence of `value` is found using
-     * strict equality for comparisons, i.e. `===`. If the array is already sorted
-     * providing `true` for `fromIndex` will run a faster binary search.
-     *
-     * @static
-     * @memberOf _
-     * @category Arrays
-     * @param {Array} array The array to search.
-     * @param {*} value The value to search for.
-     * @param {boolean|number} [fromIndex=0] The index to search from or `true`
-     *  to perform a binary search on a sorted array.
-     * @returns {number} Returns the index of the matched value or `-1`.
-     * @example
-     *
-     * _.indexOf([1, 2, 3, 1, 2, 3], 2);
-     * // => 1
-     *
-     * _.indexOf([1, 2, 3, 1, 2, 3], 2, 3);
-     * // => 4
-     *
-     * _.indexOf([1, 1, 2, 2, 3, 3], 2, true);
-     * // => 2
-     */
-    function indexOf(array, value, fromIndex) {
-      if (typeof fromIndex == 'number') {
-        var length = array ? array.length : 0;
-        fromIndex = (fromIndex < 0 ? nativeMax(0, length + fromIndex) : fromIndex || 0);
-      } else if (fromIndex) {
-        var index = sortedIndex(array, value);
-        return array[index] === value ? index : -1;
-      }
-      return baseIndexOf(array, value, fromIndex);
-    }
-
-    /**
-     * Gets all but the last element or last `n` elements of an array. If a
-     * callback is provided elements at the end of the array are excluded from
-     * the result as long as the callback returns truey. The callback is bound
-     * to `thisArg` and invoked with three arguments; (value, index, array).
-     *
-     * If a property name is provided for `callback` the created "_.pluck" style
-     * callback will return the property value of the given element.
-     *
-     * If an object is provided for `callback` the created "_.where" style callback
-     * will return `true` for elements that have the properties of the given object,
-     * else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @category Arrays
-     * @param {Array} array The array to query.
-     * @param {Function|Object|number|string} [callback=1] The function called
-     *  per element or the number of elements to exclude. If a property name or
-     *  object is provided it will be used to create a "_.pluck" or "_.where"
-     *  style callback, respectively.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {Array} Returns a slice of `array`.
-     * @example
-     *
-     * _.initial([1, 2, 3]);
-     * // => [1, 2]
-     *
-     * _.initial([1, 2, 3], 2);
-     * // => [1]
-     *
-     * _.initial([1, 2, 3], function(num) {
-     *   return num > 1;
-     * });
-     * // => [1]
-     *
-     * var characters = [
-     *   { 'name': 'barney',  'blocked': false, 'employer': 'slate' },
-     *   { 'name': 'fred',    'blocked': true,  'employer': 'slate' },
-     *   { 'name': 'pebbles', 'blocked': true,  'employer': 'na' }
-     * ];
-     *
-     * // using "_.pluck" callback shorthand
-     * _.initial(characters, 'blocked');
-     * // => [{ 'name': 'barney',  'blocked': false, 'employer': 'slate' }]
-     *
-     * // using "_.where" callback shorthand
-     * _.pluck(_.initial(characters, { 'employer': 'na' }), 'name');
-     * // => ['barney', 'fred']
-     */
-    function initial(array, callback, thisArg) {
-      var n = 0,
-          length = array ? array.length : 0;
-
-      if (typeof callback != 'number' && callback != null) {
-        var index = length;
-        callback = lodash.createCallback(callback, thisArg, 3);
-        while (index-- && callback(array[index], index, array)) {
-          n++;
-        }
-      } else {
-        n = (callback == null || thisArg) ? 1 : callback || n;
-      }
-      return slice(array, 0, nativeMin(nativeMax(0, length - n), length));
-    }
-
-    /**
-     * Creates an array of unique values present in all provided arrays using
-     * strict equality for comparisons, i.e. `===`.
-     *
-     * @static
-     * @memberOf _
-     * @category Arrays
-     * @param {...Array} [array] The arrays to inspect.
-     * @returns {Array} Returns an array of shared values.
-     * @example
-     *
-     * _.intersection([1, 2, 3], [5, 2, 1, 4], [2, 1]);
-     * // => [1, 2]
-     */
-    function intersection() {
-      var args = [],
-          argsIndex = -1,
-          argsLength = arguments.length,
-          caches = getArray(),
-          indexOf = getIndexOf(),
-          trustIndexOf = indexOf === baseIndexOf,
-          seen = getArray();
-
-      while (++argsIndex < argsLength) {
-        var value = arguments[argsIndex];
-        if (isArray(value) || isArguments(value)) {
-          args.push(value);
-          caches.push(trustIndexOf && value.length >= largeArraySize &&
-            createCache(argsIndex ? args[argsIndex] : seen));
-        }
-      }
-      var array = args[0],
-          index = -1,
-          length = array ? array.length : 0,
-          result = [];
-
-      outer:
-      while (++index < length) {
-        var cache = caches[0];
-        value = array[index];
-
-        if ((cache ? cacheIndexOf(cache, value) : indexOf(seen, value)) < 0) {
-          argsIndex = argsLength;
-          (cache || seen).push(value);
-          while (--argsIndex) {
-            cache = caches[argsIndex];
-            if ((cache ? cacheIndexOf(cache, value) : indexOf(args[argsIndex], value)) < 0) {
-              continue outer;
-            }
-          }
-          result.push(value);
-        }
-      }
-      while (argsLength--) {
-        cache = caches[argsLength];
-        if (cache) {
-          releaseObject(cache);
-        }
-      }
-      releaseArray(caches);
-      releaseArray(seen);
-      return result;
-    }
-
-    /**
-     * Gets the last element or last `n` elements of an array. If a callback is
-     * provided elements at the end of the array are returned as long as the
-     * callback returns truey. The callback is bound to `thisArg` and invoked
-     * with three arguments; (value, index, array).
-     *
-     * If a property name is provided for `callback` the created "_.pluck" style
-     * callback will return the property value of the given element.
-     *
-     * If an object is provided for `callback` the created "_.where" style callback
-     * will return `true` for elements that have the properties of the given object,
-     * else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @category Arrays
-     * @param {Array} array The array to query.
-     * @param {Function|Object|number|string} [callback] The function called
-     *  per element or the number of elements to return. If a property name or
-     *  object is provided it will be used to create a "_.pluck" or "_.where"
-     *  style callback, respectively.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {*} Returns the last element(s) of `array`.
-     * @example
-     *
-     * _.last([1, 2, 3]);
-     * // => 3
-     *
-     * _.last([1, 2, 3], 2);
-     * // => [2, 3]
-     *
-     * _.last([1, 2, 3], function(num) {
-     *   return num > 1;
-     * });
-     * // => [2, 3]
-     *
-     * var characters = [
-     *   { 'name': 'barney',  'blocked': false, 'employer': 'slate' },
-     *   { 'name': 'fred',    'blocked': true,  'employer': 'slate' },
-     *   { 'name': 'pebbles', 'blocked': true,  'employer': 'na' }
-     * ];
-     *
-     * // using "_.pluck" callback shorthand
-     * _.pluck(_.last(characters, 'blocked'), 'name');
-     * // => ['fred', 'pebbles']
-     *
-     * // using "_.where" callback shorthand
-     * _.last(characters, { 'employer': 'na' });
-     * // => [{ 'name': 'pebbles', 'blocked': true, 'employer': 'na' }]
-     */
-    function last(array, callback, thisArg) {
-      var n = 0,
-          length = array ? array.length : 0;
-
-      if (typeof callback != 'number' && callback != null) {
-        var index = length;
-        callback = lodash.createCallback(callback, thisArg, 3);
-        while (index-- && callback(array[index], index, array)) {
-          n++;
-        }
-      } else {
-        n = callback;
-        if (n == null || thisArg) {
-          return array ? array[length - 1] : undefined;
-        }
-      }
-      return slice(array, nativeMax(0, length - n));
-    }
-
-    /**
-     * Gets the index at which the last occurrence of `value` is found using strict
-     * equality for comparisons, i.e. `===`. If `fromIndex` is negative, it is used
-     * as the offset from the end of the collection.
-     *
-     * If a property name is provided for `callback` the created "_.pluck" style
-     * callback will return the property value of the given element.
-     *
-     * If an object is provided for `callback` the created "_.where" style callback
-     * will return `true` for elements that have the properties of the given object,
-     * else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @category Arrays
-     * @param {Array} array The array to search.
-     * @param {*} value The value to search for.
-     * @param {number} [fromIndex=array.length-1] The index to search from.
-     * @returns {number} Returns the index of the matched value or `-1`.
-     * @example
-     *
-     * _.lastIndexOf([1, 2, 3, 1, 2, 3], 2);
-     * // => 4
-     *
-     * _.lastIndexOf([1, 2, 3, 1, 2, 3], 2, 3);
-     * // => 1
-     */
-    function lastIndexOf(array, value, fromIndex) {
-      var index = array ? array.length : 0;
-      if (typeof fromIndex == 'number') {
-        index = (fromIndex < 0 ? nativeMax(0, index + fromIndex) : nativeMin(fromIndex, index - 1)) + 1;
-      }
-      while (index--) {
-        if (array[index] === value) {
-          return index;
-        }
-      }
-      return -1;
-    }
-
-    /**
-     * Removes all provided values from the given array using strict equality for
-     * comparisons, i.e. `===`.
-     *
-     * @static
-     * @memberOf _
-     * @category Arrays
-     * @param {Array} array The array to modify.
-     * @param {...*} [value] The values to remove.
-     * @returns {Array} Returns `array`.
-     * @example
-     *
-     * var array = [1, 2, 3, 1, 2, 3];
-     * _.pull(array, 2, 3);
-     * console.log(array);
-     * // => [1, 1]
-     */
-    function pull(array) {
-      var args = arguments,
-          argsIndex = 0,
-          argsLength = args.length,
-          length = array ? array.length : 0;
-
-      while (++argsIndex < argsLength) {
-        var index = -1,
-            value = args[argsIndex];
-        while (++index < length) {
-          if (array[index] === value) {
-            splice.call(array, index--, 1);
-            length--;
-          }
-        }
-      }
-      return array;
-    }
-
-    /**
-     * Creates an array of numbers (positive and/or negative) progressing from
-     * `start` up to but not including `end`. If `start` is less than `stop` a
-     * zero-length range is created unless a negative `step` is specified.
-     *
-     * @static
-     * @memberOf _
-     * @category Arrays
-     * @param {number} [start=0] The start of the range.
-     * @param {number} end The end of the range.
-     * @param {number} [step=1] The value to increment or decrement by.
-     * @returns {Array} Returns a new range array.
-     * @example
-     *
-     * _.range(4);
-     * // => [0, 1, 2, 3]
-     *
-     * _.range(1, 5);
-     * // => [1, 2, 3, 4]
-     *
-     * _.range(0, 20, 5);
-     * // => [0, 5, 10, 15]
-     *
-     * _.range(0, -4, -1);
-     * // => [0, -1, -2, -3]
-     *
-     * _.range(1, 4, 0);
-     * // => [1, 1, 1]
-     *
-     * _.range(0);
-     * // => []
-     */
-    function range(start, end, step) {
-      start = +start || 0;
-      step = typeof step == 'number' ? step : (+step || 1);
-
-      if (end == null) {
-        end = start;
-        start = 0;
-      }
-      // use `Array(length)` so engines like Chakra and V8 avoid slower modes
-      // http://youtu.be/XAqIpGU8ZZk#t=17m25s
-      var index = -1,
-          length = nativeMax(0, ceil((end - start) / (step || 1))),
-          result = Array(length);
-
-      while (++index < length) {
-        result[index] = start;
-        start += step;
-      }
-      return result;
-    }
-
-    /**
-     * Removes all elements from an array that the callback returns truey for
-     * and returns an array of removed elements. The callback is bound to `thisArg`
-     * and invoked with three arguments; (value, index, array).
-     *
-     * If a property name is provided for `callback` the created "_.pluck" style
-     * callback will return the property value of the given element.
-     *
-     * If an object is provided for `callback` the created "_.where" style callback
-     * will return `true` for elements that have the properties of the given object,
-     * else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @category Arrays
-     * @param {Array} array The array to modify.
-     * @param {Function|Object|string} [callback=identity] The function called
-     *  per iteration. If a property name or object is provided it will be used
-     *  to create a "_.pluck" or "_.where" style callback, respectively.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {Array} Returns a new array of removed elements.
-     * @example
-     *
-     * var array = [1, 2, 3, 4, 5, 6];
-     * var evens = _.remove(array, function(num) { return num % 2 == 0; });
-     *
-     * console.log(array);
-     * // => [1, 3, 5]
-     *
-     * console.log(evens);
-     * // => [2, 4, 6]
-     */
-    function remove(array, callback, thisArg) {
-      var index = -1,
-          length = array ? array.length : 0,
-          result = [];
-
-      callback = lodash.createCallback(callback, thisArg, 3);
-      while (++index < length) {
-        var value = array[index];
-        if (callback(value, index, array)) {
-          result.push(value);
-          splice.call(array, index--, 1);
-          length--;
-        }
-      }
-      return result;
-    }
-
-    /**
-     * The opposite of `_.initial` this method gets all but the first element or
-     * first `n` elements of an array. If a callback function is provided elements
-     * at the beginning of the array are excluded from the result as long as the
-     * callback returns truey. The callback is bound to `thisArg` and invoked
-     * with three arguments; (value, index, array).
-     *
-     * If a property name is provided for `callback` the created "_.pluck" style
-     * callback will return the property value of the given element.
-     *
-     * If an object is provided for `callback` the created "_.where" style callback
-     * will return `true` for elements that have the properties of the given object,
-     * else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @alias drop, tail
-     * @category Arrays
-     * @param {Array} array The array to query.
-     * @param {Function|Object|number|string} [callback=1] The function called
-     *  per element or the number of elements to exclude. If a property name or
-     *  object is provided it will be used to create a "_.pluck" or "_.where"
-     *  style callback, respectively.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {Array} Returns a slice of `array`.
-     * @example
-     *
-     * _.rest([1, 2, 3]);
-     * // => [2, 3]
-     *
-     * _.rest([1, 2, 3], 2);
-     * // => [3]
-     *
-     * _.rest([1, 2, 3], function(num) {
-     *   return num < 3;
-     * });
-     * // => [3]
-     *
-     * var characters = [
-     *   { 'name': 'barney',  'blocked': true,  'employer': 'slate' },
-     *   { 'name': 'fred',    'blocked': false,  'employer': 'slate' },
-     *   { 'name': 'pebbles', 'blocked': true, 'employer': 'na' }
-     * ];
-     *
-     * // using "_.pluck" callback shorthand
-     * _.pluck(_.rest(characters, 'blocked'), 'name');
-     * // => ['fred', 'pebbles']
-     *
-     * // using "_.where" callback shorthand
-     * _.rest(characters, { 'employer': 'slate' });
-     * // => [{ 'name': 'pebbles', 'blocked': true, 'employer': 'na' }]
-     */
-    function rest(array, callback, thisArg) {
-      if (typeof callback != 'number' && callback != null) {
-        var n = 0,
-            index = -1,
-            length = array ? array.length : 0;
-
-        callback = lodash.createCallback(callback, thisArg, 3);
-        while (++index < length && callback(array[index], index, array)) {
-          n++;
-        }
-      } else {
-        n = (callback == null || thisArg) ? 1 : nativeMax(0, callback);
-      }
-      return slice(array, n);
-    }
-
-    /**
-     * Uses a binary search to determine the smallest index at which a value
-     * should be inserted into a given sorted array in order to maintain the sort
-     * order of the array. If a callback is provided it will be executed for
-     * `value` and each element of `array` to compute their sort ranking. The
-     * callback is bound to `thisArg` and invoked with one argument; (value).
-     *
-     * If a property name is provided for `callback` the created "_.pluck" style
-     * callback will return the property value of the given element.
-     *
-     * If an object is provided for `callback` the created "_.where" style callback
-     * will return `true` for elements that have the properties of the given object,
-     * else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @category Arrays
-     * @param {Array} array The array to inspect.
-     * @param {*} value The value to evaluate.
-     * @param {Function|Object|string} [callback=identity] The function called
-     *  per iteration. If a property name or object is provided it will be used
-     *  to create a "_.pluck" or "_.where" style callback, respectively.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {number} Returns the index at which `value` should be inserted
-     *  into `array`.
-     * @example
-     *
-     * _.sortedIndex([20, 30, 50], 40);
-     * // => 2
-     *
-     * // using "_.pluck" callback shorthand
-     * _.sortedIndex([{ 'x': 20 }, { 'x': 30 }, { 'x': 50 }], { 'x': 40 }, 'x');
-     * // => 2
-     *
-     * var dict = {
-     *   'wordToNumber': { 'twenty': 20, 'thirty': 30, 'fourty': 40, 'fifty': 50 }
-     * };
-     *
-     * _.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function(word) {
-     *   return dict.wordToNumber[word];
-     * });
-     * // => 2
-     *
-     * _.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function(word) {
-     *   return this.wordToNumber[word];
-     * }, dict);
-     * // => 2
-     */
-    function sortedIndex(array, value, callback, thisArg) {
-      var low = 0,
-          high = array ? array.length : low;
-
-      // explicitly reference `identity` for better inlining in Firefox
-      callback = callback ? lodash.createCallback(callback, thisArg, 1) : identity;
-      value = callback(value);
-
-      while (low < high) {
-        var mid = (low + high) >>> 1;
-        (callback(array[mid]) < value)
-          ? low = mid + 1
-          : high = mid;
-      }
-      return low;
-    }
-
-    /**
-     * Creates an array of unique values, in order, of the provided arrays using
-     * strict equality for comparisons, i.e. `===`.
-     *
-     * @static
-     * @memberOf _
-     * @category Arrays
-     * @param {...Array} [array] The arrays to inspect.
-     * @returns {Array} Returns an array of combined values.
-     * @example
-     *
-     * _.union([1, 2, 3], [5, 2, 1, 4], [2, 1]);
-     * // => [1, 2, 3, 5, 4]
-     */
-    function union() {
-      return baseUniq(baseFlatten(arguments, true, true));
-    }
-
-    /**
-     * Creates a duplicate-value-free version of an array using strict equality
-     * for comparisons, i.e. `===`. If the array is sorted, providing
-     * `true` for `isSorted` will use a faster algorithm. If a callback is provided
-     * each element of `array` is passed through the callback before uniqueness
-     * is computed. The callback is bound to `thisArg` and invoked with three
-     * arguments; (value, index, array).
-     *
-     * If a property name is provided for `callback` the created "_.pluck" style
-     * callback will return the property value of the given element.
-     *
-     * If an object is provided for `callback` the created "_.where" style callback
-     * will return `true` for elements that have the properties of the given object,
-     * else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @alias unique
-     * @category Arrays
-     * @param {Array} array The array to process.
-     * @param {boolean} [isSorted=false] A flag to indicate that `array` is sorted.
-     * @param {Function|Object|string} [callback=identity] The function called
-     *  per iteration. If a property name or object is provided it will be used
-     *  to create a "_.pluck" or "_.where" style callback, respectively.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {Array} Returns a duplicate-value-free array.
-     * @example
-     *
-     * _.uniq([1, 2, 1, 3, 1]);
-     * // => [1, 2, 3]
-     *
-     * _.uniq([1, 1, 2, 2, 3], true);
-     * // => [1, 2, 3]
-     *
-     * _.uniq(['A', 'b', 'C', 'a', 'B', 'c'], function(letter) { return letter.toLowerCase(); });
-     * // => ['A', 'b', 'C']
-     *
-     * _.uniq([1, 2.5, 3, 1.5, 2, 3.5], function(num) { return this.floor(num); }, Math);
-     * // => [1, 2.5, 3]
-     *
-     * // using "_.pluck" callback shorthand
-     * _.uniq([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
-     * // => [{ 'x': 1 }, { 'x': 2 }]
-     */
-    function uniq(array, isSorted, callback, thisArg) {
-      // juggle arguments
-      if (typeof isSorted != 'boolean' && isSorted != null) {
-        thisArg = callback;
-        callback = (typeof isSorted != 'function' && thisArg && thisArg[isSorted] === array) ? null : isSorted;
-        isSorted = false;
-      }
-      if (callback != null) {
-        callback = lodash.createCallback(callback, thisArg, 3);
-      }
-      return baseUniq(array, isSorted, callback);
-    }
-
-    /**
-     * Creates an array excluding all provided values using strict equality for
-     * comparisons, i.e. `===`.
-     *
-     * @static
-     * @memberOf _
-     * @category Arrays
-     * @param {Array} array The array to filter.
-     * @param {...*} [value] The values to exclude.
-     * @returns {Array} Returns a new array of filtered values.
-     * @example
-     *
-     * _.without([1, 2, 1, 0, 3, 1, 4], 0, 1);
-     * // => [2, 3, 4]
-     */
-    function without(array) {
-      return baseDifference(array, slice(arguments, 1));
-    }
-
-    /**
-     * Creates an array that is the symmetric difference of the provided arrays.
-     * See http://en.wikipedia.org/wiki/Symmetric_difference.
-     *
-     * @static
-     * @memberOf _
-     * @category Arrays
-     * @param {...Array} [array] The arrays to inspect.
-     * @returns {Array} Returns an array of values.
-     * @example
-     *
-     * _.xor([1, 2, 3], [5, 2, 1, 4]);
-     * // => [3, 5, 4]
-     *
-     * _.xor([1, 2, 5], [2, 3, 5], [3, 4, 5]);
-     * // => [1, 4, 5]
-     */
-    function xor() {
-      var index = -1,
-          length = arguments.length;
-
-      while (++index < length) {
-        var array = arguments[index];
-        if (isArray(array) || isArguments(array)) {
-          var result = result
-            ? baseUniq(baseDifference(result, array).concat(baseDifference(array, result)))
-            : array;
-        }
-      }
-      return result || [];
-    }
-
-    /**
-     * Creates an array of grouped elements, the first of which contains the first
-     * elements of the given arrays, the second of which contains the second
-     * elements of the given arrays, and so on.
-     *
-     * @static
-     * @memberOf _
-     * @alias unzip
-     * @category Arrays
-     * @param {...Array} [array] Arrays to process.
-     * @returns {Array} Returns a new array of grouped elements.
-     * @example
-     *
-     * _.zip(['fred', 'barney'], [30, 40], [true, false]);
-     * // => [['fred', 30, true], ['barney', 40, false]]
-     */
-    function zip() {
-      var array = arguments.length > 1 ? arguments : arguments[0],
-          index = -1,
-          length = array ? max(pluck(array, 'length')) : 0,
-          result = Array(length < 0 ? 0 : length);
-
-      while (++index < length) {
-        result[index] = pluck(array, index);
-      }
-      return result;
-    }
-
-    /**
-     * Creates an object composed from arrays of `keys` and `values`. Provide
-     * either a single two dimensional array, i.e. `[[key1, value1], [key2, value2]]`
-     * or two arrays, one of `keys` and one of corresponding `values`.
-     *
-     * @static
-     * @memberOf _
-     * @alias object
-     * @category Arrays
-     * @param {Array} keys The array of keys.
-     * @param {Array} [values=[]] The array of values.
-     * @returns {Object} Returns an object composed of the given keys and
-     *  corresponding values.
-     * @example
-     *
-     * _.zipObject(['fred', 'barney'], [30, 40]);
-     * // => { 'fred': 30, 'barney': 40 }
-     */
-    function zipObject(keys, values) {
-      var index = -1,
-          length = keys ? keys.length : 0,
-          result = {};
-
-      if (!values && length && !isArray(keys[0])) {
-        values = [];
-      }
-      while (++index < length) {
-        var key = keys[index];
-        if (values) {
-          result[key] = values[index];
-        } else if (key) {
-          result[key[0]] = key[1];
-        }
-      }
-      return result;
-    }
-
-    /*--------------------------------------------------------------------------*/
-
-    /**
-     * Creates a function that executes `func`, with  the `this` binding and
-     * arguments of the created function, only after being called `n` times.
-     *
-     * @static
-     * @memberOf _
-     * @category Functions
-     * @param {number} n The number of times the function must be called before
-     *  `func` is executed.
-     * @param {Function} func The function to restrict.
-     * @returns {Function} Returns the new restricted function.
-     * @example
-     *
-     * var saves = ['profile', 'settings'];
-     *
-     * var done = _.after(saves.length, function() {
-     *   console.log('Done saving!');
-     * });
-     *
-     * _.forEach(saves, function(type) {
-     *   asyncSave({ 'type': type, 'complete': done });
-     * });
-     * // => logs 'Done saving!', after all saves have completed
-     */
-    function after(n, func) {
-      if (!isFunction(func)) {
-        throw new TypeError;
-      }
-      return function() {
-        if (--n < 1) {
-          return func.apply(this, arguments);
-        }
-      };
-    }
-
-    /**
-     * Creates a function that, when called, invokes `func` with the `this`
-     * binding of `thisArg` and prepends any additional `bind` arguments to those
-     * provided to the bound function.
-     *
-     * @static
-     * @memberOf _
-     * @category Functions
-     * @param {Function} func The function to bind.
-     * @param {*} [thisArg] The `this` binding of `func`.
-     * @param {...*} [arg] Arguments to be partially applied.
-     * @returns {Function} Returns the new bound function.
-     * @example
-     *
-     * var func = function(greeting) {
-     *   return greeting + ' ' + this.name;
-     * };
-     *
-     * func = _.bind(func, { 'name': 'fred' }, 'hi');
-     * func();
-     * // => 'hi fred'
-     */
-    function bind(func, thisArg) {
-      return arguments.length > 2
-        ? createWrapper(func, 17, slice(arguments, 2), null, thisArg)
-        : createWrapper(func, 1, null, null, thisArg);
-    }
-
-    /**
-     * Binds methods of an object to the object itself, overwriting the existing
-     * method. Method names may be specified as individual arguments or as arrays
-     * of method names. If no method names are provided all the function properties
-     * of `object` will be bound.
-     *
-     * @static
-     * @memberOf _
-     * @category Functions
-     * @param {Object} object The object to bind and assign the bound methods to.
-     * @param {...string} [methodName] The object method names to
-     *  bind, specified as individual method names or arrays of method names.
-     * @returns {Object} Returns `object`.
-     * @example
-     *
-     * var view = {
-     *   'label': 'docs',
-     *   'onClick': function() { console.log('clicked ' + this.label); }
-     * };
-     *
-     * _.bindAll(view);
-     * jQuery('#docs').on('click', view.onClick);
-     * // => logs 'clicked docs', when the button is clicked
-     */
-    function bindAll(object) {
-      var funcs = arguments.length > 1 ? baseFlatten(arguments, true, false, 1) : functions(object),
-          index = -1,
-          length = funcs.length;
-
-      while (++index < length) {
-        var key = funcs[index];
-        object[key] = createWrapper(object[key], 1, null, null, object);
-      }
-      return object;
-    }
-
-    /**
-     * Creates a function that, when called, invokes the method at `object[key]`
-     * and prepends any additional `bindKey` arguments to those provided to the bound
-     * function. This method differs from `_.bind` by allowing bound functions to
-     * reference methods that will be redefined or don't yet exist.
-     * See http://michaux.ca/articles/lazy-function-definition-pattern.
-     *
-     * @static
-     * @memberOf _
-     * @category Functions
-     * @param {Object} object The object the method belongs to.
-     * @param {string} key The key of the method.
-     * @param {...*} [arg] Arguments to be partially applied.
-     * @returns {Function} Returns the new bound function.
-     * @example
-     *
-     * var object = {
-     *   'name': 'fred',
-     *   'greet': function(greeting) {
-     *     return greeting + ' ' + this.name;
-     *   }
-     * };
-     *
-     * var func = _.bindKey(object, 'greet', 'hi');
-     * func();
-     * // => 'hi fred'
-     *
-     * object.greet = function(greeting) {
-     *   return greeting + 'ya ' + this.name + '!';
-     * };
-     *
-     * func();
-     * // => 'hiya fred!'
-     */
-    function bindKey(object, key) {
-      return arguments.length > 2
-        ? createWrapper(key, 19, slice(arguments, 2), null, object)
-        : createWrapper(key, 3, null, null, object);
-    }
-
-    /**
-     * Creates a function that is the composition of the provided functions,
-     * where each function consumes the return value of the function that follows.
-     * For example, composing the functions `f()`, `g()`, and `h()` produces `f(g(h()))`.
-     * Each function is executed with the `this` binding of the composed function.
-     *
-     * @static
-     * @memberOf _
-     * @category Functions
-     * @param {...Function} [func] Functions to compose.
-     * @returns {Function} Returns the new composed function.
-     * @example
-     *
-     * var realNameMap = {
-     *   'pebbles': 'penelope'
-     * };
-     *
-     * var format = function(name) {
-     *   name = realNameMap[name.toLowerCase()] || name;
-     *   return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-     * };
-     *
-     * var greet = function(formatted) {
-     *   return 'Hiya ' + formatted + '!';
-     * };
-     *
-     * var welcome = _.compose(greet, format);
-     * welcome('pebbles');
-     * // => 'Hiya Penelope!'
-     */
-    function compose() {
-      var funcs = arguments,
-          length = funcs.length;
-
-      while (length--) {
-        if (!isFunction(funcs[length])) {
-          throw new TypeError;
-        }
-      }
-      return function() {
-        var args = arguments,
-            length = funcs.length;
-
-        while (length--) {
-          args = [funcs[length].apply(this, args)];
-        }
-        return args[0];
-      };
-    }
-
-    /**
-     * Creates a function which accepts one or more arguments of `func` that when
-     * invoked either executes `func` returning its result, if all `func` arguments
-     * have been provided, or returns a function that accepts one or more of the
-     * remaining `func` arguments, and so on. The arity of `func` can be specified
-     * if `func.length` is not sufficient.
-     *
-     * @static
-     * @memberOf _
-     * @category Functions
-     * @param {Function} func The function to curry.
-     * @param {number} [arity=func.length] The arity of `func`.
-     * @returns {Function} Returns the new curried function.
-     * @example
-     *
-     * var curried = _.curry(function(a, b, c) {
-     *   console.log(a + b + c);
-     * });
-     *
-     * curried(1)(2)(3);
-     * // => 6
-     *
-     * curried(1, 2)(3);
-     * // => 6
-     *
-     * curried(1, 2, 3);
-     * // => 6
-     */
-    function curry(func, arity) {
-      arity = typeof arity == 'number' ? arity : (+arity || func.length);
-      return createWrapper(func, 4, null, null, null, arity);
-    }
-
-    /**
-     * Creates a function that will delay the execution of `func` until after
-     * `wait` milliseconds have elapsed since the last time it was invoked.
-     * Provide an options object to indicate that `func` should be invoked on
-     * the leading and/or trailing edge of the `wait` timeout. Subsequent calls
-     * to the debounced function will return the result of the last `func` call.
-     *
-     * Note: If `leading` and `trailing` options are `true` `func` will be called
-     * on the trailing edge of the timeout only if the the debounced function is
-     * invoked more than once during the `wait` timeout.
-     *
-     * @static
-     * @memberOf _
-     * @category Functions
-     * @param {Function} func The function to debounce.
-     * @param {number} wait The number of milliseconds to delay.
-     * @param {Object} [options] The options object.
-     * @param {boolean} [options.leading=false] Specify execution on the leading edge of the timeout.
-     * @param {number} [options.maxWait] The maximum time `func` is allowed to be delayed before it's called.
-     * @param {boolean} [options.trailing=true] Specify execution on the trailing edge of the timeout.
-     * @returns {Function} Returns the new debounced function.
-     * @example
-     *
-     * // avoid costly calculations while the window size is in flux
-     * var lazyLayout = _.debounce(calculateLayout, 150);
-     * jQuery(window).on('resize', lazyLayout);
-     *
-     * // execute `sendMail` when the click event is fired, debouncing subsequent calls
-     * jQuery('#postbox').on('click', _.debounce(sendMail, 300, {
-     *   'leading': true,
-     *   'trailing': false
-     * });
-     *
-     * // ensure `batchLog` is executed once after 1 second of debounced calls
-     * var source = new EventSource('/stream');
-     * source.addEventListener('message', _.debounce(batchLog, 250, {
-     *   'maxWait': 1000
-     * }, false);
-     */
-    function debounce(func, wait, options) {
-      var args,
-          maxTimeoutId,
-          result,
-          stamp,
-          thisArg,
-          timeoutId,
-          trailingCall,
-          lastCalled = 0,
-          maxWait = false,
-          trailing = true;
-
-      if (!isFunction(func)) {
-        throw new TypeError;
-      }
-      wait = nativeMax(0, wait) || 0;
-      if (options === true) {
-        var leading = true;
-        trailing = false;
-      } else if (isObject(options)) {
-        leading = options.leading;
-        maxWait = 'maxWait' in options && (nativeMax(wait, options.maxWait) || 0);
-        trailing = 'trailing' in options ? options.trailing : trailing;
-      }
-      var delayed = function() {
-        var remaining = wait - (now() - stamp);
-        if (remaining <= 0) {
-          if (maxTimeoutId) {
-            clearTimeout(maxTimeoutId);
-          }
-          var isCalled = trailingCall;
-          maxTimeoutId = timeoutId = trailingCall = undefined;
-          if (isCalled) {
-            lastCalled = now();
-            result = func.apply(thisArg, args);
-            if (!timeoutId && !maxTimeoutId) {
-              args = thisArg = null;
-            }
-          }
-        } else {
-          timeoutId = setTimeout(delayed, remaining);
-        }
-      };
-
-      var maxDelayed = function() {
-        if (timeoutId) {
-          clearTimeout(timeoutId);
-        }
-        maxTimeoutId = timeoutId = trailingCall = undefined;
-        if (trailing || (maxWait !== wait)) {
-          lastCalled = now();
-          result = func.apply(thisArg, args);
-          if (!timeoutId && !maxTimeoutId) {
-            args = thisArg = null;
-          }
-        }
-      };
-
-      return function() {
-        args = arguments;
-        stamp = now();
-        thisArg = this;
-        trailingCall = trailing && (timeoutId || !leading);
-
-        if (maxWait === false) {
-          var leadingCall = leading && !timeoutId;
-        } else {
-          if (!maxTimeoutId && !leading) {
-            lastCalled = stamp;
-          }
-          var remaining = maxWait - (stamp - lastCalled),
-              isCalled = remaining <= 0;
-
-          if (isCalled) {
-            if (maxTimeoutId) {
-              maxTimeoutId = clearTimeout(maxTimeoutId);
-            }
-            lastCalled = stamp;
-            result = func.apply(thisArg, args);
-          }
-          else if (!maxTimeoutId) {
-            maxTimeoutId = setTimeout(maxDelayed, remaining);
-          }
-        }
-        if (isCalled && timeoutId) {
-          timeoutId = clearTimeout(timeoutId);
-        }
-        else if (!timeoutId && wait !== maxWait) {
-          timeoutId = setTimeout(delayed, wait);
-        }
-        if (leadingCall) {
-          isCalled = true;
-          result = func.apply(thisArg, args);
-        }
-        if (isCalled && !timeoutId && !maxTimeoutId) {
-          args = thisArg = null;
-        }
-        return result;
-      };
-    }
-
-    /**
-     * Defers executing the `func` function until the current call stack has cleared.
-     * Additional arguments will be provided to `func` when it is invoked.
-     *
-     * @static
-     * @memberOf _
-     * @category Functions
-     * @param {Function} func The function to defer.
-     * @param {...*} [arg] Arguments to invoke the function with.
-     * @returns {number} Returns the timer id.
-     * @example
-     *
-     * _.defer(function(text) { console.log(text); }, 'deferred');
-     * // logs 'deferred' after one or more milliseconds
-     */
-    function defer(func) {
-      if (!isFunction(func)) {
-        throw new TypeError;
-      }
-      var args = slice(arguments, 1);
-      return setTimeout(function() { func.apply(undefined, args); }, 1);
-    }
-
-    /**
-     * Executes the `func` function after `wait` milliseconds. Additional arguments
-     * will be provided to `func` when it is invoked.
-     *
-     * @static
-     * @memberOf _
-     * @category Functions
-     * @param {Function} func The function to delay.
-     * @param {number} wait The number of milliseconds to delay execution.
-     * @param {...*} [arg] Arguments to invoke the function with.
-     * @returns {number} Returns the timer id.
-     * @example
-     *
-     * _.delay(function(text) { console.log(text); }, 1000, 'later');
-     * // => logs 'later' after one second
-     */
-    function delay(func, wait) {
-      if (!isFunction(func)) {
-        throw new TypeError;
-      }
-      var args = slice(arguments, 2);
-      return setTimeout(function() { func.apply(undefined, args); }, wait);
-    }
-
-    /**
-     * Creates a function that memoizes the result of `func`. If `resolver` is
-     * provided it will be used to determine the cache key for storing the result
-     * based on the arguments provided to the memoized function. By default, the
-     * first argument provided to the memoized function is used as the cache key.
-     * The `func` is executed with the `this` binding of the memoized function.
-     * The result cache is exposed as the `cache` property on the memoized function.
-     *
-     * @static
-     * @memberOf _
-     * @category Functions
-     * @param {Function} func The function to have its output memoized.
-     * @param {Function} [resolver] A function used to resolve the cache key.
-     * @returns {Function} Returns the new memoizing function.
-     * @example
-     *
-     * var fibonacci = _.memoize(function(n) {
-     *   return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
-     * });
-     *
-     * fibonacci(9)
-     * // => 34
-     *
-     * var data = {
-     *   'fred': { 'name': 'fred', 'age': 40 },
-     *   'pebbles': { 'name': 'pebbles', 'age': 1 }
-     * };
-     *
-     * // modifying the result cache
-     * var get = _.memoize(function(name) { return data[name]; }, _.identity);
-     * get('pebbles');
-     * // => { 'name': 'pebbles', 'age': 1 }
-     *
-     * get.cache.pebbles.name = 'penelope';
-     * get('pebbles');
-     * // => { 'name': 'penelope', 'age': 1 }
-     */
-    function memoize(func, resolver) {
-      if (!isFunction(func)) {
-        throw new TypeError;
-      }
-      var memoized = function() {
-        var cache = memoized.cache,
-            key = resolver ? resolver.apply(this, arguments) : keyPrefix + arguments[0];
-
-        return hasOwnProperty.call(cache, key)
-          ? cache[key]
-          : (cache[key] = func.apply(this, arguments));
-      }
-      memoized.cache = {};
-      return memoized;
-    }
-
-    /**
-     * Creates a function that is restricted to execute `func` once. Repeat calls to
-     * the function will return the value of the first call. The `func` is executed
-     * with the `this` binding of the created function.
-     *
-     * @static
-     * @memberOf _
-     * @category Functions
-     * @param {Function} func The function to restrict.
-     * @returns {Function} Returns the new restricted function.
-     * @example
-     *
-     * var initialize = _.once(createApplication);
-     * initialize();
-     * initialize();
-     * // `initialize` executes `createApplication` once
-     */
-    function once(func) {
-      var ran,
-          result;
-
-      if (!isFunction(func)) {
-        throw new TypeError;
-      }
-      return function() {
-        if (ran) {
-          return result;
-        }
-        ran = true;
-        result = func.apply(this, arguments);
-
-        // clear the `func` variable so the function may be garbage collected
-        func = null;
-        return result;
-      };
-    }
-
-    /**
-     * Creates a function that, when called, invokes `func` with any additional
-     * `partial` arguments prepended to those provided to the new function. This
-     * method is similar to `_.bind` except it does **not** alter the `this` binding.
-     *
-     * @static
-     * @memberOf _
-     * @category Functions
-     * @param {Function} func The function to partially apply arguments to.
-     * @param {...*} [arg] Arguments to be partially applied.
-     * @returns {Function} Returns the new partially applied function.
-     * @example
-     *
-     * var greet = function(greeting, name) { return greeting + ' ' + name; };
-     * var hi = _.partial(greet, 'hi');
-     * hi('fred');
-     * // => 'hi fred'
-     */
-    function partial(func) {
-      return createWrapper(func, 16, slice(arguments, 1));
-    }
-
-    /**
-     * This method is like `_.partial` except that `partial` arguments are
-     * appended to those provided to the new function.
-     *
-     * @static
-     * @memberOf _
-     * @category Functions
-     * @param {Function} func The function to partially apply arguments to.
-     * @param {...*} [arg] Arguments to be partially applied.
-     * @returns {Function} Returns the new partially applied function.
-     * @example
-     *
-     * var defaultsDeep = _.partialRight(_.merge, _.defaults);
-     *
-     * var options = {
-     *   'variable': 'data',
-     *   'imports': { 'jq': $ }
-     * };
-     *
-     * defaultsDeep(options, _.templateSettings);
-     *
-     * options.variable
-     * // => 'data'
-     *
-     * options.imports
-     * // => { '_': _, 'jq': $ }
-     */
-    function partialRight(func) {
-      return createWrapper(func, 32, null, slice(arguments, 1));
-    }
-
-    /**
-     * Creates a function that, when executed, will only call the `func` function
-     * at most once per every `wait` milliseconds. Provide an options object to
-     * indicate that `func` should be invoked on the leading and/or trailing edge
-     * of the `wait` timeout. Subsequent calls to the throttled function will
-     * return the result of the last `func` call.
-     *
-     * Note: If `leading` and `trailing` options are `true` `func` will be called
-     * on the trailing edge of the timeout only if the the throttled function is
-     * invoked more than once during the `wait` timeout.
-     *
-     * @static
-     * @memberOf _
-     * @category Functions
-     * @param {Function} func The function to throttle.
-     * @param {number} wait The number of milliseconds to throttle executions to.
-     * @param {Object} [options] The options object.
-     * @param {boolean} [options.leading=true] Specify execution on the leading edge of the timeout.
-     * @param {boolean} [options.trailing=true] Specify execution on the trailing edge of the timeout.
-     * @returns {Function} Returns the new throttled function.
-     * @example
-     *
-     * // avoid excessively updating the position while scrolling
-     * var throttled = _.throttle(updatePosition, 100);
-     * jQuery(window).on('scroll', throttled);
-     *
-     * // execute `renewToken` when the click event is fired, but not more than once every 5 minutes
-     * jQuery('.interactive').on('click', _.throttle(renewToken, 300000, {
-     *   'trailing': false
-     * }));
-     */
-    function throttle(func, wait, options) {
-      var leading = true,
-          trailing = true;
-
-      if (!isFunction(func)) {
-        throw new TypeError;
-      }
-      if (options === false) {
-        leading = false;
-      } else if (isObject(options)) {
-        leading = 'leading' in options ? options.leading : leading;
-        trailing = 'trailing' in options ? options.trailing : trailing;
-      }
-      debounceOptions.leading = leading;
-      debounceOptions.maxWait = wait;
-      debounceOptions.trailing = trailing;
-
-      return debounce(func, wait, debounceOptions);
-    }
-
-    /**
-     * Creates a function that provides `value` to the wrapper function as its
-     * first argument. Additional arguments provided to the function are appended
-     * to those provided to the wrapper function. The wrapper is executed with
-     * the `this` binding of the created function.
-     *
-     * @static
-     * @memberOf _
-     * @category Functions
-     * @param {*} value The value to wrap.
-     * @param {Function} wrapper The wrapper function.
-     * @returns {Function} Returns the new function.
-     * @example
-     *
-     * var p = _.wrap(_.escape, function(func, text) {
-     *   return '<p>' + func(text) + '</p>';
-     * });
-     *
-     * p('Fred, Wilma, & Pebbles');
-     * // => '<p>Fred, Wilma, &amp; Pebbles</p>'
-     */
-    function wrap(value, wrapper) {
-      return createWrapper(wrapper, 16, [value]);
-    }
-
-    /*--------------------------------------------------------------------------*/
-
-    /**
-     * Creates a function that returns `value`.
-     *
-     * @static
-     * @memberOf _
-     * @category Utilities
-     * @param {*} value The value to return from the new function.
-     * @returns {Function} Returns the new function.
-     * @example
-     *
-     * var object = { 'name': 'fred' };
-     * var getter = _.constant(object);
-     * getter() === object;
-     * // => true
-     */
-    function constant(value) {
-      return function() {
-        return value;
-      };
-    }
-
-    /**
-     * Produces a callback bound to an optional `thisArg`. If `func` is a property
-     * name the created callback will return the property value for a given element.
-     * If `func` is an object the created callback will return `true` for elements
-     * that contain the equivalent object properties, otherwise it will return `false`.
-     *
-     * @static
-     * @memberOf _
-     * @category Utilities
-     * @param {*} [func=identity] The value to convert to a callback.
-     * @param {*} [thisArg] The `this` binding of the created callback.
-     * @param {number} [argCount] The number of arguments the callback accepts.
-     * @returns {Function} Returns a callback function.
-     * @example
-     *
-     * var characters = [
-     *   { 'name': 'barney', 'age': 36 },
-     *   { 'name': 'fred',   'age': 40 }
-     * ];
-     *
-     * // wrap to create custom callback shorthands
-     * _.createCallback = _.wrap(_.createCallback, function(func, callback, thisArg) {
-     *   var match = /^(.+?)__([gl]t)(.+)$/.exec(callback);
-     *   return !match ? func(callback, thisArg) : function(object) {
-     *     return match[2] == 'gt' ? object[match[1]] > match[3] : object[match[1]] < match[3];
-     *   };
-     * });
-     *
-     * _.filter(characters, 'age__gt38');
-     * // => [{ 'name': 'fred', 'age': 40 }]
-     */
-    function createCallback(func, thisArg, argCount) {
-      var type = typeof func;
-      if (func == null || type == 'function') {
-        return baseCreateCallback(func, thisArg, argCount);
-      }
-      // handle "_.pluck" style callback shorthands
-      if (type != 'object') {
-        return property(func);
-      }
-      var props = keys(func),
-          key = props[0],
-          a = func[key];
-
-      // handle "_.where" style callback shorthands
-      if (props.length == 1 && a === a && !isObject(a)) {
-        // fast path the common case of providing an object with a single
-        // property containing a primitive value
-        return function(object) {
-          var b = object[key];
-          return a === b && (a !== 0 || (1 / a == 1 / b));
-        };
-      }
-      return function(object) {
-        var length = props.length,
-            result = false;
-
-        while (length--) {
-          if (!(result = baseIsEqual(object[props[length]], func[props[length]], null, true))) {
-            break;
-          }
-        }
-        return result;
-      };
-    }
-
-    /**
-     * Converts the characters `&`, `<`, `>`, `"`, and `'` in `string` to their
-     * corresponding HTML entities.
-     *
-     * @static
-     * @memberOf _
-     * @category Utilities
-     * @param {string} string The string to escape.
-     * @returns {string} Returns the escaped string.
-     * @example
-     *
-     * _.escape('Fred, Wilma, & Pebbles');
-     * // => 'Fred, Wilma, &amp; Pebbles'
-     */
-    function escape(string) {
-      return string == null ? '' : String(string).replace(reUnescapedHtml, escapeHtmlChar);
-    }
-
-    /**
-     * This method returns the first argument provided to it.
-     *
-     * @static
-     * @memberOf _
-     * @category Utilities
-     * @param {*} value Any value.
-     * @returns {*} Returns `value`.
-     * @example
-     *
-     * var object = { 'name': 'fred' };
-     * _.identity(object) === object;
-     * // => true
-     */
-    function identity(value) {
-      return value;
-    }
-
-    /**
-     * Adds function properties of a source object to the destination object.
-     * If `object` is a function methods will be added to its prototype as well.
-     *
-     * @static
-     * @memberOf _
-     * @category Utilities
-     * @param {Function|Object} [object=lodash] object The destination object.
-     * @param {Object} source The object of functions to add.
-     * @param {Object} [options] The options object.
-     * @param {boolean} [options.chain=true] Specify whether the functions added are chainable.
-     * @example
-     *
-     * function capitalize(string) {
-     *   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-     * }
-     *
-     * _.mixin({ 'capitalize': capitalize });
-     * _.capitalize('fred');
-     * // => 'Fred'
-     *
-     * _('fred').capitalize().value();
-     * // => 'Fred'
-     *
-     * _.mixin({ 'capitalize': capitalize }, { 'chain': false });
-     * _('fred').capitalize();
-     * // => 'Fred'
-     */
-    function mixin(object, source, options) {
-      var chain = true,
-          methodNames = source && functions(source);
-
-      if (!source || (!options && !methodNames.length)) {
-        if (options == null) {
-          options = source;
-        }
-        ctor = lodashWrapper;
-        source = object;
-        object = lodash;
-        methodNames = functions(source);
-      }
-      if (options === false) {
-        chain = false;
-      } else if (isObject(options) && 'chain' in options) {
-        chain = options.chain;
-      }
-      var ctor = object,
-          isFunc = isFunction(ctor);
-
-      forEach(methodNames, function(methodName) {
-        var func = object[methodName] = source[methodName];
-        if (isFunc) {
-          ctor.prototype[methodName] = function() {
-            var chainAll = this.__chain__,
-                value = this.__wrapped__,
-                args = [value];
-
-            push.apply(args, arguments);
-            var result = func.apply(object, args);
-            if (chain || chainAll) {
-              if (value === result && isObject(result)) {
-                return this;
-              }
-              result = new ctor(result);
-              result.__chain__ = chainAll;
-            }
-            return result;
-          };
-        }
-      });
-    }
-
-    /**
-     * Reverts the '_' variable to its previous value and returns a reference to
-     * the `lodash` function.
-     *
-     * @static
-     * @memberOf _
-     * @category Utilities
-     * @returns {Function} Returns the `lodash` function.
-     * @example
-     *
-     * var lodash = _.noConflict();
-     */
-    function noConflict() {
-      context._ = oldDash;
-      return this;
-    }
-
-    /**
-     * A no-operation function.
-     *
-     * @static
-     * @memberOf _
-     * @category Utilities
-     * @example
-     *
-     * var object = { 'name': 'fred' };
-     * _.noop(object) === undefined;
-     * // => true
-     */
-    function noop() {
-      // no operation performed
-    }
-
-    /**
-     * Gets the number of milliseconds that have elapsed since the Unix epoch
-     * (1 January 1970 00:00:00 UTC).
-     *
-     * @static
-     * @memberOf _
-     * @category Utilities
-     * @example
-     *
-     * var stamp = _.now();
-     * _.defer(function() { console.log(_.now() - stamp); });
-     * // => logs the number of milliseconds it took for the deferred function to be called
-     */
-    var now = isNative(now = Date.now) && now || function() {
-      return new Date().getTime();
-    };
-
-    /**
-     * Converts the given value into an integer of the specified radix.
-     * If `radix` is `undefined` or `0` a `radix` of `10` is used unless the
-     * `value` is a hexadecimal, in which case a `radix` of `16` is used.
-     *
-     * Note: This method avoids differences in native ES3 and ES5 `parseInt`
-     * implementations. See http://es5.github.io/#E.
-     *
-     * @static
-     * @memberOf _
-     * @category Utilities
-     * @param {string} value The value to parse.
-     * @param {number} [radix] The radix used to interpret the value to parse.
-     * @returns {number} Returns the new integer value.
-     * @example
-     *
-     * _.parseInt('08');
-     * // => 8
-     */
-    var parseInt = nativeParseInt(whitespace + '08') == 8 ? nativeParseInt : function(value, radix) {
-      // Firefox < 21 and Opera < 15 follow the ES3 specified implementation of `parseInt`
-      return nativeParseInt(isString(value) ? value.replace(reLeadingSpacesAndZeros, '') : value, radix || 0);
-    };
-
-    /**
-     * Creates a "_.pluck" style function, which returns the `key` value of a
-     * given object.
-     *
-     * @static
-     * @memberOf _
-     * @category Utilities
-     * @param {string} key The name of the property to retrieve.
-     * @returns {Function} Returns the new function.
-     * @example
-     *
-     * var characters = [
-     *   { 'name': 'fred',   'age': 40 },
-     *   { 'name': 'barney', 'age': 36 }
-     * ];
-     *
-     * var getName = _.property('name');
-     *
-     * _.map(characters, getName);
-     * // => ['barney', 'fred']
-     *
-     * _.sortBy(characters, getName);
-     * // => [{ 'name': 'barney', 'age': 36 }, { 'name': 'fred',   'age': 40 }]
-     */
-    function property(key) {
-      return function(object) {
-        return object[key];
-      };
-    }
-
-    /**
-     * Produces a random number between `min` and `max` (inclusive). If only one
-     * argument is provided a number between `0` and the given number will be
-     * returned. If `floating` is truey or either `min` or `max` are floats a
-     * floating-point number will be returned instead of an integer.
-     *
-     * @static
-     * @memberOf _
-     * @category Utilities
-     * @param {number} [min=0] The minimum possible value.
-     * @param {number} [max=1] The maximum possible value.
-     * @param {boolean} [floating=false] Specify returning a floating-point number.
-     * @returns {number} Returns a random number.
-     * @example
-     *
-     * _.random(0, 5);
-     * // => an integer between 0 and 5
-     *
-     * _.random(5);
-     * // => also an integer between 0 and 5
-     *
-     * _.random(5, true);
-     * // => a floating-point number between 0 and 5
-     *
-     * _.random(1.2, 5.2);
-     * // => a floating-point number between 1.2 and 5.2
-     */
-    function random(min, max, floating) {
-      var noMin = min == null,
-          noMax = max == null;
-
-      if (floating == null) {
-        if (typeof min == 'boolean' && noMax) {
-          floating = min;
-          min = 1;
-        }
-        else if (!noMax && typeof max == 'boolean') {
-          floating = max;
-          noMax = true;
-        }
-      }
-      if (noMin && noMax) {
-        max = 1;
-      }
-      min = +min || 0;
-      if (noMax) {
-        max = min;
-        min = 0;
-      } else {
-        max = +max || 0;
-      }
-      if (floating || min % 1 || max % 1) {
-        var rand = nativeRandom();
-        return nativeMin(min + (rand * (max - min + parseFloat('1e-' + ((rand +'').length - 1)))), max);
-      }
-      return baseRandom(min, max);
-    }
-
-    /**
-     * Resolves the value of property `key` on `object`. If `key` is a function
-     * it will be invoked with the `this` binding of `object` and its result returned,
-     * else the property value is returned. If `object` is falsey then `undefined`
-     * is returned.
-     *
-     * @static
-     * @memberOf _
-     * @category Utilities
-     * @param {Object} object The object to inspect.
-     * @param {string} key The name of the property to resolve.
-     * @returns {*} Returns the resolved value.
-     * @example
-     *
-     * var object = {
-     *   'cheese': 'crumpets',
-     *   'stuff': function() {
-     *     return 'nonsense';
-     *   }
-     * };
-     *
-     * _.result(object, 'cheese');
-     * // => 'crumpets'
-     *
-     * _.result(object, 'stuff');
-     * // => 'nonsense'
-     */
-    function result(object, key) {
-      if (object) {
-        var value = object[key];
-        return isFunction(value) ? object[key]() : value;
-      }
-    }
-
-    /**
-     * A micro-templating method that handles arbitrary delimiters, preserves
-     * whitespace, and correctly escapes quotes within interpolated code.
-     *
-     * Note: In the development build, `_.template` utilizes sourceURLs for easier
-     * debugging. See http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl
-     *
-     * For more information on precompiling templates see:
-     * http://lodash.com/custom-builds
-     *
-     * For more information on Chrome extension sandboxes see:
-     * http://developer.chrome.com/stable/extensions/sandboxingEval.html
-     *
-     * @static
-     * @memberOf _
-     * @category Utilities
-     * @param {string} text The template text.
-     * @param {Object} data The data object used to populate the text.
-     * @param {Object} [options] The options object.
-     * @param {RegExp} [options.escape] The "escape" delimiter.
-     * @param {RegExp} [options.evaluate] The "evaluate" delimiter.
-     * @param {Object} [options.imports] An object to import into the template as local variables.
-     * @param {RegExp} [options.interpolate] The "interpolate" delimiter.
-     * @param {string} [sourceURL] The sourceURL of the template's compiled source.
-     * @param {string} [variable] The data object variable name.
-     * @returns {Function|string} Returns a compiled function when no `data` object
-     *  is given, else it returns the interpolated text.
-     * @example
-     *
-     * // using the "interpolate" delimiter to create a compiled template
-     * var compiled = _.template('hello <%= name %>');
-     * compiled({ 'name': 'fred' });
-     * // => 'hello fred'
-     *
-     * // using the "escape" delimiter to escape HTML in data property values
-     * _.template('<b><%- value %></b>', { 'value': '<script>' });
-     * // => '<b>&lt;script&gt;</b>'
-     *
-     * // using the "evaluate" delimiter to generate HTML
-     * var list = '<% _.forEach(people, function(name) { %><li><%- name %></li><% }); %>';
-     * _.template(list, { 'people': ['fred', 'barney'] });
-     * // => '<li>fred</li><li>barney</li>'
-     *
-     * // using the ES6 delimiter as an alternative to the default "interpolate" delimiter
-     * _.template('hello ${ name }', { 'name': 'pebbles' });
-     * // => 'hello pebbles'
-     *
-     * // using the internal `print` function in "evaluate" delimiters
-     * _.template('<% print("hello " + name); %>!', { 'name': 'barney' });
-     * // => 'hello barney!'
-     *
-     * // using a custom template delimiters
-     * _.templateSettings = {
-     *   'interpolate': /{{([\s\S]+?)}}/g
-     * };
-     *
-     * _.template('hello {{ name }}!', { 'name': 'mustache' });
-     * // => 'hello mustache!'
-     *
-     * // using the `imports` option to import jQuery
-     * var list = '<% jq.each(people, function(name) { %><li><%- name %></li><% }); %>';
-     * _.template(list, { 'people': ['fred', 'barney'] }, { 'imports': { 'jq': jQuery } });
-     * // => '<li>fred</li><li>barney</li>'
-     *
-     * // using the `sourceURL` option to specify a custom sourceURL for the template
-     * var compiled = _.template('hello <%= name %>', null, { 'sourceURL': '/basic/greeting.jst' });
-     * compiled(data);
-     * // => find the source of "greeting.jst" under the Sources tab or Resources panel of the web inspector
-     *
-     * // using the `variable` option to ensure a with-statement isn't used in the compiled template
-     * var compiled = _.template('hi <%= data.name %>!', null, { 'variable': 'data' });
-     * compiled.source;
-     * // => function(data) {
-     *   var __t, __p = '', __e = _.escape;
-     *   __p += 'hi ' + ((__t = ( data.name )) == null ? '' : __t) + '!';
-     *   return __p;
-     * }
-     *
-     * // using the `source` property to inline compiled templates for meaningful
-     * // line numbers in error messages and a stack trace
-     * fs.writeFileSync(path.join(cwd, 'jst.js'), '\
-     *   var JST = {\
-     *     "main": ' + _.template(mainText).source + '\
-     *   };\
-     * ');
-     */
-    function template(text, data, options) {
-      // based on John Resig's `tmpl` implementation
-      // http://ejohn.org/blog/javascript-micro-templating/
-      // and Laura Doktorova's doT.js
-      // https://github.com/olado/doT
-      var settings = lodash.templateSettings;
-      text = String(text || '');
-
-      // avoid missing dependencies when `iteratorTemplate` is not defined
-      options = defaults({}, options, settings);
-
-      var imports = defaults({}, options.imports, settings.imports),
-          importsKeys = keys(imports),
-          importsValues = values(imports);
-
-      var isEvaluating,
-          index = 0,
-          interpolate = options.interpolate || reNoMatch,
-          source = "__p += '";
-
-      // compile the regexp to match each delimiter
-      var reDelimiters = RegExp(
-        (options.escape || reNoMatch).source + '|' +
-        interpolate.source + '|' +
-        (interpolate === reInterpolate ? reEsTemplate : reNoMatch).source + '|' +
-        (options.evaluate || reNoMatch).source + '|$'
-      , 'g');
-
-      text.replace(reDelimiters, function(match, escapeValue, interpolateValue, esTemplateValue, evaluateValue, offset) {
-        interpolateValue || (interpolateValue = esTemplateValue);
-
-        // escape characters that cannot be included in string literals
-        source += text.slice(index, offset).replace(reUnescapedString, escapeStringChar);
-
-        // replace delimiters with snippets
-        if (escapeValue) {
-          source += "' +\n__e(" + escapeValue + ") +\n'";
-        }
-        if (evaluateValue) {
-          isEvaluating = true;
-          source += "';\n" + evaluateValue + ";\n__p += '";
-        }
-        if (interpolateValue) {
-          source += "' +\n((__t = (" + interpolateValue + ")) == null ? '' : __t) +\n'";
-        }
-        index = offset + match.length;
-
-        // the JS engine embedded in Adobe products requires returning the `match`
-        // string in order to produce the correct `offset` value
-        return match;
-      });
-
-      source += "';\n";
-
-      // if `variable` is not specified, wrap a with-statement around the generated
-      // code to add the data object to the top of the scope chain
-      var variable = options.variable,
-          hasVariable = variable;
-
-      if (!hasVariable) {
-        variable = 'obj';
-        source = 'with (' + variable + ') {\n' + source + '\n}\n';
-      }
-      // cleanup code by stripping empty strings
-      source = (isEvaluating ? source.replace(reEmptyStringLeading, '') : source)
-        .replace(reEmptyStringMiddle, '$1')
-        .replace(reEmptyStringTrailing, '$1;');
-
-      // frame code as the function body
-      source = 'function(' + variable + ') {\n' +
-        (hasVariable ? '' : variable + ' || (' + variable + ' = {});\n') +
-        "var __t, __p = '', __e = _.escape" +
-        (isEvaluating
-          ? ', __j = Array.prototype.join;\n' +
-            "function print() { __p += __j.call(arguments, '') }\n"
-          : ';\n'
-        ) +
-        source +
-        'return __p\n}';
-
-      // Use a sourceURL for easier debugging.
-      // http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl
-      var sourceURL = '\n/*\n//# sourceURL=' + (options.sourceURL || '/lodash/template/source[' + (templateCounter++) + ']') + '\n*/';
-
-      try {
-        var result = Function(importsKeys, 'return ' + source + sourceURL).apply(undefined, importsValues);
-      } catch(e) {
-        e.source = source;
-        throw e;
-      }
-      if (data) {
-        return result(data);
-      }
-      // provide the compiled function's source by its `toString` method, in
-      // supported environments, or the `source` property as a convenience for
-      // inlining compiled templates during the build process
-      result.source = source;
-      return result;
-    }
-
-    /**
-     * Executes the callback `n` times, returning an array of the results
-     * of each callback execution. The callback is bound to `thisArg` and invoked
-     * with one argument; (index).
-     *
-     * @static
-     * @memberOf _
-     * @category Utilities
-     * @param {number} n The number of times to execute the callback.
-     * @param {Function} callback The function called per iteration.
-     * @param {*} [thisArg] The `this` binding of `callback`.
-     * @returns {Array} Returns an array of the results of each `callback` execution.
-     * @example
-     *
-     * var diceRolls = _.times(3, _.partial(_.random, 1, 6));
-     * // => [3, 6, 4]
-     *
-     * _.times(3, function(n) { mage.castSpell(n); });
-     * // => calls `mage.castSpell(n)` three times, passing `n` of `0`, `1`, and `2` respectively
-     *
-     * _.times(3, function(n) { this.cast(n); }, mage);
-     * // => also calls `mage.castSpell(n)` three times
-     */
-    function times(n, callback, thisArg) {
-      n = (n = +n) > -1 ? n : 0;
-      var index = -1,
-          result = Array(n);
-
-      callback = baseCreateCallback(callback, thisArg, 1);
-      while (++index < n) {
-        result[index] = callback(index);
-      }
-      return result;
-    }
-
-    /**
-     * The inverse of `_.escape` this method converts the HTML entities
-     * `&amp;`, `&lt;`, `&gt;`, `&quot;`, and `&#39;` in `string` to their
-     * corresponding characters.
-     *
-     * @static
-     * @memberOf _
-     * @category Utilities
-     * @param {string} string The string to unescape.
-     * @returns {string} Returns the unescaped string.
-     * @example
-     *
-     * _.unescape('Fred, Barney &amp; Pebbles');
-     * // => 'Fred, Barney & Pebbles'
-     */
-    function unescape(string) {
-      return string == null ? '' : String(string).replace(reEscapedHtml, unescapeHtmlChar);
-    }
-
-    /**
-     * Generates a unique ID. If `prefix` is provided the ID will be appended to it.
-     *
-     * @static
-     * @memberOf _
-     * @category Utilities
-     * @param {string} [prefix] The value to prefix the ID with.
-     * @returns {string} Returns the unique ID.
-     * @example
-     *
-     * _.uniqueId('contact_');
-     * // => 'contact_104'
-     *
-     * _.uniqueId();
-     * // => '105'
-     */
-    function uniqueId(prefix) {
-      var id = ++idCounter;
-      return String(prefix == null ? '' : prefix) + id;
-    }
-
-    /*--------------------------------------------------------------------------*/
-
-    /**
-     * Creates a `lodash` object that wraps the given value with explicit
-     * method chaining enabled.
-     *
-     * @static
-     * @memberOf _
-     * @category Chaining
-     * @param {*} value The value to wrap.
-     * @returns {Object} Returns the wrapper object.
-     * @example
-     *
-     * var characters = [
-     *   { 'name': 'barney',  'age': 36 },
-     *   { 'name': 'fred',    'age': 40 },
-     *   { 'name': 'pebbles', 'age': 1 }
-     * ];
-     *
-     * var youngest = _.chain(characters)
-     *     .sortBy('age')
-     *     .map(function(chr) { return chr.name + ' is ' + chr.age; })
-     *     .first()
-     *     .value();
-     * // => 'pebbles is 1'
-     */
-    function chain(value) {
-      value = new lodashWrapper(value);
-      value.__chain__ = true;
-      return value;
-    }
-
-    /**
-     * Invokes `interceptor` with the `value` as the first argument and then
-     * returns `value`. The purpose of this method is to "tap into" a method
-     * chain in order to perform operations on intermediate results within
-     * the chain.
-     *
-     * @static
-     * @memberOf _
-     * @category Chaining
-     * @param {*} value The value to provide to `interceptor`.
-     * @param {Function} interceptor The function to invoke.
-     * @returns {*} Returns `value`.
-     * @example
-     *
-     * _([1, 2, 3, 4])
-     *  .tap(function(array) { array.pop(); })
-     *  .reverse()
-     *  .value();
-     * // => [3, 2, 1]
-     */
-    function tap(value, interceptor) {
-      interceptor(value);
-      return value;
-    }
-
-    /**
-     * Enables explicit method chaining on the wrapper object.
-     *
-     * @name chain
-     * @memberOf _
-     * @category Chaining
-     * @returns {*} Returns the wrapper object.
-     * @example
-     *
-     * var characters = [
-     *   { 'name': 'barney', 'age': 36 },
-     *   { 'name': 'fred',   'age': 40 }
-     * ];
-     *
-     * // without explicit chaining
-     * _(characters).first();
-     * // => { 'name': 'barney', 'age': 36 }
-     *
-     * // with explicit chaining
-     * _(characters).chain()
-     *   .first()
-     *   .pick('age')
-     *   .value();
-     * // => { 'age': 36 }
-     */
-    function wrapperChain() {
-      this.__chain__ = true;
-      return this;
-    }
-
-    /**
-     * Produces the `toString` result of the wrapped value.
-     *
-     * @name toString
-     * @memberOf _
-     * @category Chaining
-     * @returns {string} Returns the string result.
-     * @example
-     *
-     * _([1, 2, 3]).toString();
-     * // => '1,2,3'
-     */
-    function wrapperToString() {
-      return String(this.__wrapped__);
-    }
-
-    /**
-     * Extracts the wrapped value.
-     *
-     * @name valueOf
-     * @memberOf _
-     * @alias value
-     * @category Chaining
-     * @returns {*} Returns the wrapped value.
-     * @example
-     *
-     * _([1, 2, 3]).valueOf();
-     * // => [1, 2, 3]
-     */
-    function wrapperValueOf() {
-      return this.__wrapped__;
-    }
-
-    /*--------------------------------------------------------------------------*/
-
-    // add functions that return wrapped values when chaining
-    lodash.after = after;
-    lodash.assign = assign;
-    lodash.at = at;
-    lodash.bind = bind;
-    lodash.bindAll = bindAll;
-    lodash.bindKey = bindKey;
-    lodash.chain = chain;
-    lodash.compact = compact;
-    lodash.compose = compose;
-    lodash.constant = constant;
-    lodash.countBy = countBy;
-    lodash.create = create;
-    lodash.createCallback = createCallback;
-    lodash.curry = curry;
-    lodash.debounce = debounce;
-    lodash.defaults = defaults;
-    lodash.defer = defer;
-    lodash.delay = delay;
-    lodash.difference = difference;
-    lodash.filter = filter;
-    lodash.flatten = flatten;
-    lodash.forEach = forEach;
-    lodash.forEachRight = forEachRight;
-    lodash.forIn = forIn;
-    lodash.forInRight = forInRight;
-    lodash.forOwn = forOwn;
-    lodash.forOwnRight = forOwnRight;
-    lodash.functions = functions;
-    lodash.groupBy = groupBy;
-    lodash.indexBy = indexBy;
-    lodash.initial = initial;
-    lodash.intersection = intersection;
-    lodash.invert = invert;
-    lodash.invoke = invoke;
-    lodash.keys = keys;
-    lodash.map = map;
-    lodash.mapValues = mapValues;
-    lodash.max = max;
-    lodash.memoize = memoize;
-    lodash.merge = merge;
-    lodash.min = min;
-    lodash.omit = omit;
-    lodash.once = once;
-    lodash.pairs = pairs;
-    lodash.partial = partial;
-    lodash.partialRight = partialRight;
-    lodash.pick = pick;
-    lodash.pluck = pluck;
-    lodash.property = property;
-    lodash.pull = pull;
-    lodash.range = range;
-    lodash.reject = reject;
-    lodash.remove = remove;
-    lodash.rest = rest;
-    lodash.shuffle = shuffle;
-    lodash.sortBy = sortBy;
-    lodash.tap = tap;
-    lodash.throttle = throttle;
-    lodash.times = times;
-    lodash.toArray = toArray;
-    lodash.transform = transform;
-    lodash.union = union;
-    lodash.uniq = uniq;
-    lodash.values = values;
-    lodash.where = where;
-    lodash.without = without;
-    lodash.wrap = wrap;
-    lodash.xor = xor;
-    lodash.zip = zip;
-    lodash.zipObject = zipObject;
-
-    // add aliases
-    lodash.collect = map;
-    lodash.drop = rest;
-    lodash.each = forEach;
-    lodash.eachRight = forEachRight;
-    lodash.extend = assign;
-    lodash.methods = functions;
-    lodash.object = zipObject;
-    lodash.select = filter;
-    lodash.tail = rest;
-    lodash.unique = uniq;
-    lodash.unzip = zip;
-
-    // add functions to `lodash.prototype`
-    mixin(lodash);
-
-    /*--------------------------------------------------------------------------*/
-
-    // add functions that return unwrapped values when chaining
-    lodash.clone = clone;
-    lodash.cloneDeep = cloneDeep;
-    lodash.contains = contains;
-    lodash.escape = escape;
-    lodash.every = every;
-    lodash.find = find;
-    lodash.findIndex = findIndex;
-    lodash.findKey = findKey;
-    lodash.findLast = findLast;
-    lodash.findLastIndex = findLastIndex;
-    lodash.findLastKey = findLastKey;
-    lodash.has = has;
-    lodash.identity = identity;
-    lodash.indexOf = indexOf;
-    lodash.isArguments = isArguments;
-    lodash.isArray = isArray;
-    lodash.isBoolean = isBoolean;
-    lodash.isDate = isDate;
-    lodash.isElement = isElement;
-    lodash.isEmpty = isEmpty;
-    lodash.isEqual = isEqual;
-    lodash.isFinite = isFinite;
-    lodash.isFunction = isFunction;
-    lodash.isNaN = isNaN;
-    lodash.isNull = isNull;
-    lodash.isNumber = isNumber;
-    lodash.isObject = isObject;
-    lodash.isPlainObject = isPlainObject;
-    lodash.isRegExp = isRegExp;
-    lodash.isString = isString;
-    lodash.isUndefined = isUndefined;
-    lodash.lastIndexOf = lastIndexOf;
-    lodash.mixin = mixin;
-    lodash.noConflict = noConflict;
-    lodash.noop = noop;
-    lodash.now = now;
-    lodash.parseInt = parseInt;
-    lodash.random = random;
-    lodash.reduce = reduce;
-    lodash.reduceRight = reduceRight;
-    lodash.result = result;
-    lodash.runInContext = runInContext;
-    lodash.size = size;
-    lodash.some = some;
-    lodash.sortedIndex = sortedIndex;
-    lodash.template = template;
-    lodash.unescape = unescape;
-    lodash.uniqueId = uniqueId;
-
-    // add aliases
-    lodash.all = every;
-    lodash.any = some;
-    lodash.detect = find;
-    lodash.findWhere = find;
-    lodash.foldl = reduce;
-    lodash.foldr = reduceRight;
-    lodash.include = contains;
-    lodash.inject = reduce;
-
-    mixin(function() {
-      var source = {}
-      forOwn(lodash, function(func, methodName) {
-        if (!lodash.prototype[methodName]) {
-          source[methodName] = func;
-        }
-      });
-      return source;
-    }(), false);
-
-    /*--------------------------------------------------------------------------*/
-
-    // add functions capable of returning wrapped and unwrapped values when chaining
-    lodash.first = first;
-    lodash.last = last;
-    lodash.sample = sample;
-
-    // add aliases
-    lodash.take = first;
-    lodash.head = first;
-
-    forOwn(lodash, function(func, methodName) {
-      var callbackable = methodName !== 'sample';
-      if (!lodash.prototype[methodName]) {
-        lodash.prototype[methodName]= function(n, guard) {
-          var chainAll = this.__chain__,
-              result = func(this.__wrapped__, n, guard);
-
-          return !chainAll && (n == null || (guard && !(callbackable && typeof n == 'function')))
-            ? result
-            : new lodashWrapper(result, chainAll);
-        };
-      }
-    });
-
-    /*--------------------------------------------------------------------------*/
-
-    /**
-     * The semantic version number.
-     *
-     * @static
-     * @memberOf _
-     * @type string
-     */
-    lodash.VERSION = '2.4.1';
-
-    // add "Chaining" functions to the wrapper
-    lodash.prototype.chain = wrapperChain;
-    lodash.prototype.toString = wrapperToString;
-    lodash.prototype.value = wrapperValueOf;
-    lodash.prototype.valueOf = wrapperValueOf;
-
-    // add `Array` functions that return unwrapped values
-    forEach(['join', 'pop', 'shift'], function(methodName) {
-      var func = arrayRef[methodName];
-      lodash.prototype[methodName] = function() {
-        var chainAll = this.__chain__,
-            result = func.apply(this.__wrapped__, arguments);
-
-        return chainAll
-          ? new lodashWrapper(result, chainAll)
-          : result;
-      };
-    });
-
-    // add `Array` functions that return the existing wrapped value
-    forEach(['push', 'reverse', 'sort', 'unshift'], function(methodName) {
-      var func = arrayRef[methodName];
-      lodash.prototype[methodName] = function() {
-        func.apply(this.__wrapped__, arguments);
-        return this;
-      };
-    });
-
-    // add `Array` functions that return new wrapped values
-    forEach(['concat', 'slice', 'splice'], function(methodName) {
-      var func = arrayRef[methodName];
-      lodash.prototype[methodName] = function() {
-        return new lodashWrapper(func.apply(this.__wrapped__, arguments), this.__chain__);
-      };
-    });
-
-    return lodash;
-  }
-
-  /*--------------------------------------------------------------------------*/
-
-  // expose Lo-Dash
-  var _ = runInContext();
-
-  // some AMD build optimizers like r.js check for condition patterns like the following:
-  if (typeof define == 'function' && typeof define.amd == 'object' && define.amd) {
-    // Expose Lo-Dash to the global object even when an AMD loader is present in
-    // case Lo-Dash is loaded with a RequireJS shim config.
-    // See http://requirejs.org/docs/api.html#config-shim
-    root._ = _;
-
-    // define as an anonymous module so, through path mapping, it can be
-    // referenced as the "underscore" module
-    define(function() {
-      return _;
-    });
-  }
-  // check for `exports` after `define` in case a build optimizer adds an `exports` object
-  else if (freeExports && freeModule) {
-    // in Node.js or RingoJS
-    if (moduleExports) {
-      (freeModule.exports = _)._ = _;
-    }
-    // in Narwhal or Rhino -require
-    else {
-      freeExports._ = _;
-    }
-  }
-  else {
-    // in a browser or Rhino
-    root._ = _;
-  }
-}.call(this));
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/AutoFocusMixin.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/AutoFocusMixin.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -26310,7 +19549,7 @@ var AutoFocusMixin = {
 
 module.exports = AutoFocusMixin;
 
-},{"./focusNode":"/home/eric/repos/react-d3/node_modules/react/lib/focusNode.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/BeforeInputEventPlugin.js":[function(require,module,exports){
+},{"./focusNode":"/Users/yangwei/code/react-d3/node_modules/react/lib/focusNode.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/BeforeInputEventPlugin.js":[function(require,module,exports){
 /**
  * Copyright 2013 Facebook, Inc.
  * All rights reserved.
@@ -26532,7 +19771,7 @@ var BeforeInputEventPlugin = {
 
 module.exports = BeforeInputEventPlugin;
 
-},{"./EventConstants":"/home/eric/repos/react-d3/node_modules/react/lib/EventConstants.js","./EventPropagators":"/home/eric/repos/react-d3/node_modules/react/lib/EventPropagators.js","./ExecutionEnvironment":"/home/eric/repos/react-d3/node_modules/react/lib/ExecutionEnvironment.js","./SyntheticInputEvent":"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticInputEvent.js","./keyOf":"/home/eric/repos/react-d3/node_modules/react/lib/keyOf.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/CSSProperty.js":[function(require,module,exports){
+},{"./EventConstants":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventConstants.js","./EventPropagators":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventPropagators.js","./ExecutionEnvironment":"/Users/yangwei/code/react-d3/node_modules/react/lib/ExecutionEnvironment.js","./SyntheticInputEvent":"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticInputEvent.js","./keyOf":"/Users/yangwei/code/react-d3/node_modules/react/lib/keyOf.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/CSSProperty.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -26651,7 +19890,8 @@ var CSSProperty = {
 
 module.exports = CSSProperty;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/CSSPropertyOperations.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/CSSPropertyOperations.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -26687,7 +19927,7 @@ if (ExecutionEnvironment.canUseDOM) {
   }
 }
 
-if ("production" !== "development") {
+if ("production" !== process.env.NODE_ENV) {
   var warnedStyleNames = {};
 
   var warnHyphenatedStyleName = function(name) {
@@ -26696,7 +19936,7 @@ if ("production" !== "development") {
     }
 
     warnedStyleNames[name] = true;
-    ("production" !== "development" ? warning(
+    ("production" !== process.env.NODE_ENV ? warning(
       false,
       'Unsupported style property ' + name + '. Did you mean ' +
       camelizeStyleName(name) + '?'
@@ -26727,7 +19967,7 @@ var CSSPropertyOperations = {
       if (!styles.hasOwnProperty(styleName)) {
         continue;
       }
-      if ("production" !== "development") {
+      if ("production" !== process.env.NODE_ENV) {
         if (styleName.indexOf('-') > -1) {
           warnHyphenatedStyleName(styleName);
         }
@@ -26754,7 +19994,7 @@ var CSSPropertyOperations = {
       if (!styles.hasOwnProperty(styleName)) {
         continue;
       }
-      if ("production" !== "development") {
+      if ("production" !== process.env.NODE_ENV) {
         if (styleName.indexOf('-') > -1) {
           warnHyphenatedStyleName(styleName);
         }
@@ -26784,7 +20024,9 @@ var CSSPropertyOperations = {
 
 module.exports = CSSPropertyOperations;
 
-},{"./CSSProperty":"/home/eric/repos/react-d3/node_modules/react/lib/CSSProperty.js","./ExecutionEnvironment":"/home/eric/repos/react-d3/node_modules/react/lib/ExecutionEnvironment.js","./camelizeStyleName":"/home/eric/repos/react-d3/node_modules/react/lib/camelizeStyleName.js","./dangerousStyleValue":"/home/eric/repos/react-d3/node_modules/react/lib/dangerousStyleValue.js","./hyphenateStyleName":"/home/eric/repos/react-d3/node_modules/react/lib/hyphenateStyleName.js","./memoizeStringOnly":"/home/eric/repos/react-d3/node_modules/react/lib/memoizeStringOnly.js","./warning":"/home/eric/repos/react-d3/node_modules/react/lib/warning.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/CallbackQueue.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./CSSProperty":"/Users/yangwei/code/react-d3/node_modules/react/lib/CSSProperty.js","./ExecutionEnvironment":"/Users/yangwei/code/react-d3/node_modules/react/lib/ExecutionEnvironment.js","./camelizeStyleName":"/Users/yangwei/code/react-d3/node_modules/react/lib/camelizeStyleName.js","./dangerousStyleValue":"/Users/yangwei/code/react-d3/node_modules/react/lib/dangerousStyleValue.js","./hyphenateStyleName":"/Users/yangwei/code/react-d3/node_modules/react/lib/hyphenateStyleName.js","./memoizeStringOnly":"/Users/yangwei/code/react-d3/node_modules/react/lib/memoizeStringOnly.js","./warning":"/Users/yangwei/code/react-d3/node_modules/react/lib/warning.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/CallbackQueue.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -26845,7 +20087,7 @@ assign(CallbackQueue.prototype, {
     var callbacks = this._callbacks;
     var contexts = this._contexts;
     if (callbacks) {
-      ("production" !== "development" ? invariant(
+      ("production" !== process.env.NODE_ENV ? invariant(
         callbacks.length === contexts.length,
         "Mismatched list of contexts in callback queue"
       ) : invariant(callbacks.length === contexts.length));
@@ -26882,7 +20124,8 @@ PooledClass.addPoolingTo(CallbackQueue);
 
 module.exports = CallbackQueue;
 
-},{"./Object.assign":"/home/eric/repos/react-d3/node_modules/react/lib/Object.assign.js","./PooledClass":"/home/eric/repos/react-d3/node_modules/react/lib/PooledClass.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ChangeEventPlugin.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./Object.assign":"/Users/yangwei/code/react-d3/node_modules/react/lib/Object.assign.js","./PooledClass":"/Users/yangwei/code/react-d3/node_modules/react/lib/PooledClass.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ChangeEventPlugin.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -27264,7 +20507,7 @@ var ChangeEventPlugin = {
 
 module.exports = ChangeEventPlugin;
 
-},{"./EventConstants":"/home/eric/repos/react-d3/node_modules/react/lib/EventConstants.js","./EventPluginHub":"/home/eric/repos/react-d3/node_modules/react/lib/EventPluginHub.js","./EventPropagators":"/home/eric/repos/react-d3/node_modules/react/lib/EventPropagators.js","./ExecutionEnvironment":"/home/eric/repos/react-d3/node_modules/react/lib/ExecutionEnvironment.js","./ReactUpdates":"/home/eric/repos/react-d3/node_modules/react/lib/ReactUpdates.js","./SyntheticEvent":"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticEvent.js","./isEventSupported":"/home/eric/repos/react-d3/node_modules/react/lib/isEventSupported.js","./isTextInputElement":"/home/eric/repos/react-d3/node_modules/react/lib/isTextInputElement.js","./keyOf":"/home/eric/repos/react-d3/node_modules/react/lib/keyOf.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ClientReactRootIndex.js":[function(require,module,exports){
+},{"./EventConstants":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventConstants.js","./EventPluginHub":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventPluginHub.js","./EventPropagators":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventPropagators.js","./ExecutionEnvironment":"/Users/yangwei/code/react-d3/node_modules/react/lib/ExecutionEnvironment.js","./ReactUpdates":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactUpdates.js","./SyntheticEvent":"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticEvent.js","./isEventSupported":"/Users/yangwei/code/react-d3/node_modules/react/lib/isEventSupported.js","./isTextInputElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/isTextInputElement.js","./keyOf":"/Users/yangwei/code/react-d3/node_modules/react/lib/keyOf.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ClientReactRootIndex.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -27289,7 +20532,7 @@ var ClientReactRootIndex = {
 
 module.exports = ClientReactRootIndex;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/CompositionEventPlugin.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/CompositionEventPlugin.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -27548,7 +20791,8 @@ var CompositionEventPlugin = {
 
 module.exports = CompositionEventPlugin;
 
-},{"./EventConstants":"/home/eric/repos/react-d3/node_modules/react/lib/EventConstants.js","./EventPropagators":"/home/eric/repos/react-d3/node_modules/react/lib/EventPropagators.js","./ExecutionEnvironment":"/home/eric/repos/react-d3/node_modules/react/lib/ExecutionEnvironment.js","./ReactInputSelection":"/home/eric/repos/react-d3/node_modules/react/lib/ReactInputSelection.js","./SyntheticCompositionEvent":"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticCompositionEvent.js","./getTextContentAccessor":"/home/eric/repos/react-d3/node_modules/react/lib/getTextContentAccessor.js","./keyOf":"/home/eric/repos/react-d3/node_modules/react/lib/keyOf.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/DOMChildrenOperations.js":[function(require,module,exports){
+},{"./EventConstants":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventConstants.js","./EventPropagators":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventPropagators.js","./ExecutionEnvironment":"/Users/yangwei/code/react-d3/node_modules/react/lib/ExecutionEnvironment.js","./ReactInputSelection":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactInputSelection.js","./SyntheticCompositionEvent":"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticCompositionEvent.js","./getTextContentAccessor":"/Users/yangwei/code/react-d3/node_modules/react/lib/getTextContentAccessor.js","./keyOf":"/Users/yangwei/code/react-d3/node_modules/react/lib/keyOf.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/DOMChildrenOperations.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -27658,7 +20902,7 @@ var DOMChildrenOperations = {
         var updatedChild = update.parentNode.childNodes[updatedIndex];
         var parentID = update.parentID;
 
-        ("production" !== "development" ? invariant(
+        ("production" !== process.env.NODE_ENV ? invariant(
           updatedChild,
           'processUpdates(): Unable to find child %s of element. This ' +
           'probably means the DOM was unexpectedly mutated (e.g., by the ' +
@@ -27721,7 +20965,9 @@ var DOMChildrenOperations = {
 
 module.exports = DOMChildrenOperations;
 
-},{"./Danger":"/home/eric/repos/react-d3/node_modules/react/lib/Danger.js","./ReactMultiChildUpdateTypes":"/home/eric/repos/react-d3/node_modules/react/lib/ReactMultiChildUpdateTypes.js","./getTextContentAccessor":"/home/eric/repos/react-d3/node_modules/react/lib/getTextContentAccessor.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/DOMProperty.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./Danger":"/Users/yangwei/code/react-d3/node_modules/react/lib/Danger.js","./ReactMultiChildUpdateTypes":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactMultiChildUpdateTypes.js","./getTextContentAccessor":"/Users/yangwei/code/react-d3/node_modules/react/lib/getTextContentAccessor.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/DOMProperty.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -27795,7 +21041,7 @@ var DOMPropertyInjection = {
     }
 
     for (var propName in Properties) {
-      ("production" !== "development" ? invariant(
+      ("production" !== process.env.NODE_ENV ? invariant(
         !DOMProperty.isStandardName.hasOwnProperty(propName),
         'injectDOMPropertyConfig(...): You\'re trying to inject DOM property ' +
         '\'%s\' which has already been injected. You may be accidentally ' +
@@ -27844,21 +21090,21 @@ var DOMPropertyInjection = {
       DOMProperty.hasOverloadedBooleanValue[propName] =
         checkMask(propConfig, DOMPropertyInjection.HAS_OVERLOADED_BOOLEAN_VALUE);
 
-      ("production" !== "development" ? invariant(
+      ("production" !== process.env.NODE_ENV ? invariant(
         !DOMProperty.mustUseAttribute[propName] ||
           !DOMProperty.mustUseProperty[propName],
         'DOMProperty: Cannot require using both attribute and property: %s',
         propName
       ) : invariant(!DOMProperty.mustUseAttribute[propName] ||
         !DOMProperty.mustUseProperty[propName]));
-      ("production" !== "development" ? invariant(
+      ("production" !== process.env.NODE_ENV ? invariant(
         DOMProperty.mustUseProperty[propName] ||
           !DOMProperty.hasSideEffects[propName],
         'DOMProperty: Properties that have side effects must use property: %s',
         propName
       ) : invariant(DOMProperty.mustUseProperty[propName] ||
         !DOMProperty.hasSideEffects[propName]));
-      ("production" !== "development" ? invariant(
+      ("production" !== process.env.NODE_ENV ? invariant(
         !!DOMProperty.hasBooleanValue[propName] +
           !!DOMProperty.hasNumericValue[propName] +
           !!DOMProperty.hasOverloadedBooleanValue[propName] <= 1,
@@ -28018,7 +21264,9 @@ var DOMProperty = {
 
 module.exports = DOMProperty;
 
-},{"./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/DOMPropertyOperations.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/DOMPropertyOperations.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -28051,7 +21299,7 @@ var processAttributeNameAndPrefix = memoizeStringOnly(function(name) {
   return escapeTextForBrowser(name) + '="';
 });
 
-if ("production" !== "development") {
+if ("production" !== process.env.NODE_ENV) {
   var reactProps = {
     children: true,
     dangerouslySetInnerHTML: true,
@@ -28080,7 +21328,7 @@ if ("production" !== "development") {
 
     // For now, only warn when we have a suggested correction. This prevents
     // logging too much when using transferPropsTo.
-    ("production" !== "development" ? warning(
+    ("production" !== process.env.NODE_ENV ? warning(
       standardName == null,
       'Unknown DOM property ' + name + '. Did you mean ' + standardName + '?'
     ) : null);
@@ -28130,7 +21378,7 @@ var DOMPropertyOperations = {
       }
       return processAttributeNameAndPrefix(name) +
         escapeTextForBrowser(value) + '"';
-    } else if ("production" !== "development") {
+    } else if ("production" !== process.env.NODE_ENV) {
       warnUnknownProperty(name);
     }
     return null;
@@ -28172,7 +21420,7 @@ var DOMPropertyOperations = {
       } else {
         node.setAttribute(name, '' + value);
       }
-    } else if ("production" !== "development") {
+    } else if ("production" !== process.env.NODE_ENV) {
       warnUnknownProperty(name);
     }
   },
@@ -28204,7 +21452,7 @@ var DOMPropertyOperations = {
       }
     } else if (DOMProperty.isCustomAttribute(name)) {
       node.removeAttribute(name);
-    } else if ("production" !== "development") {
+    } else if ("production" !== process.env.NODE_ENV) {
       warnUnknownProperty(name);
     }
   }
@@ -28213,7 +21461,9 @@ var DOMPropertyOperations = {
 
 module.exports = DOMPropertyOperations;
 
-},{"./DOMProperty":"/home/eric/repos/react-d3/node_modules/react/lib/DOMProperty.js","./escapeTextForBrowser":"/home/eric/repos/react-d3/node_modules/react/lib/escapeTextForBrowser.js","./memoizeStringOnly":"/home/eric/repos/react-d3/node_modules/react/lib/memoizeStringOnly.js","./warning":"/home/eric/repos/react-d3/node_modules/react/lib/warning.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/Danger.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./DOMProperty":"/Users/yangwei/code/react-d3/node_modules/react/lib/DOMProperty.js","./escapeTextForBrowser":"/Users/yangwei/code/react-d3/node_modules/react/lib/escapeTextForBrowser.js","./memoizeStringOnly":"/Users/yangwei/code/react-d3/node_modules/react/lib/memoizeStringOnly.js","./warning":"/Users/yangwei/code/react-d3/node_modules/react/lib/warning.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/Danger.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -28267,7 +21517,7 @@ var Danger = {
    * @internal
    */
   dangerouslyRenderMarkup: function(markupList) {
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       ExecutionEnvironment.canUseDOM,
       'dangerouslyRenderMarkup(...): Cannot render markup in a worker ' +
       'thread. Make sure `window` and `document` are available globally ' +
@@ -28278,7 +21528,7 @@ var Danger = {
     var markupByNodeName = {};
     // Group markup by `nodeName` if a wrap is necessary, else by '*'.
     for (var i = 0; i < markupList.length; i++) {
-      ("production" !== "development" ? invariant(
+      ("production" !== process.env.NODE_ENV ? invariant(
         markupList[i],
         'dangerouslyRenderMarkup(...): Missing markup.'
       ) : invariant(markupList[i]));
@@ -28327,7 +21577,7 @@ var Danger = {
           resultIndex = +renderNode.getAttribute(RESULT_INDEX_ATTR);
           renderNode.removeAttribute(RESULT_INDEX_ATTR);
 
-          ("production" !== "development" ? invariant(
+          ("production" !== process.env.NODE_ENV ? invariant(
             !resultList.hasOwnProperty(resultIndex),
             'Danger: Assigning to an already-occupied result index.'
           ) : invariant(!resultList.hasOwnProperty(resultIndex)));
@@ -28338,7 +21588,7 @@ var Danger = {
           // we're done.
           resultListAssignmentCount += 1;
 
-        } else if ("production" !== "development") {
+        } else if ("production" !== process.env.NODE_ENV) {
           console.error(
             "Danger: Discarding unexpected node:",
             renderNode
@@ -28349,12 +21599,12 @@ var Danger = {
 
     // Although resultList was populated out of order, it should now be a dense
     // array.
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       resultListAssignmentCount === resultList.length,
       'Danger: Did not assign to every index of resultList.'
     ) : invariant(resultListAssignmentCount === resultList.length));
 
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       resultList.length === markupList.length,
       'Danger: Expected markup to render %s nodes, but rendered %s.',
       markupList.length,
@@ -28373,15 +21623,15 @@ var Danger = {
    * @internal
    */
   dangerouslyReplaceNodeWithMarkup: function(oldChild, markup) {
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       ExecutionEnvironment.canUseDOM,
       'dangerouslyReplaceNodeWithMarkup(...): Cannot render markup in a ' +
       'worker thread. Make sure `window` and `document` are available ' +
       'globally before requiring React when unit testing or use ' +
       'React.renderToString for server rendering.'
     ) : invariant(ExecutionEnvironment.canUseDOM));
-    ("production" !== "development" ? invariant(markup, 'dangerouslyReplaceNodeWithMarkup(...): Missing markup.') : invariant(markup));
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(markup, 'dangerouslyReplaceNodeWithMarkup(...): Missing markup.') : invariant(markup));
+    ("production" !== process.env.NODE_ENV ? invariant(
       oldChild.tagName.toLowerCase() !== 'html',
       'dangerouslyReplaceNodeWithMarkup(...): Cannot replace markup of the ' +
       '<html> node. This is because browser quirks make this unreliable ' +
@@ -28397,7 +21647,8 @@ var Danger = {
 
 module.exports = Danger;
 
-},{"./ExecutionEnvironment":"/home/eric/repos/react-d3/node_modules/react/lib/ExecutionEnvironment.js","./createNodesFromMarkup":"/home/eric/repos/react-d3/node_modules/react/lib/createNodesFromMarkup.js","./emptyFunction":"/home/eric/repos/react-d3/node_modules/react/lib/emptyFunction.js","./getMarkupWrap":"/home/eric/repos/react-d3/node_modules/react/lib/getMarkupWrap.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/DefaultEventPluginOrder.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./ExecutionEnvironment":"/Users/yangwei/code/react-d3/node_modules/react/lib/ExecutionEnvironment.js","./createNodesFromMarkup":"/Users/yangwei/code/react-d3/node_modules/react/lib/createNodesFromMarkup.js","./emptyFunction":"/Users/yangwei/code/react-d3/node_modules/react/lib/emptyFunction.js","./getMarkupWrap":"/Users/yangwei/code/react-d3/node_modules/react/lib/getMarkupWrap.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/DefaultEventPluginOrder.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -28437,7 +21688,7 @@ var DefaultEventPluginOrder = [
 
 module.exports = DefaultEventPluginOrder;
 
-},{"./keyOf":"/home/eric/repos/react-d3/node_modules/react/lib/keyOf.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/EnterLeaveEventPlugin.js":[function(require,module,exports){
+},{"./keyOf":"/Users/yangwei/code/react-d3/node_modules/react/lib/keyOf.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/EnterLeaveEventPlugin.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -28577,7 +21828,7 @@ var EnterLeaveEventPlugin = {
 
 module.exports = EnterLeaveEventPlugin;
 
-},{"./EventConstants":"/home/eric/repos/react-d3/node_modules/react/lib/EventConstants.js","./EventPropagators":"/home/eric/repos/react-d3/node_modules/react/lib/EventPropagators.js","./ReactMount":"/home/eric/repos/react-d3/node_modules/react/lib/ReactMount.js","./SyntheticMouseEvent":"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticMouseEvent.js","./keyOf":"/home/eric/repos/react-d3/node_modules/react/lib/keyOf.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/EventConstants.js":[function(require,module,exports){
+},{"./EventConstants":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventConstants.js","./EventPropagators":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventPropagators.js","./ReactMount":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactMount.js","./SyntheticMouseEvent":"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticMouseEvent.js","./keyOf":"/Users/yangwei/code/react-d3/node_modules/react/lib/keyOf.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/EventConstants.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -28649,7 +21900,8 @@ var EventConstants = {
 
 module.exports = EventConstants;
 
-},{"./keyMirror":"/home/eric/repos/react-d3/node_modules/react/lib/keyMirror.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/EventListener.js":[function(require,module,exports){
+},{"./keyMirror":"/Users/yangwei/code/react-d3/node_modules/react/lib/keyMirror.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/EventListener.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014 Facebook, Inc.
  *
@@ -28712,7 +21964,7 @@ var EventListener = {
    */
   capture: function(target, eventType, callback) {
     if (!target.addEventListener) {
-      if ("production" !== "development") {
+      if ("production" !== process.env.NODE_ENV) {
         console.error(
           'Attempted to listen to events during the capture phase on a ' +
           'browser that does not support the capture phase. Your application ' +
@@ -28737,7 +21989,9 @@ var EventListener = {
 
 module.exports = EventListener;
 
-},{"./emptyFunction":"/home/eric/repos/react-d3/node_modules/react/lib/emptyFunction.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/EventPluginHub.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./emptyFunction":"/Users/yangwei/code/react-d3/node_modules/react/lib/emptyFunction.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/EventPluginHub.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -28847,13 +22101,13 @@ var EventPluginHub = {
      */
     injectInstanceHandle: function(InjectedInstanceHandle) {
       InstanceHandle = InjectedInstanceHandle;
-      if ("production" !== "development") {
+      if ("production" !== process.env.NODE_ENV) {
         validateInstanceHandle();
       }
     },
 
     getInstanceHandle: function() {
-      if ("production" !== "development") {
+      if ("production" !== process.env.NODE_ENV) {
         validateInstanceHandle();
       }
       return InstanceHandle;
@@ -28884,7 +22138,7 @@ var EventPluginHub = {
    * @param {?function} listener The callback to store.
    */
   putListener: function(id, registrationName, listener) {
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       !listener || typeof listener === 'function',
       'Expected %s listener to be a function, instead got type %s',
       registrationName, typeof listener
@@ -28989,7 +22243,7 @@ var EventPluginHub = {
     var processingEventQueue = eventQueue;
     eventQueue = null;
     forEachAccumulated(processingEventQueue, executeDispatchesAndRelease);
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       !eventQueue,
       'processEventQueue(): Additional events were enqueued while processing ' +
       'an event queue. Support for this has not yet been implemented.'
@@ -29011,7 +22265,9 @@ var EventPluginHub = {
 
 module.exports = EventPluginHub;
 
-},{"./EventPluginRegistry":"/home/eric/repos/react-d3/node_modules/react/lib/EventPluginRegistry.js","./EventPluginUtils":"/home/eric/repos/react-d3/node_modules/react/lib/EventPluginUtils.js","./accumulateInto":"/home/eric/repos/react-d3/node_modules/react/lib/accumulateInto.js","./forEachAccumulated":"/home/eric/repos/react-d3/node_modules/react/lib/forEachAccumulated.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/EventPluginRegistry.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./EventPluginRegistry":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventPluginRegistry.js","./EventPluginUtils":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventPluginUtils.js","./accumulateInto":"/Users/yangwei/code/react-d3/node_modules/react/lib/accumulateInto.js","./forEachAccumulated":"/Users/yangwei/code/react-d3/node_modules/react/lib/forEachAccumulated.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/EventPluginRegistry.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -29051,7 +22307,7 @@ function recomputePluginOrdering() {
   for (var pluginName in namesToPlugins) {
     var PluginModule = namesToPlugins[pluginName];
     var pluginIndex = EventPluginOrder.indexOf(pluginName);
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       pluginIndex > -1,
       'EventPluginRegistry: Cannot inject event plugins that do not exist in ' +
       'the plugin ordering, `%s`.',
@@ -29060,7 +22316,7 @@ function recomputePluginOrdering() {
     if (EventPluginRegistry.plugins[pluginIndex]) {
       continue;
     }
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       PluginModule.extractEvents,
       'EventPluginRegistry: Event plugins must implement an `extractEvents` ' +
       'method, but `%s` does not.',
@@ -29069,7 +22325,7 @@ function recomputePluginOrdering() {
     EventPluginRegistry.plugins[pluginIndex] = PluginModule;
     var publishedEvents = PluginModule.eventTypes;
     for (var eventName in publishedEvents) {
-      ("production" !== "development" ? invariant(
+      ("production" !== process.env.NODE_ENV ? invariant(
         publishEventForPlugin(
           publishedEvents[eventName],
           PluginModule,
@@ -29096,7 +22352,7 @@ function recomputePluginOrdering() {
  * @private
  */
 function publishEventForPlugin(dispatchConfig, PluginModule, eventName) {
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     !EventPluginRegistry.eventNameDispatchConfigs.hasOwnProperty(eventName),
     'EventPluginHub: More than one plugin attempted to publish the same ' +
     'event name, `%s`.',
@@ -29137,7 +22393,7 @@ function publishEventForPlugin(dispatchConfig, PluginModule, eventName) {
  * @private
  */
 function publishRegistrationName(registrationName, PluginModule, eventName) {
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     !EventPluginRegistry.registrationNameModules[registrationName],
     'EventPluginHub: More than one plugin attempted to publish the same ' +
     'registration name, `%s`.',
@@ -29185,7 +22441,7 @@ var EventPluginRegistry = {
    * @see {EventPluginHub.injection.injectEventPluginOrder}
    */
   injectEventPluginOrder: function(InjectedEventPluginOrder) {
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       !EventPluginOrder,
       'EventPluginRegistry: Cannot inject event plugin ordering more than ' +
       'once. You are likely trying to load more than one copy of React.'
@@ -29214,7 +22470,7 @@ var EventPluginRegistry = {
       var PluginModule = injectedNamesToPlugins[pluginName];
       if (!namesToPlugins.hasOwnProperty(pluginName) ||
           namesToPlugins[pluginName] !== PluginModule) {
-        ("production" !== "development" ? invariant(
+        ("production" !== process.env.NODE_ENV ? invariant(
           !namesToPlugins[pluginName],
           'EventPluginRegistry: Cannot inject two different event plugins ' +
           'using the same name, `%s`.',
@@ -29289,7 +22545,9 @@ var EventPluginRegistry = {
 
 module.exports = EventPluginRegistry;
 
-},{"./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/EventPluginUtils.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/EventPluginUtils.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -29319,8 +22577,8 @@ var injection = {
   Mount: null,
   injectMount: function(InjectedMount) {
     injection.Mount = InjectedMount;
-    if ("production" !== "development") {
-      ("production" !== "development" ? invariant(
+    if ("production" !== process.env.NODE_ENV) {
+      ("production" !== process.env.NODE_ENV ? invariant(
         InjectedMount && InjectedMount.getNode,
         'EventPluginUtils.injection.injectMount(...): Injected Mount module ' +
         'is missing getNode.'
@@ -29348,7 +22606,7 @@ function isStartish(topLevelType) {
 
 
 var validateEventDispatches;
-if ("production" !== "development") {
+if ("production" !== process.env.NODE_ENV) {
   validateEventDispatches = function(event) {
     var dispatchListeners = event._dispatchListeners;
     var dispatchIDs = event._dispatchIDs;
@@ -29360,7 +22618,7 @@ if ("production" !== "development") {
       dispatchListeners.length :
       dispatchListeners ? 1 : 0;
 
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       idsIsArr === listenersIsArr && IDsLen === listenersLen,
       'EventPluginUtils: Invalid `event`.'
     ) : invariant(idsIsArr === listenersIsArr && IDsLen === listenersLen));
@@ -29375,7 +22633,7 @@ if ("production" !== "development") {
 function forEachEventDispatch(event, cb) {
   var dispatchListeners = event._dispatchListeners;
   var dispatchIDs = event._dispatchIDs;
-  if ("production" !== "development") {
+  if ("production" !== process.env.NODE_ENV) {
     validateEventDispatches(event);
   }
   if (Array.isArray(dispatchListeners)) {
@@ -29423,7 +22681,7 @@ function executeDispatchesInOrder(event, executeDispatch) {
 function executeDispatchesInOrderStopAtTrueImpl(event) {
   var dispatchListeners = event._dispatchListeners;
   var dispatchIDs = event._dispatchIDs;
-  if ("production" !== "development") {
+  if ("production" !== process.env.NODE_ENV) {
     validateEventDispatches(event);
   }
   if (Array.isArray(dispatchListeners)) {
@@ -29464,12 +22722,12 @@ function executeDispatchesInOrderStopAtTrue(event) {
  * @return The return value of executing the single dispatch.
  */
 function executeDirectDispatch(event) {
-  if ("production" !== "development") {
+  if ("production" !== process.env.NODE_ENV) {
     validateEventDispatches(event);
   }
   var dispatchListener = event._dispatchListeners;
   var dispatchID = event._dispatchIDs;
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     !Array.isArray(dispatchListener),
     'executeDirectDispatch(...): Invalid `event`.'
   ) : invariant(!Array.isArray(dispatchListener)));
@@ -29508,7 +22766,9 @@ var EventPluginUtils = {
 
 module.exports = EventPluginUtils;
 
-},{"./EventConstants":"/home/eric/repos/react-d3/node_modules/react/lib/EventConstants.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/EventPropagators.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./EventConstants":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventConstants.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/EventPropagators.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -29548,7 +22808,7 @@ function listenerAtPhase(id, event, propagationPhase) {
  * "dispatch" object that pairs the event with the listener.
  */
 function accumulateDirectionalDispatches(domID, upwards, event) {
-  if ("production" !== "development") {
+  if ("production" !== process.env.NODE_ENV) {
     if (!domID) {
       throw new Error('Dispatching id must not be null');
     }
@@ -29648,7 +22908,8 @@ var EventPropagators = {
 
 module.exports = EventPropagators;
 
-},{"./EventConstants":"/home/eric/repos/react-d3/node_modules/react/lib/EventConstants.js","./EventPluginHub":"/home/eric/repos/react-d3/node_modules/react/lib/EventPluginHub.js","./accumulateInto":"/home/eric/repos/react-d3/node_modules/react/lib/accumulateInto.js","./forEachAccumulated":"/home/eric/repos/react-d3/node_modules/react/lib/forEachAccumulated.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ExecutionEnvironment.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./EventConstants":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventConstants.js","./EventPluginHub":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventPluginHub.js","./accumulateInto":"/Users/yangwei/code/react-d3/node_modules/react/lib/accumulateInto.js","./forEachAccumulated":"/Users/yangwei/code/react-d3/node_modules/react/lib/forEachAccumulated.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ExecutionEnvironment.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -29693,7 +22954,7 @@ var ExecutionEnvironment = {
 
 module.exports = ExecutionEnvironment;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/HTMLDOMPropertyConfig.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/HTMLDOMPropertyConfig.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -29885,7 +23146,8 @@ var HTMLDOMPropertyConfig = {
 
 module.exports = HTMLDOMPropertyConfig;
 
-},{"./DOMProperty":"/home/eric/repos/react-d3/node_modules/react/lib/DOMProperty.js","./ExecutionEnvironment":"/home/eric/repos/react-d3/node_modules/react/lib/ExecutionEnvironment.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/LinkedValueUtils.js":[function(require,module,exports){
+},{"./DOMProperty":"/Users/yangwei/code/react-d3/node_modules/react/lib/DOMProperty.js","./ExecutionEnvironment":"/Users/yangwei/code/react-d3/node_modules/react/lib/ExecutionEnvironment.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/LinkedValueUtils.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -29915,7 +23177,7 @@ var hasReadOnlyValue = {
 };
 
 function _assertSingleLink(input) {
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     input.props.checkedLink == null || input.props.valueLink == null,
     'Cannot provide a checkedLink and a valueLink. If you want to use ' +
     'checkedLink, you probably don\'t want to use valueLink and vice versa.'
@@ -29923,7 +23185,7 @@ function _assertSingleLink(input) {
 }
 function _assertValueLink(input) {
   _assertSingleLink(input);
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     input.props.value == null && input.props.onChange == null,
     'Cannot provide a valueLink and a value or onChange event. If you want ' +
     'to use value or onChange, you probably don\'t want to use valueLink.'
@@ -29932,7 +23194,7 @@ function _assertValueLink(input) {
 
 function _assertCheckedLink(input) {
   _assertSingleLink(input);
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     input.props.checked == null && input.props.onChange == null,
     'Cannot provide a checkedLink and a checked property or onChange event. ' +
     'If you want to use checked or onChange, you probably don\'t want to ' +
@@ -30039,7 +23301,9 @@ var LinkedValueUtils = {
 
 module.exports = LinkedValueUtils;
 
-},{"./ReactPropTypes":"/home/eric/repos/react-d3/node_modules/react/lib/ReactPropTypes.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/LocalEventTrapMixin.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./ReactPropTypes":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactPropTypes.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/LocalEventTrapMixin.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2014, Facebook, Inc.
  * All rights reserved.
@@ -30065,7 +23329,7 @@ function remove(event) {
 
 var LocalEventTrapMixin = {
   trapBubbledEvent:function(topLevelType, handlerBaseName) {
-    ("production" !== "development" ? invariant(this.isMounted(), 'Must be mounted to trap events') : invariant(this.isMounted()));
+    ("production" !== process.env.NODE_ENV ? invariant(this.isMounted(), 'Must be mounted to trap events') : invariant(this.isMounted()));
     var listener = ReactBrowserEventEmitter.trapBubbledEvent(
       topLevelType,
       handlerBaseName,
@@ -30087,7 +23351,8 @@ var LocalEventTrapMixin = {
 
 module.exports = LocalEventTrapMixin;
 
-},{"./ReactBrowserEventEmitter":"/home/eric/repos/react-d3/node_modules/react/lib/ReactBrowserEventEmitter.js","./accumulateInto":"/home/eric/repos/react-d3/node_modules/react/lib/accumulateInto.js","./forEachAccumulated":"/home/eric/repos/react-d3/node_modules/react/lib/forEachAccumulated.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/MobileSafariClickEventPlugin.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./ReactBrowserEventEmitter":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactBrowserEventEmitter.js","./accumulateInto":"/Users/yangwei/code/react-d3/node_modules/react/lib/accumulateInto.js","./forEachAccumulated":"/Users/yangwei/code/react-d3/node_modules/react/lib/forEachAccumulated.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/MobileSafariClickEventPlugin.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -30145,7 +23410,7 @@ var MobileSafariClickEventPlugin = {
 
 module.exports = MobileSafariClickEventPlugin;
 
-},{"./EventConstants":"/home/eric/repos/react-d3/node_modules/react/lib/EventConstants.js","./emptyFunction":"/home/eric/repos/react-d3/node_modules/react/lib/emptyFunction.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/Object.assign.js":[function(require,module,exports){
+},{"./EventConstants":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventConstants.js","./emptyFunction":"/Users/yangwei/code/react-d3/node_modules/react/lib/emptyFunction.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/Object.assign.js":[function(require,module,exports){
 /**
  * Copyright 2014, Facebook, Inc.
  * All rights reserved.
@@ -30192,7 +23457,8 @@ function assign(target, sources) {
 
 module.exports = assign;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/PooledClass.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/PooledClass.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -30261,7 +23527,7 @@ var fiveArgumentPooler = function(a1, a2, a3, a4, a5) {
 
 var standardReleaser = function(instance) {
   var Klass = this;
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     instance instanceof Klass,
     'Trying to release an instance into a pool of a different type.'
   ) : invariant(instance instanceof Klass));
@@ -30306,7 +23572,9 @@ var PooledClass = {
 
 module.exports = PooledClass;
 
-},{"./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/React.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/React.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -30350,7 +23618,7 @@ ReactDefaultInjection.inject();
 var createElement = ReactElement.createElement;
 var createFactory = ReactElement.createFactory;
 
-if ("production" !== "development") {
+if ("production" !== process.env.NODE_ENV) {
   createElement = ReactElementValidator.createElement;
   createFactory = ReactElementValidator.createFactory;
 }
@@ -30441,7 +23709,7 @@ if (
   });
 }
 
-if ("production" !== "development") {
+if ("production" !== process.env.NODE_ENV) {
   var ExecutionEnvironment = require("./ExecutionEnvironment");
   if (ExecutionEnvironment.canUseDOM && window.top === window.self) {
 
@@ -30492,7 +23760,9 @@ React.version = '0.12.2';
 
 module.exports = React;
 
-},{"./DOMPropertyOperations":"/home/eric/repos/react-d3/node_modules/react/lib/DOMPropertyOperations.js","./EventPluginUtils":"/home/eric/repos/react-d3/node_modules/react/lib/EventPluginUtils.js","./ExecutionEnvironment":"/home/eric/repos/react-d3/node_modules/react/lib/ExecutionEnvironment.js","./Object.assign":"/home/eric/repos/react-d3/node_modules/react/lib/Object.assign.js","./ReactChildren":"/home/eric/repos/react-d3/node_modules/react/lib/ReactChildren.js","./ReactComponent":"/home/eric/repos/react-d3/node_modules/react/lib/ReactComponent.js","./ReactCompositeComponent":"/home/eric/repos/react-d3/node_modules/react/lib/ReactCompositeComponent.js","./ReactContext":"/home/eric/repos/react-d3/node_modules/react/lib/ReactContext.js","./ReactCurrentOwner":"/home/eric/repos/react-d3/node_modules/react/lib/ReactCurrentOwner.js","./ReactDOM":"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOM.js","./ReactDOMComponent":"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOMComponent.js","./ReactDefaultInjection":"/home/eric/repos/react-d3/node_modules/react/lib/ReactDefaultInjection.js","./ReactElement":"/home/eric/repos/react-d3/node_modules/react/lib/ReactElement.js","./ReactElementValidator":"/home/eric/repos/react-d3/node_modules/react/lib/ReactElementValidator.js","./ReactInstanceHandles":"/home/eric/repos/react-d3/node_modules/react/lib/ReactInstanceHandles.js","./ReactLegacyElement":"/home/eric/repos/react-d3/node_modules/react/lib/ReactLegacyElement.js","./ReactMount":"/home/eric/repos/react-d3/node_modules/react/lib/ReactMount.js","./ReactMultiChild":"/home/eric/repos/react-d3/node_modules/react/lib/ReactMultiChild.js","./ReactPerf":"/home/eric/repos/react-d3/node_modules/react/lib/ReactPerf.js","./ReactPropTypes":"/home/eric/repos/react-d3/node_modules/react/lib/ReactPropTypes.js","./ReactServerRendering":"/home/eric/repos/react-d3/node_modules/react/lib/ReactServerRendering.js","./ReactTextComponent":"/home/eric/repos/react-d3/node_modules/react/lib/ReactTextComponent.js","./deprecated":"/home/eric/repos/react-d3/node_modules/react/lib/deprecated.js","./onlyChild":"/home/eric/repos/react-d3/node_modules/react/lib/onlyChild.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactBrowserComponentMixin.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./DOMPropertyOperations":"/Users/yangwei/code/react-d3/node_modules/react/lib/DOMPropertyOperations.js","./EventPluginUtils":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventPluginUtils.js","./ExecutionEnvironment":"/Users/yangwei/code/react-d3/node_modules/react/lib/ExecutionEnvironment.js","./Object.assign":"/Users/yangwei/code/react-d3/node_modules/react/lib/Object.assign.js","./ReactChildren":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactChildren.js","./ReactComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactComponent.js","./ReactCompositeComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactCompositeComponent.js","./ReactContext":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactContext.js","./ReactCurrentOwner":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactCurrentOwner.js","./ReactDOM":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOM.js","./ReactDOMComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOMComponent.js","./ReactDefaultInjection":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDefaultInjection.js","./ReactElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactElement.js","./ReactElementValidator":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactElementValidator.js","./ReactInstanceHandles":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactInstanceHandles.js","./ReactLegacyElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactLegacyElement.js","./ReactMount":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactMount.js","./ReactMultiChild":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactMultiChild.js","./ReactPerf":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactPerf.js","./ReactPropTypes":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactPropTypes.js","./ReactServerRendering":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactServerRendering.js","./ReactTextComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactTextComponent.js","./deprecated":"/Users/yangwei/code/react-d3/node_modules/react/lib/deprecated.js","./onlyChild":"/Users/yangwei/code/react-d3/node_modules/react/lib/onlyChild.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactBrowserComponentMixin.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -30520,7 +23790,7 @@ var ReactBrowserComponentMixin = {
    * @protected
    */
   getDOMNode: function() {
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       this.isMounted(),
       'getDOMNode(): A component must be mounted to have a DOM node.'
     ) : invariant(this.isMounted()));
@@ -30533,7 +23803,8 @@ var ReactBrowserComponentMixin = {
 
 module.exports = ReactBrowserComponentMixin;
 
-},{"./ReactEmptyComponent":"/home/eric/repos/react-d3/node_modules/react/lib/ReactEmptyComponent.js","./ReactMount":"/home/eric/repos/react-d3/node_modules/react/lib/ReactMount.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactBrowserEventEmitter.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./ReactEmptyComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactEmptyComponent.js","./ReactMount":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactMount.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactBrowserEventEmitter.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -30888,7 +24159,8 @@ var ReactBrowserEventEmitter = assign({}, ReactEventEmitterMixin, {
 
 module.exports = ReactBrowserEventEmitter;
 
-},{"./EventConstants":"/home/eric/repos/react-d3/node_modules/react/lib/EventConstants.js","./EventPluginHub":"/home/eric/repos/react-d3/node_modules/react/lib/EventPluginHub.js","./EventPluginRegistry":"/home/eric/repos/react-d3/node_modules/react/lib/EventPluginRegistry.js","./Object.assign":"/home/eric/repos/react-d3/node_modules/react/lib/Object.assign.js","./ReactEventEmitterMixin":"/home/eric/repos/react-d3/node_modules/react/lib/ReactEventEmitterMixin.js","./ViewportMetrics":"/home/eric/repos/react-d3/node_modules/react/lib/ViewportMetrics.js","./isEventSupported":"/home/eric/repos/react-d3/node_modules/react/lib/isEventSupported.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactChildren.js":[function(require,module,exports){
+},{"./EventConstants":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventConstants.js","./EventPluginHub":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventPluginHub.js","./EventPluginRegistry":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventPluginRegistry.js","./Object.assign":"/Users/yangwei/code/react-d3/node_modules/react/lib/Object.assign.js","./ReactEventEmitterMixin":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactEventEmitterMixin.js","./ViewportMetrics":"/Users/yangwei/code/react-d3/node_modules/react/lib/ViewportMetrics.js","./isEventSupported":"/Users/yangwei/code/react-d3/node_modules/react/lib/isEventSupported.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactChildren.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -30972,7 +24244,7 @@ function mapSingleChildIntoContext(traverseContext, child, name, i) {
   var mapResult = mapBookKeeping.mapResult;
 
   var keyUnique = !mapResult.hasOwnProperty(name);
-  ("production" !== "development" ? warning(
+  ("production" !== process.env.NODE_ENV ? warning(
     keyUnique,
     'ReactChildren.map(...): Encountered two children with the same key, ' +
     '`%s`. Child keys must be unique; when two children share a key, only ' +
@@ -31036,7 +24308,9 @@ var ReactChildren = {
 
 module.exports = ReactChildren;
 
-},{"./PooledClass":"/home/eric/repos/react-d3/node_modules/react/lib/PooledClass.js","./traverseAllChildren":"/home/eric/repos/react-d3/node_modules/react/lib/traverseAllChildren.js","./warning":"/home/eric/repos/react-d3/node_modules/react/lib/warning.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactComponent.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./PooledClass":"/Users/yangwei/code/react-d3/node_modules/react/lib/PooledClass.js","./traverseAllChildren":"/Users/yangwei/code/react-d3/node_modules/react/lib/traverseAllChildren.js","./warning":"/Users/yangwei/code/react-d3/node_modules/react/lib/warning.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactComponent.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -31124,7 +24398,7 @@ var ReactComponent = {
 
   injection: {
     injectEnvironment: function(ReactComponentEnvironment) {
-      ("production" !== "development" ? invariant(
+      ("production" !== process.env.NODE_ENV ? invariant(
         !injected,
         'ReactComponent: injectEnvironment() can only be called once.'
       ) : invariant(!injected));
@@ -31197,11 +24471,11 @@ var ReactComponent = {
      * @public
      */
     replaceProps: function(props, callback) {
-      ("production" !== "development" ? invariant(
+      ("production" !== process.env.NODE_ENV ? invariant(
         this.isMounted(),
         'replaceProps(...): Can only update a mounted component.'
       ) : invariant(this.isMounted()));
-      ("production" !== "development" ? invariant(
+      ("production" !== process.env.NODE_ENV ? invariant(
         this._mountDepth === 0,
         'replaceProps(...): You called `setProps` or `replaceProps` on a ' +
         'component with a parent. This is an anti-pattern since props will ' +
@@ -31284,7 +24558,7 @@ var ReactComponent = {
      * @internal
      */
     mountComponent: function(rootID, transaction, mountDepth) {
-      ("production" !== "development" ? invariant(
+      ("production" !== process.env.NODE_ENV ? invariant(
         !this.isMounted(),
         'mountComponent(%s, ...): Can only mount an unmounted component. ' +
         'Make sure to avoid storing components between renders or reusing a ' +
@@ -31313,7 +24587,7 @@ var ReactComponent = {
      * @internal
      */
     unmountComponent: function() {
-      ("production" !== "development" ? invariant(
+      ("production" !== process.env.NODE_ENV ? invariant(
         this.isMounted(),
         'unmountComponent(): Can only unmount a mounted component.'
       ) : invariant(this.isMounted()));
@@ -31338,7 +24612,7 @@ var ReactComponent = {
      * @internal
      */
     receiveComponent: function(nextElement, transaction) {
-      ("production" !== "development" ? invariant(
+      ("production" !== process.env.NODE_ENV ? invariant(
         this.isMounted(),
         'receiveComponent(...): Can only update a mounted component.'
       ) : invariant(this.isMounted()));
@@ -31477,7 +24751,9 @@ var ReactComponent = {
 
 module.exports = ReactComponent;
 
-},{"./Object.assign":"/home/eric/repos/react-d3/node_modules/react/lib/Object.assign.js","./ReactElement":"/home/eric/repos/react-d3/node_modules/react/lib/ReactElement.js","./ReactOwner":"/home/eric/repos/react-d3/node_modules/react/lib/ReactOwner.js","./ReactUpdates":"/home/eric/repos/react-d3/node_modules/react/lib/ReactUpdates.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js","./keyMirror":"/home/eric/repos/react-d3/node_modules/react/lib/keyMirror.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactComponentBrowserEnvironment.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./Object.assign":"/Users/yangwei/code/react-d3/node_modules/react/lib/Object.assign.js","./ReactElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactElement.js","./ReactOwner":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactOwner.js","./ReactUpdates":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactUpdates.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","./keyMirror":"/Users/yangwei/code/react-d3/node_modules/react/lib/keyMirror.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactComponentBrowserEnvironment.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -31538,7 +24814,7 @@ var ReactComponentBrowserEnvironment = {
     'ReactComponentBrowserEnvironment',
     'mountImageIntoNode',
     function(markup, container, shouldReuseMarkup) {
-      ("production" !== "development" ? invariant(
+      ("production" !== process.env.NODE_ENV ? invariant(
         container && (
           container.nodeType === ELEMENT_NODE_TYPE ||
             container.nodeType === DOC_NODE_TYPE
@@ -31555,7 +24831,7 @@ var ReactComponentBrowserEnvironment = {
           getReactRootElementInContainer(container))) {
           return;
         } else {
-          ("production" !== "development" ? invariant(
+          ("production" !== process.env.NODE_ENV ? invariant(
             container.nodeType !== DOC_NODE_TYPE,
             'You\'re trying to render a component to the document using ' +
             'server rendering but the checksum was invalid. This usually ' +
@@ -31567,7 +24843,7 @@ var ReactComponentBrowserEnvironment = {
             'and ensure the props are the same client and server side.'
           ) : invariant(container.nodeType !== DOC_NODE_TYPE));
 
-          if ("production" !== "development") {
+          if ("production" !== process.env.NODE_ENV) {
             console.warn(
               'React attempted to use reuse markup in a container but the ' +
               'checksum was invalid. This generally means that you are ' +
@@ -31582,7 +24858,7 @@ var ReactComponentBrowserEnvironment = {
         }
       }
 
-      ("production" !== "development" ? invariant(
+      ("production" !== process.env.NODE_ENV ? invariant(
         container.nodeType !== DOC_NODE_TYPE,
         'You\'re trying to render a component to the document but ' +
           'you didn\'t use server rendering. We can\'t do this ' +
@@ -31597,7 +24873,9 @@ var ReactComponentBrowserEnvironment = {
 
 module.exports = ReactComponentBrowserEnvironment;
 
-},{"./ReactDOMIDOperations":"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOMIDOperations.js","./ReactMarkupChecksum":"/home/eric/repos/react-d3/node_modules/react/lib/ReactMarkupChecksum.js","./ReactMount":"/home/eric/repos/react-d3/node_modules/react/lib/ReactMount.js","./ReactPerf":"/home/eric/repos/react-d3/node_modules/react/lib/ReactPerf.js","./ReactReconcileTransaction":"/home/eric/repos/react-d3/node_modules/react/lib/ReactReconcileTransaction.js","./getReactRootElementInContainer":"/home/eric/repos/react-d3/node_modules/react/lib/getReactRootElementInContainer.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js","./setInnerHTML":"/home/eric/repos/react-d3/node_modules/react/lib/setInnerHTML.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactCompositeComponent.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./ReactDOMIDOperations":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOMIDOperations.js","./ReactMarkupChecksum":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactMarkupChecksum.js","./ReactMount":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactMount.js","./ReactPerf":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactPerf.js","./ReactReconcileTransaction":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactReconcileTransaction.js","./getReactRootElementInContainer":"/Users/yangwei/code/react-d3/node_modules/react/lib/getReactRootElementInContainer.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","./setInnerHTML":"/Users/yangwei/code/react-d3/node_modules/react/lib/setInnerHTML.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactCompositeComponent.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -32002,7 +25280,7 @@ function getDeclarationErrorAddendum(component) {
 function validateTypeDef(Constructor, typeDef, location) {
   for (var propName in typeDef) {
     if (typeDef.hasOwnProperty(propName)) {
-      ("production" !== "development" ? invariant(
+      ("production" !== process.env.NODE_ENV ? invariant(
         typeof typeDef[propName] == 'function',
         '%s: %s type `%s` is invalid; it must be a function, usually from ' +
         'React.PropTypes.',
@@ -32021,7 +25299,7 @@ function validateMethodOverride(proto, name) {
 
   // Disallow overriding of base class methods unless explicitly allowed.
   if (ReactCompositeComponentMixin.hasOwnProperty(name)) {
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       specPolicy === SpecPolicy.OVERRIDE_BASE,
       'ReactCompositeComponentInterface: You are attempting to override ' +
       '`%s` from your class specification. Ensure that your method names ' +
@@ -32032,7 +25310,7 @@ function validateMethodOverride(proto, name) {
 
   // Disallow defining methods more than once unless explicitly allowed.
   if (proto.hasOwnProperty(name)) {
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       specPolicy === SpecPolicy.DEFINE_MANY ||
       specPolicy === SpecPolicy.DEFINE_MANY_MERGED,
       'ReactCompositeComponentInterface: You are attempting to define ' +
@@ -32046,19 +25324,19 @@ function validateMethodOverride(proto, name) {
 
 function validateLifeCycleOnReplaceState(instance) {
   var compositeLifeCycleState = instance._compositeLifeCycleState;
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     instance.isMounted() ||
       compositeLifeCycleState === CompositeLifeCycle.MOUNTING,
     'replaceState(...): Can only update a mounted or mounting component.'
   ) : invariant(instance.isMounted() ||
     compositeLifeCycleState === CompositeLifeCycle.MOUNTING));
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     ReactCurrentOwner.current == null,
     'replaceState(...): Cannot update during an existing state transition ' +
     '(such as within `render`). Render methods should be a pure function ' +
     'of props and state.'
   ) : invariant(ReactCurrentOwner.current == null));
-  ("production" !== "development" ? invariant(compositeLifeCycleState !== CompositeLifeCycle.UNMOUNTING,
+  ("production" !== process.env.NODE_ENV ? invariant(compositeLifeCycleState !== CompositeLifeCycle.UNMOUNTING,
     'replaceState(...): Cannot update while unmounting component. This ' +
     'usually means you called setState() on an unmounted component.'
   ) : invariant(compositeLifeCycleState !== CompositeLifeCycle.UNMOUNTING));
@@ -32073,12 +25351,12 @@ function mixSpecIntoComponent(Constructor, spec) {
     return;
   }
 
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     !ReactLegacyElement.isValidFactory(spec),
     'ReactCompositeComponent: You\'re attempting to ' +
     'use a component class as a mixin. Instead, just use a regular object.'
   ) : invariant(!ReactLegacyElement.isValidFactory(spec)));
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     !ReactElement.isValidElement(spec),
     'ReactCompositeComponent: You\'re attempting to ' +
     'use a component as a mixin. Instead, just use a regular object.'
@@ -32135,7 +25413,7 @@ function mixSpecIntoComponent(Constructor, spec) {
           var specPolicy = ReactCompositeComponentInterface[name];
 
           // These cases should already be caught by validateMethodOverride
-          ("production" !== "development" ? invariant(
+          ("production" !== process.env.NODE_ENV ? invariant(
             isCompositeComponentMethod && (
               specPolicy === SpecPolicy.DEFINE_MANY_MERGED ||
               specPolicy === SpecPolicy.DEFINE_MANY
@@ -32158,7 +25436,7 @@ function mixSpecIntoComponent(Constructor, spec) {
           }
         } else {
           proto[name] = property;
-          if ("production" !== "development") {
+          if ("production" !== process.env.NODE_ENV) {
             // Add verbose displayName to the function, which helps when looking
             // at profiling tools.
             if (typeof property === 'function' && spec.displayName) {
@@ -32182,7 +25460,7 @@ function mixStaticSpecIntoComponent(Constructor, statics) {
     }
 
     var isReserved = name in RESERVED_SPEC_KEYS;
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       !isReserved,
       'ReactCompositeComponent: You are attempting to define a reserved ' +
       'property, `%s`, that shouldn\'t be on the "statics" key. Define it ' +
@@ -32192,7 +25470,7 @@ function mixStaticSpecIntoComponent(Constructor, statics) {
     ) : invariant(!isReserved));
 
     var isInherited = name in Constructor;
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       !isInherited,
       'ReactCompositeComponent: You are attempting to define ' +
       '`%s` on your component more than once. This conflict may be ' +
@@ -32211,13 +25489,13 @@ function mixStaticSpecIntoComponent(Constructor, statics) {
  * @return {object} one after it has been mutated to contain everything in two.
  */
 function mergeObjectsWithNoDuplicateKeys(one, two) {
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     one && two && typeof one === 'object' && typeof two === 'object',
     'mergeObjectsWithNoDuplicateKeys(): Cannot merge non-objects'
   ) : invariant(one && two && typeof one === 'object' && typeof two === 'object'));
 
   mapObject(two, function(value, key) {
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       one[key] === undefined,
       'mergeObjectsWithNoDuplicateKeys(): ' +
       'Tried to merge two objects with the same key: `%s`. This conflict ' +
@@ -32379,7 +25657,7 @@ var ReactCompositeComponentMixin = {
       this.props = this._processProps(this.props);
 
       this.state = this.getInitialState ? this.getInitialState() : null;
-      ("production" !== "development" ? invariant(
+      ("production" !== process.env.NODE_ENV ? invariant(
         typeof this.state === 'object' && !Array.isArray(this.state),
         '%s.getInitialState(): must return an object or null',
         this.constructor.displayName || 'ReactCompositeComponent'
@@ -32459,12 +25737,12 @@ var ReactCompositeComponentMixin = {
    * @protected
    */
   setState: function(partialState, callback) {
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       typeof partialState === 'object' || partialState == null,
       'setState(...): takes an object of state variables to update.'
     ) : invariant(typeof partialState === 'object' || partialState == null));
-    if ("production" !== "development"){
-      ("production" !== "development" ? warning(
+    if ("production" !== process.env.NODE_ENV){
+      ("production" !== process.env.NODE_ENV ? warning(
         partialState != null,
         'setState(...): You passed an undefined or null state object; ' +
         'instead, use forceUpdate().'
@@ -32519,7 +25797,7 @@ var ReactCompositeComponentMixin = {
       for (var contextName in contextTypes) {
         maskedContext[contextName] = context[contextName];
       }
-      if ("production" !== "development") {
+      if ("production" !== process.env.NODE_ENV) {
         this._checkPropTypes(
           contextTypes,
           maskedContext,
@@ -32539,13 +25817,13 @@ var ReactCompositeComponentMixin = {
     var childContext = this.getChildContext && this.getChildContext();
     var displayName = this.constructor.displayName || 'ReactCompositeComponent';
     if (childContext) {
-      ("production" !== "development" ? invariant(
+      ("production" !== process.env.NODE_ENV ? invariant(
         typeof this.constructor.childContextTypes === 'object',
         '%s.getChildContext(): childContextTypes must be defined in order to ' +
         'use getChildContext().',
         displayName
       ) : invariant(typeof this.constructor.childContextTypes === 'object'));
-      if ("production" !== "development") {
+      if ("production" !== process.env.NODE_ENV) {
         this._checkPropTypes(
           this.constructor.childContextTypes,
           childContext,
@@ -32553,7 +25831,7 @@ var ReactCompositeComponentMixin = {
         );
       }
       for (var name in childContext) {
-        ("production" !== "development" ? invariant(
+        ("production" !== process.env.NODE_ENV ? invariant(
           name in this.constructor.childContextTypes,
           '%s.getChildContext(): key "%s" is not defined in childContextTypes.',
           displayName,
@@ -32575,7 +25853,7 @@ var ReactCompositeComponentMixin = {
    * @private
    */
   _processProps: function(newProps) {
-    if ("production" !== "development") {
+    if ("production" !== process.env.NODE_ENV) {
       var propTypes = this.constructor.propTypes;
       if (propTypes) {
         this._checkPropTypes(propTypes, newProps, ReactPropTypeLocations.prop);
@@ -32605,7 +25883,7 @@ var ReactCompositeComponentMixin = {
           // renderComponent calls, so I'm abstracting it away into
           // a function to minimize refactoring in the future
           var addendum = getDeclarationErrorAddendum(this);
-          ("production" !== "development" ? warning(false, error.message + addendum) : null);
+          ("production" !== process.env.NODE_ENV ? warning(false, error.message + addendum) : null);
         }
       }
     }
@@ -32658,7 +25936,7 @@ var ReactCompositeComponentMixin = {
       !this.shouldComponentUpdate ||
       this.shouldComponentUpdate(nextProps, nextState, nextContext);
 
-    if ("production" !== "development") {
+    if ("production" !== process.env.NODE_ENV) {
       if (typeof shouldUpdate === "undefined") {
         console.warn(
           (this.constructor.displayName || 'ReactCompositeComponent') +
@@ -32825,14 +26103,14 @@ var ReactCompositeComponentMixin = {
    */
   forceUpdate: function(callback) {
     var compositeLifeCycleState = this._compositeLifeCycleState;
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       this.isMounted() ||
         compositeLifeCycleState === CompositeLifeCycle.MOUNTING,
       'forceUpdate(...): Can only force an update on mounted or mounting ' +
         'components.'
     ) : invariant(this.isMounted() ||
       compositeLifeCycleState === CompositeLifeCycle.MOUNTING));
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       compositeLifeCycleState !== CompositeLifeCycle.UNMOUNTING &&
       ReactCurrentOwner.current == null,
       'forceUpdate(...): Cannot force an update while unmounting component ' +
@@ -32868,7 +26146,7 @@ var ReactCompositeComponentMixin = {
         ReactContext.current = previousContext;
         ReactCurrentOwner.current = null;
       }
-      ("production" !== "development" ? invariant(
+      ("production" !== process.env.NODE_ENV ? invariant(
         ReactElement.isValidElement(renderedComponent),
         '%s.render(): A valid ReactComponent must be returned. You may have ' +
           'returned undefined, an array or some other invalid object.',
@@ -32903,7 +26181,7 @@ var ReactCompositeComponentMixin = {
   _bindAutoBindMethod: function(method) {
     var component = this;
     var boundMethod = method.bind(component);
-    if ("production" !== "development") {
+    if ("production" !== process.env.NODE_ENV) {
       boundMethod.__reactBoundContext = component;
       boundMethod.__reactBoundMethod = method;
       boundMethod.__reactBoundArguments = null;
@@ -32989,12 +26267,12 @@ var ReactCompositeComponent = {
       Constructor.defaultProps = Constructor.getDefaultProps();
     }
 
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       Constructor.prototype.render,
       'createClass(...): Class specification must implement a `render` method.'
     ) : invariant(Constructor.prototype.render));
 
-    if ("production" !== "development") {
+    if ("production" !== process.env.NODE_ENV) {
       if (Constructor.prototype.componentShouldUpdate) {
         monitorCodeUse(
           'react_component_should_update_warning',
@@ -33016,7 +26294,7 @@ var ReactCompositeComponent = {
       }
     }
 
-    if ("production" !== "development") {
+    if ("production" !== process.env.NODE_ENV) {
       return ReactLegacyElement.wrapFactory(
         ReactElementValidator.createFactory(Constructor)
       );
@@ -33035,7 +26313,8 @@ var ReactCompositeComponent = {
 
 module.exports = ReactCompositeComponent;
 
-},{"./Object.assign":"/home/eric/repos/react-d3/node_modules/react/lib/Object.assign.js","./ReactComponent":"/home/eric/repos/react-d3/node_modules/react/lib/ReactComponent.js","./ReactContext":"/home/eric/repos/react-d3/node_modules/react/lib/ReactContext.js","./ReactCurrentOwner":"/home/eric/repos/react-d3/node_modules/react/lib/ReactCurrentOwner.js","./ReactElement":"/home/eric/repos/react-d3/node_modules/react/lib/ReactElement.js","./ReactElementValidator":"/home/eric/repos/react-d3/node_modules/react/lib/ReactElementValidator.js","./ReactEmptyComponent":"/home/eric/repos/react-d3/node_modules/react/lib/ReactEmptyComponent.js","./ReactErrorUtils":"/home/eric/repos/react-d3/node_modules/react/lib/ReactErrorUtils.js","./ReactLegacyElement":"/home/eric/repos/react-d3/node_modules/react/lib/ReactLegacyElement.js","./ReactOwner":"/home/eric/repos/react-d3/node_modules/react/lib/ReactOwner.js","./ReactPerf":"/home/eric/repos/react-d3/node_modules/react/lib/ReactPerf.js","./ReactPropTransferer":"/home/eric/repos/react-d3/node_modules/react/lib/ReactPropTransferer.js","./ReactPropTypeLocationNames":"/home/eric/repos/react-d3/node_modules/react/lib/ReactPropTypeLocationNames.js","./ReactPropTypeLocations":"/home/eric/repos/react-d3/node_modules/react/lib/ReactPropTypeLocations.js","./ReactUpdates":"/home/eric/repos/react-d3/node_modules/react/lib/ReactUpdates.js","./instantiateReactComponent":"/home/eric/repos/react-d3/node_modules/react/lib/instantiateReactComponent.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js","./keyMirror":"/home/eric/repos/react-d3/node_modules/react/lib/keyMirror.js","./keyOf":"/home/eric/repos/react-d3/node_modules/react/lib/keyOf.js","./mapObject":"/home/eric/repos/react-d3/node_modules/react/lib/mapObject.js","./monitorCodeUse":"/home/eric/repos/react-d3/node_modules/react/lib/monitorCodeUse.js","./shouldUpdateReactComponent":"/home/eric/repos/react-d3/node_modules/react/lib/shouldUpdateReactComponent.js","./warning":"/home/eric/repos/react-d3/node_modules/react/lib/warning.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactContext.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./Object.assign":"/Users/yangwei/code/react-d3/node_modules/react/lib/Object.assign.js","./ReactComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactComponent.js","./ReactContext":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactContext.js","./ReactCurrentOwner":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactCurrentOwner.js","./ReactElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactElement.js","./ReactElementValidator":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactElementValidator.js","./ReactEmptyComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactEmptyComponent.js","./ReactErrorUtils":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactErrorUtils.js","./ReactLegacyElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactLegacyElement.js","./ReactOwner":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactOwner.js","./ReactPerf":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactPerf.js","./ReactPropTransferer":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactPropTransferer.js","./ReactPropTypeLocationNames":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactPropTypeLocationNames.js","./ReactPropTypeLocations":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactPropTypeLocations.js","./ReactUpdates":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactUpdates.js","./instantiateReactComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/instantiateReactComponent.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","./keyMirror":"/Users/yangwei/code/react-d3/node_modules/react/lib/keyMirror.js","./keyOf":"/Users/yangwei/code/react-d3/node_modules/react/lib/keyOf.js","./mapObject":"/Users/yangwei/code/react-d3/node_modules/react/lib/mapObject.js","./monitorCodeUse":"/Users/yangwei/code/react-d3/node_modules/react/lib/monitorCodeUse.js","./shouldUpdateReactComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/shouldUpdateReactComponent.js","./warning":"/Users/yangwei/code/react-d3/node_modules/react/lib/warning.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactContext.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -33097,7 +26376,7 @@ var ReactContext = {
 
 module.exports = ReactContext;
 
-},{"./Object.assign":"/home/eric/repos/react-d3/node_modules/react/lib/Object.assign.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactCurrentOwner.js":[function(require,module,exports){
+},{"./Object.assign":"/Users/yangwei/code/react-d3/node_modules/react/lib/Object.assign.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactCurrentOwner.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -33131,7 +26410,8 @@ var ReactCurrentOwner = {
 
 module.exports = ReactCurrentOwner;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOM.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOM.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -33159,7 +26439,7 @@ var mapObject = require("./mapObject");
  * @private
  */
 function createDOMFactory(tag) {
-  if ("production" !== "development") {
+  if ("production" !== process.env.NODE_ENV) {
     return ReactLegacyElement.markNonLegacyFactory(
       ReactElementValidator.createFactory(tag)
     );
@@ -33312,7 +26592,8 @@ var ReactDOM = mapObject({
 
 module.exports = ReactDOM;
 
-},{"./ReactElement":"/home/eric/repos/react-d3/node_modules/react/lib/ReactElement.js","./ReactElementValidator":"/home/eric/repos/react-d3/node_modules/react/lib/ReactElementValidator.js","./ReactLegacyElement":"/home/eric/repos/react-d3/node_modules/react/lib/ReactLegacyElement.js","./mapObject":"/home/eric/repos/react-d3/node_modules/react/lib/mapObject.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOMButton.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./ReactElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactElement.js","./ReactElementValidator":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactElementValidator.js","./ReactLegacyElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactLegacyElement.js","./mapObject":"/Users/yangwei/code/react-d3/node_modules/react/lib/mapObject.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOMButton.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -33377,7 +26658,8 @@ var ReactDOMButton = ReactCompositeComponent.createClass({
 
 module.exports = ReactDOMButton;
 
-},{"./AutoFocusMixin":"/home/eric/repos/react-d3/node_modules/react/lib/AutoFocusMixin.js","./ReactBrowserComponentMixin":"/home/eric/repos/react-d3/node_modules/react/lib/ReactBrowserComponentMixin.js","./ReactCompositeComponent":"/home/eric/repos/react-d3/node_modules/react/lib/ReactCompositeComponent.js","./ReactDOM":"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOM.js","./ReactElement":"/home/eric/repos/react-d3/node_modules/react/lib/ReactElement.js","./keyMirror":"/home/eric/repos/react-d3/node_modules/react/lib/keyMirror.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOMComponent.js":[function(require,module,exports){
+},{"./AutoFocusMixin":"/Users/yangwei/code/react-d3/node_modules/react/lib/AutoFocusMixin.js","./ReactBrowserComponentMixin":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactBrowserComponentMixin.js","./ReactCompositeComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactCompositeComponent.js","./ReactDOM":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOM.js","./ReactElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactElement.js","./keyMirror":"/Users/yangwei/code/react-d3/node_modules/react/lib/keyMirror.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOMComponent.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -33428,11 +26710,11 @@ function assertValidProps(props) {
     return;
   }
   // Note the use of `==` which checks for null or undefined.
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     props.children == null || props.dangerouslySetInnerHTML == null,
     'Can only set one of `children` or `props.dangerouslySetInnerHTML`.'
   ) : invariant(props.children == null || props.dangerouslySetInnerHTML == null));
-  if ("production" !== "development") {
+  if ("production" !== process.env.NODE_ENV) {
     if (props.contentEditable && props.children != null) {
       console.warn(
         'A component is `contentEditable` and contains `children` managed by ' +
@@ -33442,7 +26724,7 @@ function assertValidProps(props) {
       );
     }
   }
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     props.style == null || typeof props.style === 'object',
     'The `style` prop expects a mapping from style properties to values, ' +
     'not a string.'
@@ -33450,7 +26732,7 @@ function assertValidProps(props) {
 }
 
 function putListener(id, registrationName, listener, transaction) {
-  if ("production" !== "development") {
+  if ("production" !== process.env.NODE_ENV) {
     // IE8 has no API for event capturing and the `onScroll` event doesn't
     // bubble.
     if (registrationName === 'onScroll' &&
@@ -33505,7 +26787,7 @@ var hasOwnProperty = {}.hasOwnProperty;
 
 function validateDangerousTag(tag) {
   if (!hasOwnProperty.call(validatedTagCache, tag)) {
-    ("production" !== "development" ? invariant(VALID_TAG_REGEX.test(tag), 'Invalid tag: %s', tag) : invariant(VALID_TAG_REGEX.test(tag)));
+    ("production" !== process.env.NODE_ENV ? invariant(VALID_TAG_REGEX.test(tag), 'Invalid tag: %s', tag) : invariant(VALID_TAG_REGEX.test(tag)));
     validatedTagCache[tag] = true;
   }
 }
@@ -33862,7 +27144,8 @@ assign(
 
 module.exports = ReactDOMComponent;
 
-},{"./CSSPropertyOperations":"/home/eric/repos/react-d3/node_modules/react/lib/CSSPropertyOperations.js","./DOMProperty":"/home/eric/repos/react-d3/node_modules/react/lib/DOMProperty.js","./DOMPropertyOperations":"/home/eric/repos/react-d3/node_modules/react/lib/DOMPropertyOperations.js","./Object.assign":"/home/eric/repos/react-d3/node_modules/react/lib/Object.assign.js","./ReactBrowserComponentMixin":"/home/eric/repos/react-d3/node_modules/react/lib/ReactBrowserComponentMixin.js","./ReactBrowserEventEmitter":"/home/eric/repos/react-d3/node_modules/react/lib/ReactBrowserEventEmitter.js","./ReactComponent":"/home/eric/repos/react-d3/node_modules/react/lib/ReactComponent.js","./ReactMount":"/home/eric/repos/react-d3/node_modules/react/lib/ReactMount.js","./ReactMultiChild":"/home/eric/repos/react-d3/node_modules/react/lib/ReactMultiChild.js","./ReactPerf":"/home/eric/repos/react-d3/node_modules/react/lib/ReactPerf.js","./escapeTextForBrowser":"/home/eric/repos/react-d3/node_modules/react/lib/escapeTextForBrowser.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js","./isEventSupported":"/home/eric/repos/react-d3/node_modules/react/lib/isEventSupported.js","./keyOf":"/home/eric/repos/react-d3/node_modules/react/lib/keyOf.js","./monitorCodeUse":"/home/eric/repos/react-d3/node_modules/react/lib/monitorCodeUse.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOMForm.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./CSSPropertyOperations":"/Users/yangwei/code/react-d3/node_modules/react/lib/CSSPropertyOperations.js","./DOMProperty":"/Users/yangwei/code/react-d3/node_modules/react/lib/DOMProperty.js","./DOMPropertyOperations":"/Users/yangwei/code/react-d3/node_modules/react/lib/DOMPropertyOperations.js","./Object.assign":"/Users/yangwei/code/react-d3/node_modules/react/lib/Object.assign.js","./ReactBrowserComponentMixin":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactBrowserComponentMixin.js","./ReactBrowserEventEmitter":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactBrowserEventEmitter.js","./ReactComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactComponent.js","./ReactMount":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactMount.js","./ReactMultiChild":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactMultiChild.js","./ReactPerf":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactPerf.js","./escapeTextForBrowser":"/Users/yangwei/code/react-d3/node_modules/react/lib/escapeTextForBrowser.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","./isEventSupported":"/Users/yangwei/code/react-d3/node_modules/react/lib/isEventSupported.js","./keyOf":"/Users/yangwei/code/react-d3/node_modules/react/lib/keyOf.js","./monitorCodeUse":"/Users/yangwei/code/react-d3/node_modules/react/lib/monitorCodeUse.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOMForm.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -33912,7 +27195,8 @@ var ReactDOMForm = ReactCompositeComponent.createClass({
 
 module.exports = ReactDOMForm;
 
-},{"./EventConstants":"/home/eric/repos/react-d3/node_modules/react/lib/EventConstants.js","./LocalEventTrapMixin":"/home/eric/repos/react-d3/node_modules/react/lib/LocalEventTrapMixin.js","./ReactBrowserComponentMixin":"/home/eric/repos/react-d3/node_modules/react/lib/ReactBrowserComponentMixin.js","./ReactCompositeComponent":"/home/eric/repos/react-d3/node_modules/react/lib/ReactCompositeComponent.js","./ReactDOM":"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOM.js","./ReactElement":"/home/eric/repos/react-d3/node_modules/react/lib/ReactElement.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOMIDOperations.js":[function(require,module,exports){
+},{"./EventConstants":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventConstants.js","./LocalEventTrapMixin":"/Users/yangwei/code/react-d3/node_modules/react/lib/LocalEventTrapMixin.js","./ReactBrowserComponentMixin":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactBrowserComponentMixin.js","./ReactCompositeComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactCompositeComponent.js","./ReactDOM":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOM.js","./ReactElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactElement.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOMIDOperations.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -33970,7 +27254,7 @@ var ReactDOMIDOperations = {
     'updatePropertyByID',
     function(id, name, value) {
       var node = ReactMount.getNode(id);
-      ("production" !== "development" ? invariant(
+      ("production" !== process.env.NODE_ENV ? invariant(
         !INVALID_PROPERTY_ERRORS.hasOwnProperty(name),
         'updatePropertyByID(...): %s',
         INVALID_PROPERTY_ERRORS[name]
@@ -34000,7 +27284,7 @@ var ReactDOMIDOperations = {
     'deletePropertyByID',
     function(id, name, value) {
       var node = ReactMount.getNode(id);
-      ("production" !== "development" ? invariant(
+      ("production" !== process.env.NODE_ENV ? invariant(
         !INVALID_PROPERTY_ERRORS.hasOwnProperty(name),
         'updatePropertyByID(...): %s',
         INVALID_PROPERTY_ERRORS[name]
@@ -34096,7 +27380,8 @@ var ReactDOMIDOperations = {
 
 module.exports = ReactDOMIDOperations;
 
-},{"./CSSPropertyOperations":"/home/eric/repos/react-d3/node_modules/react/lib/CSSPropertyOperations.js","./DOMChildrenOperations":"/home/eric/repos/react-d3/node_modules/react/lib/DOMChildrenOperations.js","./DOMPropertyOperations":"/home/eric/repos/react-d3/node_modules/react/lib/DOMPropertyOperations.js","./ReactMount":"/home/eric/repos/react-d3/node_modules/react/lib/ReactMount.js","./ReactPerf":"/home/eric/repos/react-d3/node_modules/react/lib/ReactPerf.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js","./setInnerHTML":"/home/eric/repos/react-d3/node_modules/react/lib/setInnerHTML.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOMImg.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./CSSPropertyOperations":"/Users/yangwei/code/react-d3/node_modules/react/lib/CSSPropertyOperations.js","./DOMChildrenOperations":"/Users/yangwei/code/react-d3/node_modules/react/lib/DOMChildrenOperations.js","./DOMPropertyOperations":"/Users/yangwei/code/react-d3/node_modules/react/lib/DOMPropertyOperations.js","./ReactMount":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactMount.js","./ReactPerf":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactPerf.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","./setInnerHTML":"/Users/yangwei/code/react-d3/node_modules/react/lib/setInnerHTML.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOMImg.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -34144,7 +27429,8 @@ var ReactDOMImg = ReactCompositeComponent.createClass({
 
 module.exports = ReactDOMImg;
 
-},{"./EventConstants":"/home/eric/repos/react-d3/node_modules/react/lib/EventConstants.js","./LocalEventTrapMixin":"/home/eric/repos/react-d3/node_modules/react/lib/LocalEventTrapMixin.js","./ReactBrowserComponentMixin":"/home/eric/repos/react-d3/node_modules/react/lib/ReactBrowserComponentMixin.js","./ReactCompositeComponent":"/home/eric/repos/react-d3/node_modules/react/lib/ReactCompositeComponent.js","./ReactDOM":"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOM.js","./ReactElement":"/home/eric/repos/react-d3/node_modules/react/lib/ReactElement.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOMInput.js":[function(require,module,exports){
+},{"./EventConstants":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventConstants.js","./LocalEventTrapMixin":"/Users/yangwei/code/react-d3/node_modules/react/lib/LocalEventTrapMixin.js","./ReactBrowserComponentMixin":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactBrowserComponentMixin.js","./ReactCompositeComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactCompositeComponent.js","./ReactDOM":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOM.js","./ReactElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactElement.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOMInput.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -34295,13 +27581,13 @@ var ReactDOMInput = ReactCompositeComponent.createClass({
           continue;
         }
         var otherID = ReactMount.getID(otherNode);
-        ("production" !== "development" ? invariant(
+        ("production" !== process.env.NODE_ENV ? invariant(
           otherID,
           'ReactDOMInput: Mixing React and non-React radio inputs with the ' +
           'same `name` is not supported.'
         ) : invariant(otherID));
         var otherInstance = instancesByReactID[otherID];
-        ("production" !== "development" ? invariant(
+        ("production" !== process.env.NODE_ENV ? invariant(
           otherInstance,
           'ReactDOMInput: Unknown radio button ID %s.',
           otherID
@@ -34320,7 +27606,9 @@ var ReactDOMInput = ReactCompositeComponent.createClass({
 
 module.exports = ReactDOMInput;
 
-},{"./AutoFocusMixin":"/home/eric/repos/react-d3/node_modules/react/lib/AutoFocusMixin.js","./DOMPropertyOperations":"/home/eric/repos/react-d3/node_modules/react/lib/DOMPropertyOperations.js","./LinkedValueUtils":"/home/eric/repos/react-d3/node_modules/react/lib/LinkedValueUtils.js","./Object.assign":"/home/eric/repos/react-d3/node_modules/react/lib/Object.assign.js","./ReactBrowserComponentMixin":"/home/eric/repos/react-d3/node_modules/react/lib/ReactBrowserComponentMixin.js","./ReactCompositeComponent":"/home/eric/repos/react-d3/node_modules/react/lib/ReactCompositeComponent.js","./ReactDOM":"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOM.js","./ReactElement":"/home/eric/repos/react-d3/node_modules/react/lib/ReactElement.js","./ReactMount":"/home/eric/repos/react-d3/node_modules/react/lib/ReactMount.js","./ReactUpdates":"/home/eric/repos/react-d3/node_modules/react/lib/ReactUpdates.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOMOption.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./AutoFocusMixin":"/Users/yangwei/code/react-d3/node_modules/react/lib/AutoFocusMixin.js","./DOMPropertyOperations":"/Users/yangwei/code/react-d3/node_modules/react/lib/DOMPropertyOperations.js","./LinkedValueUtils":"/Users/yangwei/code/react-d3/node_modules/react/lib/LinkedValueUtils.js","./Object.assign":"/Users/yangwei/code/react-d3/node_modules/react/lib/Object.assign.js","./ReactBrowserComponentMixin":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactBrowserComponentMixin.js","./ReactCompositeComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactCompositeComponent.js","./ReactDOM":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOM.js","./ReactElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactElement.js","./ReactMount":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactMount.js","./ReactUpdates":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactUpdates.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOMOption.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -34354,8 +27642,8 @@ var ReactDOMOption = ReactCompositeComponent.createClass({
 
   componentWillMount: function() {
     // TODO (yungsters): Remove support for `selected` in <option>.
-    if ("production" !== "development") {
-      ("production" !== "development" ? warning(
+    if ("production" !== process.env.NODE_ENV) {
+      ("production" !== process.env.NODE_ENV ? warning(
         this.props.selected == null,
         'Use the `defaultValue` or `value` props on <select> instead of ' +
         'setting `selected` on <option>.'
@@ -34371,7 +27659,8 @@ var ReactDOMOption = ReactCompositeComponent.createClass({
 
 module.exports = ReactDOMOption;
 
-},{"./ReactBrowserComponentMixin":"/home/eric/repos/react-d3/node_modules/react/lib/ReactBrowserComponentMixin.js","./ReactCompositeComponent":"/home/eric/repos/react-d3/node_modules/react/lib/ReactCompositeComponent.js","./ReactDOM":"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOM.js","./ReactElement":"/home/eric/repos/react-d3/node_modules/react/lib/ReactElement.js","./warning":"/home/eric/repos/react-d3/node_modules/react/lib/warning.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOMSelect.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./ReactBrowserComponentMixin":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactBrowserComponentMixin.js","./ReactCompositeComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactCompositeComponent.js","./ReactDOM":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOM.js","./ReactElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactElement.js","./warning":"/Users/yangwei/code/react-d3/node_modules/react/lib/warning.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOMSelect.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -34555,7 +27844,7 @@ var ReactDOMSelect = ReactCompositeComponent.createClass({
 
 module.exports = ReactDOMSelect;
 
-},{"./AutoFocusMixin":"/home/eric/repos/react-d3/node_modules/react/lib/AutoFocusMixin.js","./LinkedValueUtils":"/home/eric/repos/react-d3/node_modules/react/lib/LinkedValueUtils.js","./Object.assign":"/home/eric/repos/react-d3/node_modules/react/lib/Object.assign.js","./ReactBrowserComponentMixin":"/home/eric/repos/react-d3/node_modules/react/lib/ReactBrowserComponentMixin.js","./ReactCompositeComponent":"/home/eric/repos/react-d3/node_modules/react/lib/ReactCompositeComponent.js","./ReactDOM":"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOM.js","./ReactElement":"/home/eric/repos/react-d3/node_modules/react/lib/ReactElement.js","./ReactUpdates":"/home/eric/repos/react-d3/node_modules/react/lib/ReactUpdates.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOMSelection.js":[function(require,module,exports){
+},{"./AutoFocusMixin":"/Users/yangwei/code/react-d3/node_modules/react/lib/AutoFocusMixin.js","./LinkedValueUtils":"/Users/yangwei/code/react-d3/node_modules/react/lib/LinkedValueUtils.js","./Object.assign":"/Users/yangwei/code/react-d3/node_modules/react/lib/Object.assign.js","./ReactBrowserComponentMixin":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactBrowserComponentMixin.js","./ReactCompositeComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactCompositeComponent.js","./ReactDOM":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOM.js","./ReactElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactElement.js","./ReactUpdates":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactUpdates.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOMSelection.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -34764,7 +28053,8 @@ var ReactDOMSelection = {
 
 module.exports = ReactDOMSelection;
 
-},{"./ExecutionEnvironment":"/home/eric/repos/react-d3/node_modules/react/lib/ExecutionEnvironment.js","./getNodeForCharacterOffset":"/home/eric/repos/react-d3/node_modules/react/lib/getNodeForCharacterOffset.js","./getTextContentAccessor":"/home/eric/repos/react-d3/node_modules/react/lib/getTextContentAccessor.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOMTextarea.js":[function(require,module,exports){
+},{"./ExecutionEnvironment":"/Users/yangwei/code/react-d3/node_modules/react/lib/ExecutionEnvironment.js","./getNodeForCharacterOffset":"/Users/yangwei/code/react-d3/node_modules/react/lib/getNodeForCharacterOffset.js","./getTextContentAccessor":"/Users/yangwei/code/react-d3/node_modules/react/lib/getTextContentAccessor.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOMTextarea.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -34827,19 +28117,19 @@ var ReactDOMTextarea = ReactCompositeComponent.createClass({
     // TODO (yungsters): Remove support for children content in <textarea>.
     var children = this.props.children;
     if (children != null) {
-      if ("production" !== "development") {
-        ("production" !== "development" ? warning(
+      if ("production" !== process.env.NODE_ENV) {
+        ("production" !== process.env.NODE_ENV ? warning(
           false,
           'Use the `defaultValue` or `value` props instead of setting ' +
           'children on <textarea>.'
         ) : null);
       }
-      ("production" !== "development" ? invariant(
+      ("production" !== process.env.NODE_ENV ? invariant(
         defaultValue == null,
         'If you supply `defaultValue` on a <textarea>, do not pass children.'
       ) : invariant(defaultValue == null));
       if (Array.isArray(children)) {
-        ("production" !== "development" ? invariant(
+        ("production" !== process.env.NODE_ENV ? invariant(
           children.length <= 1,
           '<textarea> can only have at most one child.'
         ) : invariant(children.length <= 1));
@@ -34865,7 +28155,7 @@ var ReactDOMTextarea = ReactCompositeComponent.createClass({
     // Clone `this.props` so we don't mutate the input.
     var props = assign({}, this.props);
 
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       props.dangerouslySetInnerHTML == null,
       '`dangerouslySetInnerHTML` does not make sense on <textarea>.'
     ) : invariant(props.dangerouslySetInnerHTML == null));
@@ -34903,7 +28193,8 @@ var ReactDOMTextarea = ReactCompositeComponent.createClass({
 
 module.exports = ReactDOMTextarea;
 
-},{"./AutoFocusMixin":"/home/eric/repos/react-d3/node_modules/react/lib/AutoFocusMixin.js","./DOMPropertyOperations":"/home/eric/repos/react-d3/node_modules/react/lib/DOMPropertyOperations.js","./LinkedValueUtils":"/home/eric/repos/react-d3/node_modules/react/lib/LinkedValueUtils.js","./Object.assign":"/home/eric/repos/react-d3/node_modules/react/lib/Object.assign.js","./ReactBrowserComponentMixin":"/home/eric/repos/react-d3/node_modules/react/lib/ReactBrowserComponentMixin.js","./ReactCompositeComponent":"/home/eric/repos/react-d3/node_modules/react/lib/ReactCompositeComponent.js","./ReactDOM":"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOM.js","./ReactElement":"/home/eric/repos/react-d3/node_modules/react/lib/ReactElement.js","./ReactUpdates":"/home/eric/repos/react-d3/node_modules/react/lib/ReactUpdates.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js","./warning":"/home/eric/repos/react-d3/node_modules/react/lib/warning.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactDefaultBatchingStrategy.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./AutoFocusMixin":"/Users/yangwei/code/react-d3/node_modules/react/lib/AutoFocusMixin.js","./DOMPropertyOperations":"/Users/yangwei/code/react-d3/node_modules/react/lib/DOMPropertyOperations.js","./LinkedValueUtils":"/Users/yangwei/code/react-d3/node_modules/react/lib/LinkedValueUtils.js","./Object.assign":"/Users/yangwei/code/react-d3/node_modules/react/lib/Object.assign.js","./ReactBrowserComponentMixin":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactBrowserComponentMixin.js","./ReactCompositeComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactCompositeComponent.js","./ReactDOM":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOM.js","./ReactElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactElement.js","./ReactUpdates":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactUpdates.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","./warning":"/Users/yangwei/code/react-d3/node_modules/react/lib/warning.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDefaultBatchingStrategy.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -34976,7 +28267,8 @@ var ReactDefaultBatchingStrategy = {
 
 module.exports = ReactDefaultBatchingStrategy;
 
-},{"./Object.assign":"/home/eric/repos/react-d3/node_modules/react/lib/Object.assign.js","./ReactUpdates":"/home/eric/repos/react-d3/node_modules/react/lib/ReactUpdates.js","./Transaction":"/home/eric/repos/react-d3/node_modules/react/lib/Transaction.js","./emptyFunction":"/home/eric/repos/react-d3/node_modules/react/lib/emptyFunction.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactDefaultInjection.js":[function(require,module,exports){
+},{"./Object.assign":"/Users/yangwei/code/react-d3/node_modules/react/lib/Object.assign.js","./ReactUpdates":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactUpdates.js","./Transaction":"/Users/yangwei/code/react-d3/node_modules/react/lib/Transaction.js","./emptyFunction":"/Users/yangwei/code/react-d3/node_modules/react/lib/emptyFunction.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDefaultInjection.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -35090,7 +28382,7 @@ function inject() {
 
   ReactInjection.Component.injectEnvironment(ReactComponentBrowserEnvironment);
 
-  if ("production" !== "development") {
+  if ("production" !== process.env.NODE_ENV) {
     var url = (ExecutionEnvironment.canUseDOM && window.location.href) || '';
     if ((/[?&]react_perf\b/).test(url)) {
       var ReactDefaultPerf = require("./ReactDefaultPerf");
@@ -35103,7 +28395,8 @@ module.exports = {
   inject: inject
 };
 
-},{"./BeforeInputEventPlugin":"/home/eric/repos/react-d3/node_modules/react/lib/BeforeInputEventPlugin.js","./ChangeEventPlugin":"/home/eric/repos/react-d3/node_modules/react/lib/ChangeEventPlugin.js","./ClientReactRootIndex":"/home/eric/repos/react-d3/node_modules/react/lib/ClientReactRootIndex.js","./CompositionEventPlugin":"/home/eric/repos/react-d3/node_modules/react/lib/CompositionEventPlugin.js","./DefaultEventPluginOrder":"/home/eric/repos/react-d3/node_modules/react/lib/DefaultEventPluginOrder.js","./EnterLeaveEventPlugin":"/home/eric/repos/react-d3/node_modules/react/lib/EnterLeaveEventPlugin.js","./ExecutionEnvironment":"/home/eric/repos/react-d3/node_modules/react/lib/ExecutionEnvironment.js","./HTMLDOMPropertyConfig":"/home/eric/repos/react-d3/node_modules/react/lib/HTMLDOMPropertyConfig.js","./MobileSafariClickEventPlugin":"/home/eric/repos/react-d3/node_modules/react/lib/MobileSafariClickEventPlugin.js","./ReactBrowserComponentMixin":"/home/eric/repos/react-d3/node_modules/react/lib/ReactBrowserComponentMixin.js","./ReactComponentBrowserEnvironment":"/home/eric/repos/react-d3/node_modules/react/lib/ReactComponentBrowserEnvironment.js","./ReactDOMButton":"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOMButton.js","./ReactDOMComponent":"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOMComponent.js","./ReactDOMForm":"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOMForm.js","./ReactDOMImg":"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOMImg.js","./ReactDOMInput":"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOMInput.js","./ReactDOMOption":"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOMOption.js","./ReactDOMSelect":"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOMSelect.js","./ReactDOMTextarea":"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOMTextarea.js","./ReactDefaultBatchingStrategy":"/home/eric/repos/react-d3/node_modules/react/lib/ReactDefaultBatchingStrategy.js","./ReactDefaultPerf":"/home/eric/repos/react-d3/node_modules/react/lib/ReactDefaultPerf.js","./ReactEventListener":"/home/eric/repos/react-d3/node_modules/react/lib/ReactEventListener.js","./ReactInjection":"/home/eric/repos/react-d3/node_modules/react/lib/ReactInjection.js","./ReactInstanceHandles":"/home/eric/repos/react-d3/node_modules/react/lib/ReactInstanceHandles.js","./ReactMount":"/home/eric/repos/react-d3/node_modules/react/lib/ReactMount.js","./SVGDOMPropertyConfig":"/home/eric/repos/react-d3/node_modules/react/lib/SVGDOMPropertyConfig.js","./SelectEventPlugin":"/home/eric/repos/react-d3/node_modules/react/lib/SelectEventPlugin.js","./ServerReactRootIndex":"/home/eric/repos/react-d3/node_modules/react/lib/ServerReactRootIndex.js","./SimpleEventPlugin":"/home/eric/repos/react-d3/node_modules/react/lib/SimpleEventPlugin.js","./createFullPageComponent":"/home/eric/repos/react-d3/node_modules/react/lib/createFullPageComponent.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactDefaultPerf.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./BeforeInputEventPlugin":"/Users/yangwei/code/react-d3/node_modules/react/lib/BeforeInputEventPlugin.js","./ChangeEventPlugin":"/Users/yangwei/code/react-d3/node_modules/react/lib/ChangeEventPlugin.js","./ClientReactRootIndex":"/Users/yangwei/code/react-d3/node_modules/react/lib/ClientReactRootIndex.js","./CompositionEventPlugin":"/Users/yangwei/code/react-d3/node_modules/react/lib/CompositionEventPlugin.js","./DefaultEventPluginOrder":"/Users/yangwei/code/react-d3/node_modules/react/lib/DefaultEventPluginOrder.js","./EnterLeaveEventPlugin":"/Users/yangwei/code/react-d3/node_modules/react/lib/EnterLeaveEventPlugin.js","./ExecutionEnvironment":"/Users/yangwei/code/react-d3/node_modules/react/lib/ExecutionEnvironment.js","./HTMLDOMPropertyConfig":"/Users/yangwei/code/react-d3/node_modules/react/lib/HTMLDOMPropertyConfig.js","./MobileSafariClickEventPlugin":"/Users/yangwei/code/react-d3/node_modules/react/lib/MobileSafariClickEventPlugin.js","./ReactBrowserComponentMixin":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactBrowserComponentMixin.js","./ReactComponentBrowserEnvironment":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactComponentBrowserEnvironment.js","./ReactDOMButton":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOMButton.js","./ReactDOMComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOMComponent.js","./ReactDOMForm":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOMForm.js","./ReactDOMImg":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOMImg.js","./ReactDOMInput":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOMInput.js","./ReactDOMOption":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOMOption.js","./ReactDOMSelect":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOMSelect.js","./ReactDOMTextarea":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOMTextarea.js","./ReactDefaultBatchingStrategy":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDefaultBatchingStrategy.js","./ReactDefaultPerf":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDefaultPerf.js","./ReactEventListener":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactEventListener.js","./ReactInjection":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactInjection.js","./ReactInstanceHandles":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactInstanceHandles.js","./ReactMount":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactMount.js","./SVGDOMPropertyConfig":"/Users/yangwei/code/react-d3/node_modules/react/lib/SVGDOMPropertyConfig.js","./SelectEventPlugin":"/Users/yangwei/code/react-d3/node_modules/react/lib/SelectEventPlugin.js","./ServerReactRootIndex":"/Users/yangwei/code/react-d3/node_modules/react/lib/ServerReactRootIndex.js","./SimpleEventPlugin":"/Users/yangwei/code/react-d3/node_modules/react/lib/SimpleEventPlugin.js","./createFullPageComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/createFullPageComponent.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDefaultPerf.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -35363,7 +28656,7 @@ var ReactDefaultPerf = {
 
 module.exports = ReactDefaultPerf;
 
-},{"./DOMProperty":"/home/eric/repos/react-d3/node_modules/react/lib/DOMProperty.js","./ReactDefaultPerfAnalysis":"/home/eric/repos/react-d3/node_modules/react/lib/ReactDefaultPerfAnalysis.js","./ReactMount":"/home/eric/repos/react-d3/node_modules/react/lib/ReactMount.js","./ReactPerf":"/home/eric/repos/react-d3/node_modules/react/lib/ReactPerf.js","./performanceNow":"/home/eric/repos/react-d3/node_modules/react/lib/performanceNow.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactDefaultPerfAnalysis.js":[function(require,module,exports){
+},{"./DOMProperty":"/Users/yangwei/code/react-d3/node_modules/react/lib/DOMProperty.js","./ReactDefaultPerfAnalysis":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDefaultPerfAnalysis.js","./ReactMount":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactMount.js","./ReactPerf":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactPerf.js","./performanceNow":"/Users/yangwei/code/react-d3/node_modules/react/lib/performanceNow.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDefaultPerfAnalysis.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -35569,7 +28862,8 @@ var ReactDefaultPerfAnalysis = {
 
 module.exports = ReactDefaultPerfAnalysis;
 
-},{"./Object.assign":"/home/eric/repos/react-d3/node_modules/react/lib/Object.assign.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactElement.js":[function(require,module,exports){
+},{"./Object.assign":"/Users/yangwei/code/react-d3/node_modules/react/lib/Object.assign.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactElement.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2014, Facebook, Inc.
  * All rights reserved.
@@ -35614,7 +28908,7 @@ function defineWarningProperty(object, key) {
     },
 
     set: function(value) {
-      ("production" !== "development" ? warning(
+      ("production" !== process.env.NODE_ENV ? warning(
         false,
         'Don\'t set the ' + key + ' property of the component. ' +
         'Mutate the existing props object instead.'
@@ -35673,7 +28967,7 @@ var ReactElement = function(type, key, ref, owner, context, props) {
   // through the owner.
   this._context = context;
 
-  if ("production" !== "development") {
+  if ("production" !== process.env.NODE_ENV) {
     // The validation flag and props are currently mutative. We put them on
     // an external backing store so that we can freeze the whole object.
     // This can be replaced with a WeakMap once they are implemented in
@@ -35698,7 +28992,7 @@ ReactElement.prototype = {
   _isReactElement: true
 };
 
-if ("production" !== "development") {
+if ("production" !== process.env.NODE_ENV) {
   defineMutationMembrane(ReactElement.prototype);
 }
 
@@ -35713,8 +29007,8 @@ ReactElement.createElement = function(type, config, children) {
 
   if (config != null) {
     ref = config.ref === undefined ? null : config.ref;
-    if ("production" !== "development") {
-      ("production" !== "development" ? warning(
+    if ("production" !== process.env.NODE_ENV) {
+      ("production" !== process.env.NODE_ENV ? warning(
         config.key !== null,
         'createElement(...): Encountered component with a `key` of null. In ' +
         'a future version, this will be treated as equivalent to the string ' +
@@ -35785,7 +29079,7 @@ ReactElement.cloneAndReplaceProps = function(oldElement, newProps) {
     newProps
   );
 
-  if ("production" !== "development") {
+  if ("production" !== process.env.NODE_ENV) {
     // If the key on the original is valid, then the clone is valid
     newElement._store.validated = oldElement._store.validated;
   }
@@ -35813,7 +29107,9 @@ ReactElement.isValidElement = function(object) {
 
 module.exports = ReactElement;
 
-},{"./ReactContext":"/home/eric/repos/react-d3/node_modules/react/lib/ReactContext.js","./ReactCurrentOwner":"/home/eric/repos/react-d3/node_modules/react/lib/ReactCurrentOwner.js","./warning":"/home/eric/repos/react-d3/node_modules/react/lib/warning.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactElementValidator.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./ReactContext":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactContext.js","./ReactCurrentOwner":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactCurrentOwner.js","./warning":"/Users/yangwei/code/react-d3/node_modules/react/lib/warning.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactElementValidator.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2014, Facebook, Inc.
  * All rights reserved.
@@ -36039,7 +29335,7 @@ var ReactElementValidator = {
   createElement: function(type, props, children) {
     // We warn in this case but don't throw. We expect the element creation to
     // succeed and there will likely be errors in render.
-    ("production" !== "development" ? warning(
+    ("production" !== process.env.NODE_ENV ? warning(
       type != null,
       'React.createElement: type should not be null or undefined. It should ' +
         'be a string (for DOM elements) or a ReactClass (for composite ' +
@@ -36093,7 +29389,9 @@ var ReactElementValidator = {
 
 module.exports = ReactElementValidator;
 
-},{"./ReactCurrentOwner":"/home/eric/repos/react-d3/node_modules/react/lib/ReactCurrentOwner.js","./ReactElement":"/home/eric/repos/react-d3/node_modules/react/lib/ReactElement.js","./ReactPropTypeLocations":"/home/eric/repos/react-d3/node_modules/react/lib/ReactPropTypeLocations.js","./monitorCodeUse":"/home/eric/repos/react-d3/node_modules/react/lib/monitorCodeUse.js","./warning":"/home/eric/repos/react-d3/node_modules/react/lib/warning.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactEmptyComponent.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./ReactCurrentOwner":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactCurrentOwner.js","./ReactElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactElement.js","./ReactPropTypeLocations":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactPropTypeLocations.js","./monitorCodeUse":"/Users/yangwei/code/react-d3/node_modules/react/lib/monitorCodeUse.js","./warning":"/Users/yangwei/code/react-d3/node_modules/react/lib/warning.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactEmptyComponent.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2014, Facebook, Inc.
  * All rights reserved.
@@ -36126,7 +29424,7 @@ var ReactEmptyComponentInjection = {
  * @return {ReactComponent} component The injected empty component.
  */
 function getEmptyComponent() {
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     component,
     'Trying to return null from a render, but no null placeholder component ' +
     'was injected.'
@@ -36168,7 +29466,8 @@ var ReactEmptyComponent = {
 
 module.exports = ReactEmptyComponent;
 
-},{"./ReactElement":"/home/eric/repos/react-d3/node_modules/react/lib/ReactElement.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactErrorUtils.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./ReactElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactElement.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactErrorUtils.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -36200,7 +29499,7 @@ var ReactErrorUtils = {
 
 module.exports = ReactErrorUtils;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactEventEmitterMixin.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactEventEmitterMixin.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -36250,7 +29549,7 @@ var ReactEventEmitterMixin = {
 
 module.exports = ReactEventEmitterMixin;
 
-},{"./EventPluginHub":"/home/eric/repos/react-d3/node_modules/react/lib/EventPluginHub.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactEventListener.js":[function(require,module,exports){
+},{"./EventPluginHub":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventPluginHub.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactEventListener.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -36434,7 +29733,7 @@ var ReactEventListener = {
 
 module.exports = ReactEventListener;
 
-},{"./EventListener":"/home/eric/repos/react-d3/node_modules/react/lib/EventListener.js","./ExecutionEnvironment":"/home/eric/repos/react-d3/node_modules/react/lib/ExecutionEnvironment.js","./Object.assign":"/home/eric/repos/react-d3/node_modules/react/lib/Object.assign.js","./PooledClass":"/home/eric/repos/react-d3/node_modules/react/lib/PooledClass.js","./ReactInstanceHandles":"/home/eric/repos/react-d3/node_modules/react/lib/ReactInstanceHandles.js","./ReactMount":"/home/eric/repos/react-d3/node_modules/react/lib/ReactMount.js","./ReactUpdates":"/home/eric/repos/react-d3/node_modules/react/lib/ReactUpdates.js","./getEventTarget":"/home/eric/repos/react-d3/node_modules/react/lib/getEventTarget.js","./getUnboundedScrollPosition":"/home/eric/repos/react-d3/node_modules/react/lib/getUnboundedScrollPosition.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactInjection.js":[function(require,module,exports){
+},{"./EventListener":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventListener.js","./ExecutionEnvironment":"/Users/yangwei/code/react-d3/node_modules/react/lib/ExecutionEnvironment.js","./Object.assign":"/Users/yangwei/code/react-d3/node_modules/react/lib/Object.assign.js","./PooledClass":"/Users/yangwei/code/react-d3/node_modules/react/lib/PooledClass.js","./ReactInstanceHandles":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactInstanceHandles.js","./ReactMount":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactMount.js","./ReactUpdates":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactUpdates.js","./getEventTarget":"/Users/yangwei/code/react-d3/node_modules/react/lib/getEventTarget.js","./getUnboundedScrollPosition":"/Users/yangwei/code/react-d3/node_modules/react/lib/getUnboundedScrollPosition.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactInjection.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -36474,7 +29773,7 @@ var ReactInjection = {
 
 module.exports = ReactInjection;
 
-},{"./DOMProperty":"/home/eric/repos/react-d3/node_modules/react/lib/DOMProperty.js","./EventPluginHub":"/home/eric/repos/react-d3/node_modules/react/lib/EventPluginHub.js","./ReactBrowserEventEmitter":"/home/eric/repos/react-d3/node_modules/react/lib/ReactBrowserEventEmitter.js","./ReactComponent":"/home/eric/repos/react-d3/node_modules/react/lib/ReactComponent.js","./ReactCompositeComponent":"/home/eric/repos/react-d3/node_modules/react/lib/ReactCompositeComponent.js","./ReactEmptyComponent":"/home/eric/repos/react-d3/node_modules/react/lib/ReactEmptyComponent.js","./ReactNativeComponent":"/home/eric/repos/react-d3/node_modules/react/lib/ReactNativeComponent.js","./ReactPerf":"/home/eric/repos/react-d3/node_modules/react/lib/ReactPerf.js","./ReactRootIndex":"/home/eric/repos/react-d3/node_modules/react/lib/ReactRootIndex.js","./ReactUpdates":"/home/eric/repos/react-d3/node_modules/react/lib/ReactUpdates.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactInputSelection.js":[function(require,module,exports){
+},{"./DOMProperty":"/Users/yangwei/code/react-d3/node_modules/react/lib/DOMProperty.js","./EventPluginHub":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventPluginHub.js","./ReactBrowserEventEmitter":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactBrowserEventEmitter.js","./ReactComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactComponent.js","./ReactCompositeComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactCompositeComponent.js","./ReactEmptyComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactEmptyComponent.js","./ReactNativeComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactNativeComponent.js","./ReactPerf":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactPerf.js","./ReactRootIndex":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactRootIndex.js","./ReactUpdates":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactUpdates.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactInputSelection.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -36610,7 +29909,8 @@ var ReactInputSelection = {
 
 module.exports = ReactInputSelection;
 
-},{"./ReactDOMSelection":"/home/eric/repos/react-d3/node_modules/react/lib/ReactDOMSelection.js","./containsNode":"/home/eric/repos/react-d3/node_modules/react/lib/containsNode.js","./focusNode":"/home/eric/repos/react-d3/node_modules/react/lib/focusNode.js","./getActiveElement":"/home/eric/repos/react-d3/node_modules/react/lib/getActiveElement.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactInstanceHandles.js":[function(require,module,exports){
+},{"./ReactDOMSelection":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactDOMSelection.js","./containsNode":"/Users/yangwei/code/react-d3/node_modules/react/lib/containsNode.js","./focusNode":"/Users/yangwei/code/react-d3/node_modules/react/lib/focusNode.js","./getActiveElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/getActiveElement.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactInstanceHandles.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -36709,13 +30009,13 @@ function getParentID(id) {
  * @private
  */
 function getNextDescendantID(ancestorID, destinationID) {
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     isValidID(ancestorID) && isValidID(destinationID),
     'getNextDescendantID(%s, %s): Received an invalid React DOM ID.',
     ancestorID,
     destinationID
   ) : invariant(isValidID(ancestorID) && isValidID(destinationID)));
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     isAncestorIDOf(ancestorID, destinationID),
     'getNextDescendantID(...): React has made an invalid assumption about ' +
     'the DOM hierarchy. Expected `%s` to be an ancestor of `%s`.',
@@ -36762,7 +30062,7 @@ function getFirstCommonAncestorID(oneID, twoID) {
     }
   }
   var longestCommonID = oneID.substr(0, lastCommonMarkerIndex);
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     isValidID(longestCommonID),
     'getFirstCommonAncestorID(%s, %s): Expected a valid React DOM ID: %s',
     oneID,
@@ -36787,13 +30087,13 @@ function getFirstCommonAncestorID(oneID, twoID) {
 function traverseParentPath(start, stop, cb, arg, skipFirst, skipLast) {
   start = start || '';
   stop = stop || '';
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     start !== stop,
     'traverseParentPath(...): Cannot traverse from and to the same ID, `%s`.',
     start
   ) : invariant(start !== stop));
   var traverseUp = isAncestorIDOf(stop, start);
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     traverseUp || isAncestorIDOf(start, stop),
     'traverseParentPath(%s, %s, ...): Cannot traverse from two IDs that do ' +
     'not have a parent path.',
@@ -36812,7 +30112,7 @@ function traverseParentPath(start, stop, cb, arg, skipFirst, skipLast) {
       // Only break //after// visiting `stop`.
       break;
     }
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       depth++ < MAX_TREE_DEPTH,
       'traverseParentPath(%s, %s, ...): Detected an infinite loop while ' +
       'traversing the React DOM ID tree. This may be due to malformed IDs: %s',
@@ -36943,7 +30243,9 @@ var ReactInstanceHandles = {
 
 module.exports = ReactInstanceHandles;
 
-},{"./ReactRootIndex":"/home/eric/repos/react-d3/node_modules/react/lib/ReactRootIndex.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactLegacyElement.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./ReactRootIndex":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactRootIndex.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactLegacyElement.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2014, Facebook, Inc.
  * All rights reserved.
@@ -36977,7 +30279,7 @@ function warnForLegacyFactoryCall() {
     return;
   }
   legacyFactoryLogs[name] = true;
-  ("production" !== "development" ? warning(
+  ("production" !== process.env.NODE_ENV ? warning(
     false,
     name + ' is calling a React component directly. ' +
     'Use a factory or JSX instead. See: http://fb.me/react-legacyfactory'
@@ -36991,7 +30293,7 @@ function warnForPlainFunctionType(type) {
     typeof type.prototype.mountComponent === 'function' &&
     typeof type.prototype.receiveComponent === 'function';
   if (isReactClass) {
-    ("production" !== "development" ? warning(
+    ("production" !== process.env.NODE_ENV ? warning(
       false,
       'Did not expect to get a React class here. Use `Component` instead ' +
       'of `Component.type` or `this.constructor`.'
@@ -37008,7 +30310,7 @@ function warnForPlainFunctionType(type) {
         { version: 3, name: type.name }
       );
     }
-    ("production" !== "development" ? warning(
+    ("production" !== process.env.NODE_ENV ? warning(
       false,
       'This JSX uses a plain function. Only React components are ' +
       'valid in React\'s JSX transform.'
@@ -37017,7 +30319,7 @@ function warnForPlainFunctionType(type) {
 }
 
 function warnForNonLegacyFactory(type) {
-  ("production" !== "development" ? warning(
+  ("production" !== process.env.NODE_ENV ? warning(
     false,
     'Do not pass React.DOM.' + type.type + ' to JSX or createFactory. ' +
     'Use the string "' + type.type + '" instead.'
@@ -37070,7 +30372,7 @@ ReactLegacyElementFactory.wrapCreateFactory = function(createFactory) {
       // This is probably a factory created by ReactDOM we unwrap it to get to
       // the underlying string type. It shouldn't have been passed here so we
       // warn.
-      if ("production" !== "development") {
+      if ("production" !== process.env.NODE_ENV) {
         warnForNonLegacyFactory(type);
       }
       return createFactory(type.type);
@@ -37082,7 +30384,7 @@ ReactLegacyElementFactory.wrapCreateFactory = function(createFactory) {
       return createFactory(type.type);
     }
 
-    if ("production" !== "development") {
+    if ("production" !== process.env.NODE_ENV) {
       warnForPlainFunctionType(type);
     }
 
@@ -37106,7 +30408,7 @@ ReactLegacyElementFactory.wrapCreateElement = function(createElement) {
       // This is probably a factory created by ReactDOM we unwrap it to get to
       // the underlying string type. It shouldn't have been passed here so we
       // warn.
-      if ("production" !== "development") {
+      if ("production" !== process.env.NODE_ENV) {
         warnForNonLegacyFactory(type);
       }
       args = Array.prototype.slice.call(arguments, 0);
@@ -37128,7 +30430,7 @@ ReactLegacyElementFactory.wrapCreateElement = function(createElement) {
       return createElement.apply(this, args);
     }
 
-    if ("production" !== "development") {
+    if ("production" !== process.env.NODE_ENV) {
       warnForPlainFunctionType(type);
     }
 
@@ -37140,13 +30442,13 @@ ReactLegacyElementFactory.wrapCreateElement = function(createElement) {
 };
 
 ReactLegacyElementFactory.wrapFactory = function(factory) {
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     typeof factory === 'function',
     'This is suppose to accept a element factory'
   ) : invariant(typeof factory === 'function'));
   var legacyElementFactory = function(config, children) {
     // This factory should not be called when JSX is used. Use JSX instead.
-    if ("production" !== "development") {
+    if ("production" !== process.env.NODE_ENV) {
       warnForLegacyFactoryCall();
     }
     return factory.apply(this, arguments);
@@ -37174,8 +30476,8 @@ ReactLegacyElementFactory.isValidFactory = function(factory) {
 };
 
 ReactLegacyElementFactory.isValidClass = function(factory) {
-  if ("production" !== "development") {
-    ("production" !== "development" ? warning(
+  if ("production" !== process.env.NODE_ENV) {
+    ("production" !== process.env.NODE_ENV ? warning(
       false,
       'isValidClass is deprecated and will be removed in a future release. ' +
       'Use a more specific validator instead.'
@@ -37188,7 +30490,8 @@ ReactLegacyElementFactory._isLegacyCallWarningEnabled = true;
 
 module.exports = ReactLegacyElementFactory;
 
-},{"./ReactCurrentOwner":"/home/eric/repos/react-d3/node_modules/react/lib/ReactCurrentOwner.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js","./monitorCodeUse":"/home/eric/repos/react-d3/node_modules/react/lib/monitorCodeUse.js","./warning":"/home/eric/repos/react-d3/node_modules/react/lib/warning.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactMarkupChecksum.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./ReactCurrentOwner":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactCurrentOwner.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","./monitorCodeUse":"/Users/yangwei/code/react-d3/node_modules/react/lib/monitorCodeUse.js","./warning":"/Users/yangwei/code/react-d3/node_modules/react/lib/warning.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactMarkupChecksum.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -37236,7 +30539,8 @@ var ReactMarkupChecksum = {
 
 module.exports = ReactMarkupChecksum;
 
-},{"./adler32":"/home/eric/repos/react-d3/node_modules/react/lib/adler32.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactMount.js":[function(require,module,exports){
+},{"./adler32":"/Users/yangwei/code/react-d3/node_modules/react/lib/adler32.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactMount.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -37284,7 +30588,7 @@ var instancesByReactRootID = {};
 /** Mapping from reactRootID to `container` nodes. */
 var containersByReactRootID = {};
 
-if ("production" !== "development") {
+if ("production" !== process.env.NODE_ENV) {
   /** __DEV__-only mapping from reactRootID to root elements. */
   var rootElementsByReactRootID = {};
 }
@@ -37317,7 +30621,7 @@ function getID(node) {
     if (nodeCache.hasOwnProperty(id)) {
       var cached = nodeCache[id];
       if (cached !== node) {
-        ("production" !== "development" ? invariant(
+        ("production" !== process.env.NODE_ENV ? invariant(
           !isValid(cached, id),
           'ReactMount: Two valid but unequal nodes with the same `%s`: %s',
           ATTR_NAME, id
@@ -37381,7 +30685,7 @@ function getNode(id) {
  */
 function isValid(node, id) {
   if (node) {
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       internalGetID(node) === id,
       'ReactMount: Unexpected modification of `%s`',
       ATTR_NAME
@@ -37483,7 +30787,7 @@ var ReactMount = {
       prevComponent.replaceProps(nextProps, callback);
     });
 
-    if ("production" !== "development") {
+    if ("production" !== process.env.NODE_ENV) {
       // Record the root element in case it later gets transplanted.
       rootElementsByReactRootID[getReactRootID(container)] =
         getReactRootElementInContainer(container);
@@ -37500,7 +30804,7 @@ var ReactMount = {
    * @return {string} reactRoot ID prefix
    */
   _registerComponent: function(nextComponent, container) {
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       container && (
         container.nodeType === ELEMENT_NODE_TYPE ||
         container.nodeType === DOC_NODE_TYPE
@@ -37535,7 +30839,7 @@ var ReactMount = {
       // Various parts of our code (such as ReactCompositeComponent's
       // _renderValidatedComponent) assume that calls to render aren't nested;
       // verify that that's the case.
-      ("production" !== "development" ? warning(
+      ("production" !== process.env.NODE_ENV ? warning(
         ReactCurrentOwner.current == null,
         '_renderNewRootComponent(): Render methods should be a pure function ' +
         'of props and state; triggering nested component updates from ' +
@@ -37554,7 +30858,7 @@ var ReactMount = {
         shouldReuseMarkup
       );
 
-      if ("production" !== "development") {
+      if ("production" !== process.env.NODE_ENV) {
         // Record the root element in case it later gets transplanted.
         rootElementsByReactRootID[reactRootID] =
           getReactRootElementInContainer(container);
@@ -37577,7 +30881,7 @@ var ReactMount = {
    * @return {ReactComponent} Component instance rendered in `container`.
    */
   render: function(nextElement, container, callback) {
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       ReactElement.isValidElement(nextElement),
       'renderComponent(): Invalid component element.%s',
       (
@@ -37651,7 +30955,7 @@ var ReactMount = {
    */
   constructAndRenderComponentByID: function(constructor, props, id) {
     var domNode = document.getElementById(id);
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       domNode,
       'Tried to get element with id of "%s" but it is not present on the page.',
       id
@@ -37693,7 +30997,7 @@ var ReactMount = {
     // _renderValidatedComponent) assume that calls to render aren't nested;
     // verify that that's the case. (Strictly speaking, unmounting won't cause a
     // render but we still don't expect to be in a render call here.)
-    ("production" !== "development" ? warning(
+    ("production" !== process.env.NODE_ENV ? warning(
       ReactCurrentOwner.current == null,
       'unmountComponentAtNode(): Render methods should be a pure function of ' +
       'props and state; triggering nested component updates from render is ' +
@@ -37709,7 +31013,7 @@ var ReactMount = {
     ReactMount.unmountComponentFromNode(component, container);
     delete instancesByReactRootID[reactRootID];
     delete containersByReactRootID[reactRootID];
-    if ("production" !== "development") {
+    if ("production" !== process.env.NODE_ENV) {
       delete rootElementsByReactRootID[reactRootID];
     }
     return true;
@@ -37748,10 +31052,10 @@ var ReactMount = {
     var reactRootID = ReactInstanceHandles.getReactRootIDFromNodeID(id);
     var container = containersByReactRootID[reactRootID];
 
-    if ("production" !== "development") {
+    if ("production" !== process.env.NODE_ENV) {
       var rootElement = rootElementsByReactRootID[reactRootID];
       if (rootElement && rootElement.parentNode !== container) {
-        ("production" !== "development" ? invariant(
+        ("production" !== process.env.NODE_ENV ? invariant(
           // Call internalGetID here because getID calls isValid which calls
           // findReactContainerForID (this function).
           internalGetID(rootElement) === reactRootID,
@@ -37892,7 +31196,7 @@ var ReactMount = {
 
     firstChildren.length = 0;
 
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       false,
       'findComponentRoot(..., %s): Unable to find element. This probably ' +
       'means the DOM was unexpectedly mutated (e.g., by the browser), ' +
@@ -37932,7 +31236,8 @@ ReactMount.renderComponent = deprecated(
 
 module.exports = ReactMount;
 
-},{"./DOMProperty":"/home/eric/repos/react-d3/node_modules/react/lib/DOMProperty.js","./ReactBrowserEventEmitter":"/home/eric/repos/react-d3/node_modules/react/lib/ReactBrowserEventEmitter.js","./ReactCurrentOwner":"/home/eric/repos/react-d3/node_modules/react/lib/ReactCurrentOwner.js","./ReactElement":"/home/eric/repos/react-d3/node_modules/react/lib/ReactElement.js","./ReactInstanceHandles":"/home/eric/repos/react-d3/node_modules/react/lib/ReactInstanceHandles.js","./ReactLegacyElement":"/home/eric/repos/react-d3/node_modules/react/lib/ReactLegacyElement.js","./ReactPerf":"/home/eric/repos/react-d3/node_modules/react/lib/ReactPerf.js","./containsNode":"/home/eric/repos/react-d3/node_modules/react/lib/containsNode.js","./deprecated":"/home/eric/repos/react-d3/node_modules/react/lib/deprecated.js","./getReactRootElementInContainer":"/home/eric/repos/react-d3/node_modules/react/lib/getReactRootElementInContainer.js","./instantiateReactComponent":"/home/eric/repos/react-d3/node_modules/react/lib/instantiateReactComponent.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js","./shouldUpdateReactComponent":"/home/eric/repos/react-d3/node_modules/react/lib/shouldUpdateReactComponent.js","./warning":"/home/eric/repos/react-d3/node_modules/react/lib/warning.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactMultiChild.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./DOMProperty":"/Users/yangwei/code/react-d3/node_modules/react/lib/DOMProperty.js","./ReactBrowserEventEmitter":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactBrowserEventEmitter.js","./ReactCurrentOwner":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactCurrentOwner.js","./ReactElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactElement.js","./ReactInstanceHandles":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactInstanceHandles.js","./ReactLegacyElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactLegacyElement.js","./ReactPerf":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactPerf.js","./containsNode":"/Users/yangwei/code/react-d3/node_modules/react/lib/containsNode.js","./deprecated":"/Users/yangwei/code/react-d3/node_modules/react/lib/deprecated.js","./getReactRootElementInContainer":"/Users/yangwei/code/react-d3/node_modules/react/lib/getReactRootElementInContainer.js","./instantiateReactComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/instantiateReactComponent.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","./shouldUpdateReactComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/shouldUpdateReactComponent.js","./warning":"/Users/yangwei/code/react-d3/node_modules/react/lib/warning.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactMultiChild.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -38360,7 +31665,7 @@ var ReactMultiChild = {
 
 module.exports = ReactMultiChild;
 
-},{"./ReactComponent":"/home/eric/repos/react-d3/node_modules/react/lib/ReactComponent.js","./ReactMultiChildUpdateTypes":"/home/eric/repos/react-d3/node_modules/react/lib/ReactMultiChildUpdateTypes.js","./flattenChildren":"/home/eric/repos/react-d3/node_modules/react/lib/flattenChildren.js","./instantiateReactComponent":"/home/eric/repos/react-d3/node_modules/react/lib/instantiateReactComponent.js","./shouldUpdateReactComponent":"/home/eric/repos/react-d3/node_modules/react/lib/shouldUpdateReactComponent.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactMultiChildUpdateTypes.js":[function(require,module,exports){
+},{"./ReactComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactComponent.js","./ReactMultiChildUpdateTypes":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactMultiChildUpdateTypes.js","./flattenChildren":"/Users/yangwei/code/react-d3/node_modules/react/lib/flattenChildren.js","./instantiateReactComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/instantiateReactComponent.js","./shouldUpdateReactComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/shouldUpdateReactComponent.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactMultiChildUpdateTypes.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -38393,7 +31698,8 @@ var ReactMultiChildUpdateTypes = keyMirror({
 
 module.exports = ReactMultiChildUpdateTypes;
 
-},{"./keyMirror":"/home/eric/repos/react-d3/node_modules/react/lib/keyMirror.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactNativeComponent.js":[function(require,module,exports){
+},{"./keyMirror":"/Users/yangwei/code/react-d3/node_modules/react/lib/keyMirror.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactNativeComponent.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2014, Facebook, Inc.
  * All rights reserved.
@@ -38437,7 +31743,7 @@ var ReactNativeComponentInjection = {
 function createInstanceForTag(tag, props, parentType) {
   var componentClass = tagToComponentClass[tag];
   if (componentClass == null) {
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       genericComponentClass,
       'There is no registered component for the tag %s',
       tag
@@ -38446,7 +31752,7 @@ function createInstanceForTag(tag, props, parentType) {
   }
   if (parentType === tag) {
     // Avoid recursion
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       genericComponentClass,
       'There is no registered component for the tag %s',
       tag
@@ -38464,7 +31770,9 @@ var ReactNativeComponent = {
 
 module.exports = ReactNativeComponent;
 
-},{"./Object.assign":"/home/eric/repos/react-d3/node_modules/react/lib/Object.assign.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactOwner.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./Object.assign":"/Users/yangwei/code/react-d3/node_modules/react/lib/Object.assign.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactOwner.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -38536,7 +31844,7 @@ var ReactOwner = {
    * @internal
    */
   addComponentAsRefTo: function(component, ref, owner) {
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       ReactOwner.isValidOwner(owner),
       'addComponentAsRefTo(...): Only a ReactOwner can have refs. This ' +
       'usually means that you\'re trying to add a ref to a component that ' +
@@ -38557,7 +31865,7 @@ var ReactOwner = {
    * @internal
    */
   removeComponentAsRefFrom: function(component, ref, owner) {
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       ReactOwner.isValidOwner(owner),
       'removeComponentAsRefFrom(...): Only a ReactOwner can have refs. This ' +
       'usually means that you\'re trying to remove a ref to a component that ' +
@@ -38592,7 +31900,7 @@ var ReactOwner = {
      * @private
      */
     attachRef: function(ref, component) {
-      ("production" !== "development" ? invariant(
+      ("production" !== process.env.NODE_ENV ? invariant(
         component.isOwnedBy(this),
         'attachRef(%s, ...): Only a component\'s owner can store a ref to it.',
         ref
@@ -38618,7 +31926,9 @@ var ReactOwner = {
 
 module.exports = ReactOwner;
 
-},{"./emptyObject":"/home/eric/repos/react-d3/node_modules/react/lib/emptyObject.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactPerf.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./emptyObject":"/Users/yangwei/code/react-d3/node_modules/react/lib/emptyObject.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactPerf.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -38659,7 +31969,7 @@ var ReactPerf = {
    * @return {function}
    */
   measure: function(objName, fnName, func) {
-    if ("production" !== "development") {
+    if ("production" !== process.env.NODE_ENV) {
       var measuredFunc = null;
       var wrapper = function() {
         if (ReactPerf.enableMeasure) {
@@ -38700,7 +32010,9 @@ function _noMeasure(objName, fnName, func) {
 
 module.exports = ReactPerf;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactPropTransferer.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactPropTransferer.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -38831,7 +32143,7 @@ var ReactPropTransferer = {
      * @protected
      */
     transferPropsTo: function(element) {
-      ("production" !== "development" ? invariant(
+      ("production" !== process.env.NODE_ENV ? invariant(
         element._owner === this,
         '%s: You can\'t call transferPropsTo() on a component that you ' +
         'don\'t own, %s. This usually means you are calling ' +
@@ -38842,10 +32154,10 @@ var ReactPropTransferer = {
         element.type.displayName
       ) : invariant(element._owner === this));
 
-      if ("production" !== "development") {
+      if ("production" !== process.env.NODE_ENV) {
         if (!didWarn) {
           didWarn = true;
-          ("production" !== "development" ? warning(
+          ("production" !== process.env.NODE_ENV ? warning(
             false,
             'transferPropsTo is deprecated. ' +
             'See http://fb.me/react-transferpropsto for more information.'
@@ -38865,7 +32177,9 @@ var ReactPropTransferer = {
 
 module.exports = ReactPropTransferer;
 
-},{"./Object.assign":"/home/eric/repos/react-d3/node_modules/react/lib/Object.assign.js","./emptyFunction":"/home/eric/repos/react-d3/node_modules/react/lib/emptyFunction.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js","./joinClasses":"/home/eric/repos/react-d3/node_modules/react/lib/joinClasses.js","./warning":"/home/eric/repos/react-d3/node_modules/react/lib/warning.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactPropTypeLocationNames.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./Object.assign":"/Users/yangwei/code/react-d3/node_modules/react/lib/Object.assign.js","./emptyFunction":"/Users/yangwei/code/react-d3/node_modules/react/lib/emptyFunction.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","./joinClasses":"/Users/yangwei/code/react-d3/node_modules/react/lib/joinClasses.js","./warning":"/Users/yangwei/code/react-d3/node_modules/react/lib/warning.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactPropTypeLocationNames.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -38881,7 +32195,7 @@ module.exports = ReactPropTransferer;
 
 var ReactPropTypeLocationNames = {};
 
-if ("production" !== "development") {
+if ("production" !== process.env.NODE_ENV) {
   ReactPropTypeLocationNames = {
     prop: 'prop',
     context: 'context',
@@ -38891,7 +32205,8 @@ if ("production" !== "development") {
 
 module.exports = ReactPropTypeLocationNames;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactPropTypeLocations.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactPropTypeLocations.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -38915,7 +32230,7 @@ var ReactPropTypeLocations = keyMirror({
 
 module.exports = ReactPropTypeLocations;
 
-},{"./keyMirror":"/home/eric/repos/react-d3/node_modules/react/lib/keyMirror.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactPropTypes.js":[function(require,module,exports){
+},{"./keyMirror":"/Users/yangwei/code/react-d3/node_modules/react/lib/keyMirror.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactPropTypes.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -39269,7 +32584,7 @@ function getPreciseType(propValue) {
 
 module.exports = ReactPropTypes;
 
-},{"./ReactElement":"/home/eric/repos/react-d3/node_modules/react/lib/ReactElement.js","./ReactPropTypeLocationNames":"/home/eric/repos/react-d3/node_modules/react/lib/ReactPropTypeLocationNames.js","./deprecated":"/home/eric/repos/react-d3/node_modules/react/lib/deprecated.js","./emptyFunction":"/home/eric/repos/react-d3/node_modules/react/lib/emptyFunction.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactPutListenerQueue.js":[function(require,module,exports){
+},{"./ReactElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactElement.js","./ReactPropTypeLocationNames":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactPropTypeLocationNames.js","./deprecated":"/Users/yangwei/code/react-d3/node_modules/react/lib/deprecated.js","./emptyFunction":"/Users/yangwei/code/react-d3/node_modules/react/lib/emptyFunction.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactPutListenerQueue.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -39325,7 +32640,7 @@ PooledClass.addPoolingTo(ReactPutListenerQueue);
 
 module.exports = ReactPutListenerQueue;
 
-},{"./Object.assign":"/home/eric/repos/react-d3/node_modules/react/lib/Object.assign.js","./PooledClass":"/home/eric/repos/react-d3/node_modules/react/lib/PooledClass.js","./ReactBrowserEventEmitter":"/home/eric/repos/react-d3/node_modules/react/lib/ReactBrowserEventEmitter.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactReconcileTransaction.js":[function(require,module,exports){
+},{"./Object.assign":"/Users/yangwei/code/react-d3/node_modules/react/lib/Object.assign.js","./PooledClass":"/Users/yangwei/code/react-d3/node_modules/react/lib/PooledClass.js","./ReactBrowserEventEmitter":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactBrowserEventEmitter.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactReconcileTransaction.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -39501,7 +32816,7 @@ PooledClass.addPoolingTo(ReactReconcileTransaction);
 
 module.exports = ReactReconcileTransaction;
 
-},{"./CallbackQueue":"/home/eric/repos/react-d3/node_modules/react/lib/CallbackQueue.js","./Object.assign":"/home/eric/repos/react-d3/node_modules/react/lib/Object.assign.js","./PooledClass":"/home/eric/repos/react-d3/node_modules/react/lib/PooledClass.js","./ReactBrowserEventEmitter":"/home/eric/repos/react-d3/node_modules/react/lib/ReactBrowserEventEmitter.js","./ReactInputSelection":"/home/eric/repos/react-d3/node_modules/react/lib/ReactInputSelection.js","./ReactPutListenerQueue":"/home/eric/repos/react-d3/node_modules/react/lib/ReactPutListenerQueue.js","./Transaction":"/home/eric/repos/react-d3/node_modules/react/lib/Transaction.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactRootIndex.js":[function(require,module,exports){
+},{"./CallbackQueue":"/Users/yangwei/code/react-d3/node_modules/react/lib/CallbackQueue.js","./Object.assign":"/Users/yangwei/code/react-d3/node_modules/react/lib/Object.assign.js","./PooledClass":"/Users/yangwei/code/react-d3/node_modules/react/lib/PooledClass.js","./ReactBrowserEventEmitter":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactBrowserEventEmitter.js","./ReactInputSelection":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactInputSelection.js","./ReactPutListenerQueue":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactPutListenerQueue.js","./Transaction":"/Users/yangwei/code/react-d3/node_modules/react/lib/Transaction.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactRootIndex.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -39532,7 +32847,8 @@ var ReactRootIndex = {
 
 module.exports = ReactRootIndex;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactServerRendering.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactServerRendering.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -39560,7 +32876,7 @@ var invariant = require("./invariant");
  * @return {string} the HTML markup
  */
 function renderToString(element) {
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     ReactElement.isValidElement(element),
     'renderToString(): You must pass a valid ReactElement.'
   ) : invariant(ReactElement.isValidElement(element)));
@@ -39586,7 +32902,7 @@ function renderToString(element) {
  * (for generating static pages)
  */
 function renderToStaticMarkup(element) {
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     ReactElement.isValidElement(element),
     'renderToStaticMarkup(): You must pass a valid ReactElement.'
   ) : invariant(ReactElement.isValidElement(element)));
@@ -39610,7 +32926,8 @@ module.exports = {
   renderToStaticMarkup: renderToStaticMarkup
 };
 
-},{"./ReactElement":"/home/eric/repos/react-d3/node_modules/react/lib/ReactElement.js","./ReactInstanceHandles":"/home/eric/repos/react-d3/node_modules/react/lib/ReactInstanceHandles.js","./ReactMarkupChecksum":"/home/eric/repos/react-d3/node_modules/react/lib/ReactMarkupChecksum.js","./ReactServerRenderingTransaction":"/home/eric/repos/react-d3/node_modules/react/lib/ReactServerRenderingTransaction.js","./instantiateReactComponent":"/home/eric/repos/react-d3/node_modules/react/lib/instantiateReactComponent.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactServerRenderingTransaction.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./ReactElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactElement.js","./ReactInstanceHandles":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactInstanceHandles.js","./ReactMarkupChecksum":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactMarkupChecksum.js","./ReactServerRenderingTransaction":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactServerRenderingTransaction.js","./instantiateReactComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/instantiateReactComponent.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactServerRenderingTransaction.js":[function(require,module,exports){
 /**
  * Copyright 2014, Facebook, Inc.
  * All rights reserved.
@@ -39723,7 +33040,7 @@ PooledClass.addPoolingTo(ReactServerRenderingTransaction);
 
 module.exports = ReactServerRenderingTransaction;
 
-},{"./CallbackQueue":"/home/eric/repos/react-d3/node_modules/react/lib/CallbackQueue.js","./Object.assign":"/home/eric/repos/react-d3/node_modules/react/lib/Object.assign.js","./PooledClass":"/home/eric/repos/react-d3/node_modules/react/lib/PooledClass.js","./ReactPutListenerQueue":"/home/eric/repos/react-d3/node_modules/react/lib/ReactPutListenerQueue.js","./Transaction":"/home/eric/repos/react-d3/node_modules/react/lib/Transaction.js","./emptyFunction":"/home/eric/repos/react-d3/node_modules/react/lib/emptyFunction.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactTextComponent.js":[function(require,module,exports){
+},{"./CallbackQueue":"/Users/yangwei/code/react-d3/node_modules/react/lib/CallbackQueue.js","./Object.assign":"/Users/yangwei/code/react-d3/node_modules/react/lib/Object.assign.js","./PooledClass":"/Users/yangwei/code/react-d3/node_modules/react/lib/PooledClass.js","./ReactPutListenerQueue":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactPutListenerQueue.js","./Transaction":"/Users/yangwei/code/react-d3/node_modules/react/lib/Transaction.js","./emptyFunction":"/Users/yangwei/code/react-d3/node_modules/react/lib/emptyFunction.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactTextComponent.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -39829,7 +33146,8 @@ ReactTextComponentFactory.type = ReactTextComponent;
 
 module.exports = ReactTextComponentFactory;
 
-},{"./DOMPropertyOperations":"/home/eric/repos/react-d3/node_modules/react/lib/DOMPropertyOperations.js","./Object.assign":"/home/eric/repos/react-d3/node_modules/react/lib/Object.assign.js","./ReactComponent":"/home/eric/repos/react-d3/node_modules/react/lib/ReactComponent.js","./ReactElement":"/home/eric/repos/react-d3/node_modules/react/lib/ReactElement.js","./escapeTextForBrowser":"/home/eric/repos/react-d3/node_modules/react/lib/escapeTextForBrowser.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ReactUpdates.js":[function(require,module,exports){
+},{"./DOMPropertyOperations":"/Users/yangwei/code/react-d3/node_modules/react/lib/DOMPropertyOperations.js","./Object.assign":"/Users/yangwei/code/react-d3/node_modules/react/lib/Object.assign.js","./ReactComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactComponent.js","./ReactElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactElement.js","./escapeTextForBrowser":"/Users/yangwei/code/react-d3/node_modules/react/lib/escapeTextForBrowser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactUpdates.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -39860,7 +33178,7 @@ var asapEnqueued = false;
 var batchingStrategy = null;
 
 function ensureInjected() {
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     ReactUpdates.ReactReconcileTransaction && batchingStrategy,
     'ReactUpdates: must inject a reconcile transaction class and batching ' +
     'strategy'
@@ -39954,7 +33272,7 @@ function mountDepthComparator(c1, c2) {
 
 function runBatchedUpdates(transaction) {
   var len = transaction.dirtyComponentsLength;
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     len === dirtyComponents.length,
     'Expected flush transaction\'s stored dirty-components length (%s) to ' +
     'match dirty-components array length (%s).',
@@ -40022,7 +33340,7 @@ var flushBatchedUpdates = ReactPerf.measure(
  * list of functions which will be executed once the rerender occurs.
  */
 function enqueueUpdate(component, callback) {
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     !callback || typeof callback === "function",
     'enqueueUpdate(...): You called `setProps`, `replaceProps`, ' +
     '`setState`, `replaceState`, or `forceUpdate` with a callback that ' +
@@ -40035,7 +33353,7 @@ function enqueueUpdate(component, callback) {
   // verify that that's the case. (This is called by each top-level update
   // function, like setProps, setState, forceUpdate, etc.; creation and
   // destruction of top-level components is guarded in ReactMount.)
-  ("production" !== "development" ? warning(
+  ("production" !== process.env.NODE_ENV ? warning(
     ReactCurrentOwner.current == null,
     'enqueueUpdate(): Render methods should be a pure function of props ' +
     'and state; triggering nested component updates from render is not ' +
@@ -40064,7 +33382,7 @@ function enqueueUpdate(component, callback) {
  * if no updates are currently being performed.
  */
 function asap(callback, context) {
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     batchingStrategy.isBatchingUpdates,
     'ReactUpdates.asap: Can\'t enqueue an asap callback in a context where' +
     'updates are not being batched.'
@@ -40075,7 +33393,7 @@ function asap(callback, context) {
 
 var ReactUpdatesInjection = {
   injectReconcileTransaction: function(ReconcileTransaction) {
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       ReconcileTransaction,
       'ReactUpdates: must provide a reconcile transaction class'
     ) : invariant(ReconcileTransaction));
@@ -40083,15 +33401,15 @@ var ReactUpdatesInjection = {
   },
 
   injectBatchingStrategy: function(_batchingStrategy) {
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       _batchingStrategy,
       'ReactUpdates: must provide a batching strategy'
     ) : invariant(_batchingStrategy));
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       typeof _batchingStrategy.batchedUpdates === 'function',
       'ReactUpdates: must provide a batchedUpdates() function'
     ) : invariant(typeof _batchingStrategy.batchedUpdates === 'function'));
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       typeof _batchingStrategy.isBatchingUpdates === 'boolean',
       'ReactUpdates: must provide an isBatchingUpdates boolean attribute'
     ) : invariant(typeof _batchingStrategy.isBatchingUpdates === 'boolean'));
@@ -40117,7 +33435,8 @@ var ReactUpdates = {
 
 module.exports = ReactUpdates;
 
-},{"./CallbackQueue":"/home/eric/repos/react-d3/node_modules/react/lib/CallbackQueue.js","./Object.assign":"/home/eric/repos/react-d3/node_modules/react/lib/Object.assign.js","./PooledClass":"/home/eric/repos/react-d3/node_modules/react/lib/PooledClass.js","./ReactCurrentOwner":"/home/eric/repos/react-d3/node_modules/react/lib/ReactCurrentOwner.js","./ReactPerf":"/home/eric/repos/react-d3/node_modules/react/lib/ReactPerf.js","./Transaction":"/home/eric/repos/react-d3/node_modules/react/lib/Transaction.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js","./warning":"/home/eric/repos/react-d3/node_modules/react/lib/warning.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/SVGDOMPropertyConfig.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./CallbackQueue":"/Users/yangwei/code/react-d3/node_modules/react/lib/CallbackQueue.js","./Object.assign":"/Users/yangwei/code/react-d3/node_modules/react/lib/Object.assign.js","./PooledClass":"/Users/yangwei/code/react-d3/node_modules/react/lib/PooledClass.js","./ReactCurrentOwner":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactCurrentOwner.js","./ReactPerf":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactPerf.js","./Transaction":"/Users/yangwei/code/react-d3/node_modules/react/lib/Transaction.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","./warning":"/Users/yangwei/code/react-d3/node_modules/react/lib/warning.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/SVGDOMPropertyConfig.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -40209,7 +33528,7 @@ var SVGDOMPropertyConfig = {
 
 module.exports = SVGDOMPropertyConfig;
 
-},{"./DOMProperty":"/home/eric/repos/react-d3/node_modules/react/lib/DOMProperty.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/SelectEventPlugin.js":[function(require,module,exports){
+},{"./DOMProperty":"/Users/yangwei/code/react-d3/node_modules/react/lib/DOMProperty.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/SelectEventPlugin.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -40404,7 +33723,7 @@ var SelectEventPlugin = {
 
 module.exports = SelectEventPlugin;
 
-},{"./EventConstants":"/home/eric/repos/react-d3/node_modules/react/lib/EventConstants.js","./EventPropagators":"/home/eric/repos/react-d3/node_modules/react/lib/EventPropagators.js","./ReactInputSelection":"/home/eric/repos/react-d3/node_modules/react/lib/ReactInputSelection.js","./SyntheticEvent":"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticEvent.js","./getActiveElement":"/home/eric/repos/react-d3/node_modules/react/lib/getActiveElement.js","./isTextInputElement":"/home/eric/repos/react-d3/node_modules/react/lib/isTextInputElement.js","./keyOf":"/home/eric/repos/react-d3/node_modules/react/lib/keyOf.js","./shallowEqual":"/home/eric/repos/react-d3/node_modules/react/lib/shallowEqual.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ServerReactRootIndex.js":[function(require,module,exports){
+},{"./EventConstants":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventConstants.js","./EventPropagators":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventPropagators.js","./ReactInputSelection":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactInputSelection.js","./SyntheticEvent":"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticEvent.js","./getActiveElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/getActiveElement.js","./isTextInputElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/isTextInputElement.js","./keyOf":"/Users/yangwei/code/react-d3/node_modules/react/lib/keyOf.js","./shallowEqual":"/Users/yangwei/code/react-d3/node_modules/react/lib/shallowEqual.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ServerReactRootIndex.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -40435,7 +33754,8 @@ var ServerReactRootIndex = {
 
 module.exports = ServerReactRootIndex;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/SimpleEventPlugin.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/SimpleEventPlugin.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -40742,7 +34062,7 @@ var SimpleEventPlugin = {
   executeDispatch: function(event, listener, domID) {
     var returnValue = EventPluginUtils.executeDispatch(event, listener, domID);
 
-    ("production" !== "development" ? warning(
+    ("production" !== process.env.NODE_ENV ? warning(
       typeof returnValue !== 'boolean',
       'Returning `false` from an event handler is deprecated and will be ' +
       'ignored in a future release. Instead, manually call ' +
@@ -40843,7 +34163,7 @@ var SimpleEventPlugin = {
         EventConstructor = SyntheticClipboardEvent;
         break;
     }
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       EventConstructor,
       'SimpleEventPlugin: Unhandled event type, `%s`.',
       topLevelType
@@ -40861,7 +34181,8 @@ var SimpleEventPlugin = {
 
 module.exports = SimpleEventPlugin;
 
-},{"./EventConstants":"/home/eric/repos/react-d3/node_modules/react/lib/EventConstants.js","./EventPluginUtils":"/home/eric/repos/react-d3/node_modules/react/lib/EventPluginUtils.js","./EventPropagators":"/home/eric/repos/react-d3/node_modules/react/lib/EventPropagators.js","./SyntheticClipboardEvent":"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticClipboardEvent.js","./SyntheticDragEvent":"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticDragEvent.js","./SyntheticEvent":"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticEvent.js","./SyntheticFocusEvent":"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticFocusEvent.js","./SyntheticKeyboardEvent":"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticKeyboardEvent.js","./SyntheticMouseEvent":"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticMouseEvent.js","./SyntheticTouchEvent":"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticTouchEvent.js","./SyntheticUIEvent":"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticUIEvent.js","./SyntheticWheelEvent":"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticWheelEvent.js","./getEventCharCode":"/home/eric/repos/react-d3/node_modules/react/lib/getEventCharCode.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js","./keyOf":"/home/eric/repos/react-d3/node_modules/react/lib/keyOf.js","./warning":"/home/eric/repos/react-d3/node_modules/react/lib/warning.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticClipboardEvent.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./EventConstants":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventConstants.js","./EventPluginUtils":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventPluginUtils.js","./EventPropagators":"/Users/yangwei/code/react-d3/node_modules/react/lib/EventPropagators.js","./SyntheticClipboardEvent":"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticClipboardEvent.js","./SyntheticDragEvent":"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticDragEvent.js","./SyntheticEvent":"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticEvent.js","./SyntheticFocusEvent":"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticFocusEvent.js","./SyntheticKeyboardEvent":"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticKeyboardEvent.js","./SyntheticMouseEvent":"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticMouseEvent.js","./SyntheticTouchEvent":"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticTouchEvent.js","./SyntheticUIEvent":"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticUIEvent.js","./SyntheticWheelEvent":"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticWheelEvent.js","./getEventCharCode":"/Users/yangwei/code/react-d3/node_modules/react/lib/getEventCharCode.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","./keyOf":"/Users/yangwei/code/react-d3/node_modules/react/lib/keyOf.js","./warning":"/Users/yangwei/code/react-d3/node_modules/react/lib/warning.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticClipboardEvent.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -40907,7 +34228,7 @@ SyntheticEvent.augmentClass(SyntheticClipboardEvent, ClipboardEventInterface);
 module.exports = SyntheticClipboardEvent;
 
 
-},{"./SyntheticEvent":"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticEvent.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticCompositionEvent.js":[function(require,module,exports){
+},{"./SyntheticEvent":"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticEvent.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticCompositionEvent.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -40953,7 +34274,7 @@ SyntheticEvent.augmentClass(
 module.exports = SyntheticCompositionEvent;
 
 
-},{"./SyntheticEvent":"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticEvent.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticDragEvent.js":[function(require,module,exports){
+},{"./SyntheticEvent":"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticEvent.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticDragEvent.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -40992,7 +34313,7 @@ SyntheticMouseEvent.augmentClass(SyntheticDragEvent, DragEventInterface);
 
 module.exports = SyntheticDragEvent;
 
-},{"./SyntheticMouseEvent":"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticMouseEvent.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticEvent.js":[function(require,module,exports){
+},{"./SyntheticMouseEvent":"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticMouseEvent.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticEvent.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -41150,7 +34471,7 @@ PooledClass.addPoolingTo(SyntheticEvent, PooledClass.threeArgumentPooler);
 
 module.exports = SyntheticEvent;
 
-},{"./Object.assign":"/home/eric/repos/react-d3/node_modules/react/lib/Object.assign.js","./PooledClass":"/home/eric/repos/react-d3/node_modules/react/lib/PooledClass.js","./emptyFunction":"/home/eric/repos/react-d3/node_modules/react/lib/emptyFunction.js","./getEventTarget":"/home/eric/repos/react-d3/node_modules/react/lib/getEventTarget.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticFocusEvent.js":[function(require,module,exports){
+},{"./Object.assign":"/Users/yangwei/code/react-d3/node_modules/react/lib/Object.assign.js","./PooledClass":"/Users/yangwei/code/react-d3/node_modules/react/lib/PooledClass.js","./emptyFunction":"/Users/yangwei/code/react-d3/node_modules/react/lib/emptyFunction.js","./getEventTarget":"/Users/yangwei/code/react-d3/node_modules/react/lib/getEventTarget.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticFocusEvent.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -41189,7 +34510,7 @@ SyntheticUIEvent.augmentClass(SyntheticFocusEvent, FocusEventInterface);
 
 module.exports = SyntheticFocusEvent;
 
-},{"./SyntheticUIEvent":"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticUIEvent.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticInputEvent.js":[function(require,module,exports){
+},{"./SyntheticUIEvent":"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticUIEvent.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticInputEvent.js":[function(require,module,exports){
 /**
  * Copyright 2013 Facebook, Inc.
  * All rights reserved.
@@ -41236,7 +34557,7 @@ SyntheticEvent.augmentClass(
 module.exports = SyntheticInputEvent;
 
 
-},{"./SyntheticEvent":"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticEvent.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticKeyboardEvent.js":[function(require,module,exports){
+},{"./SyntheticEvent":"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticEvent.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticKeyboardEvent.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -41323,7 +34644,7 @@ SyntheticUIEvent.augmentClass(SyntheticKeyboardEvent, KeyboardEventInterface);
 
 module.exports = SyntheticKeyboardEvent;
 
-},{"./SyntheticUIEvent":"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticUIEvent.js","./getEventCharCode":"/home/eric/repos/react-d3/node_modules/react/lib/getEventCharCode.js","./getEventKey":"/home/eric/repos/react-d3/node_modules/react/lib/getEventKey.js","./getEventModifierState":"/home/eric/repos/react-d3/node_modules/react/lib/getEventModifierState.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticMouseEvent.js":[function(require,module,exports){
+},{"./SyntheticUIEvent":"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticUIEvent.js","./getEventCharCode":"/Users/yangwei/code/react-d3/node_modules/react/lib/getEventCharCode.js","./getEventKey":"/Users/yangwei/code/react-d3/node_modules/react/lib/getEventKey.js","./getEventModifierState":"/Users/yangwei/code/react-d3/node_modules/react/lib/getEventModifierState.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticMouseEvent.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -41406,7 +34727,7 @@ SyntheticUIEvent.augmentClass(SyntheticMouseEvent, MouseEventInterface);
 
 module.exports = SyntheticMouseEvent;
 
-},{"./SyntheticUIEvent":"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticUIEvent.js","./ViewportMetrics":"/home/eric/repos/react-d3/node_modules/react/lib/ViewportMetrics.js","./getEventModifierState":"/home/eric/repos/react-d3/node_modules/react/lib/getEventModifierState.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticTouchEvent.js":[function(require,module,exports){
+},{"./SyntheticUIEvent":"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticUIEvent.js","./ViewportMetrics":"/Users/yangwei/code/react-d3/node_modules/react/lib/ViewportMetrics.js","./getEventModifierState":"/Users/yangwei/code/react-d3/node_modules/react/lib/getEventModifierState.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticTouchEvent.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -41454,7 +34775,7 @@ SyntheticUIEvent.augmentClass(SyntheticTouchEvent, TouchEventInterface);
 
 module.exports = SyntheticTouchEvent;
 
-},{"./SyntheticUIEvent":"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticUIEvent.js","./getEventModifierState":"/home/eric/repos/react-d3/node_modules/react/lib/getEventModifierState.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticUIEvent.js":[function(require,module,exports){
+},{"./SyntheticUIEvent":"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticUIEvent.js","./getEventModifierState":"/Users/yangwei/code/react-d3/node_modules/react/lib/getEventModifierState.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticUIEvent.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -41516,7 +34837,7 @@ SyntheticEvent.augmentClass(SyntheticUIEvent, UIEventInterface);
 
 module.exports = SyntheticUIEvent;
 
-},{"./SyntheticEvent":"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticEvent.js","./getEventTarget":"/home/eric/repos/react-d3/node_modules/react/lib/getEventTarget.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticWheelEvent.js":[function(require,module,exports){
+},{"./SyntheticEvent":"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticEvent.js","./getEventTarget":"/Users/yangwei/code/react-d3/node_modules/react/lib/getEventTarget.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticWheelEvent.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -41577,7 +34898,8 @@ SyntheticMouseEvent.augmentClass(SyntheticWheelEvent, WheelEventInterface);
 
 module.exports = SyntheticWheelEvent;
 
-},{"./SyntheticMouseEvent":"/home/eric/repos/react-d3/node_modules/react/lib/SyntheticMouseEvent.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/Transaction.js":[function(require,module,exports){
+},{"./SyntheticMouseEvent":"/Users/yangwei/code/react-d3/node_modules/react/lib/SyntheticMouseEvent.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/Transaction.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -41696,7 +35018,7 @@ var Mixin = {
    * @return Return value from `method`.
    */
   perform: function(method, scope, a, b, c, d, e, f) {
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       !this.isInTransaction(),
       'Transaction.perform(...): Cannot initialize a transaction when there ' +
       'is already an outstanding transaction.'
@@ -41768,7 +35090,7 @@ var Mixin = {
    * invoked).
    */
   closeAll: function(startIndex) {
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       this.isInTransaction(),
       'Transaction.closeAll(): Cannot close transaction when none are open.'
     ) : invariant(this.isInTransaction()));
@@ -41816,7 +35138,8 @@ var Transaction = {
 
 module.exports = Transaction;
 
-},{"./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/ViewportMetrics.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/ViewportMetrics.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -41848,7 +35171,8 @@ var ViewportMetrics = {
 
 module.exports = ViewportMetrics;
 
-},{"./getUnboundedScrollPosition":"/home/eric/repos/react-d3/node_modules/react/lib/getUnboundedScrollPosition.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/accumulateInto.js":[function(require,module,exports){
+},{"./getUnboundedScrollPosition":"/Users/yangwei/code/react-d3/node_modules/react/lib/getUnboundedScrollPosition.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/accumulateInto.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2014, Facebook, Inc.
  * All rights reserved.
@@ -41879,7 +35203,7 @@ var invariant = require("./invariant");
  */
 
 function accumulateInto(current, next) {
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     next != null,
     'accumulateInto(...): Accumulated items must not be null or undefined.'
   ) : invariant(next != null));
@@ -41912,7 +35236,8 @@ function accumulateInto(current, next) {
 
 module.exports = accumulateInto;
 
-},{"./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/adler32.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/adler32.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -41946,7 +35271,7 @@ function adler32(data) {
 
 module.exports = adler32;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/camelize.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/camelize.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -41978,7 +35303,7 @@ function camelize(string) {
 
 module.exports = camelize;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/camelizeStyleName.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/camelizeStyleName.js":[function(require,module,exports){
 /**
  * Copyright 2014, Facebook, Inc.
  * All rights reserved.
@@ -42020,7 +35345,7 @@ function camelizeStyleName(string) {
 
 module.exports = camelizeStyleName;
 
-},{"./camelize":"/home/eric/repos/react-d3/node_modules/react/lib/camelize.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/containsNode.js":[function(require,module,exports){
+},{"./camelize":"/Users/yangwei/code/react-d3/node_modules/react/lib/camelize.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/containsNode.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -42064,7 +35389,7 @@ function containsNode(outerNode, innerNode) {
 
 module.exports = containsNode;
 
-},{"./isTextNode":"/home/eric/repos/react-d3/node_modules/react/lib/isTextNode.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/createArrayFrom.js":[function(require,module,exports){
+},{"./isTextNode":"/Users/yangwei/code/react-d3/node_modules/react/lib/isTextNode.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/createArrayFrom.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -42150,7 +35475,8 @@ function createArrayFrom(obj) {
 
 module.exports = createArrayFrom;
 
-},{"./toArray":"/home/eric/repos/react-d3/node_modules/react/lib/toArray.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/createFullPageComponent.js":[function(require,module,exports){
+},{"./toArray":"/Users/yangwei/code/react-d3/node_modules/react/lib/toArray.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/createFullPageComponent.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -42189,7 +35515,7 @@ function createFullPageComponent(tag) {
     displayName: 'ReactFullPageComponent' + tag,
 
     componentWillUnmount: function() {
-      ("production" !== "development" ? invariant(
+      ("production" !== process.env.NODE_ENV ? invariant(
         false,
         '%s tried to unmount. Because of cross-browser quirks it is ' +
         'impossible to unmount some top-level components (eg <html>, <head>, ' +
@@ -42209,7 +35535,9 @@ function createFullPageComponent(tag) {
 
 module.exports = createFullPageComponent;
 
-},{"./ReactCompositeComponent":"/home/eric/repos/react-d3/node_modules/react/lib/ReactCompositeComponent.js","./ReactElement":"/home/eric/repos/react-d3/node_modules/react/lib/ReactElement.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/createNodesFromMarkup.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./ReactCompositeComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactCompositeComponent.js","./ReactElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactElement.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/createNodesFromMarkup.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -42264,7 +35592,7 @@ function getNodeName(markup) {
  */
 function createNodesFromMarkup(markup, handleScript) {
   var node = dummyNode;
-  ("production" !== "development" ? invariant(!!dummyNode, 'createNodesFromMarkup dummy not initialized') : invariant(!!dummyNode));
+  ("production" !== process.env.NODE_ENV ? invariant(!!dummyNode, 'createNodesFromMarkup dummy not initialized') : invariant(!!dummyNode));
   var nodeName = getNodeName(markup);
 
   var wrap = nodeName && getMarkupWrap(nodeName);
@@ -42281,7 +35609,7 @@ function createNodesFromMarkup(markup, handleScript) {
 
   var scripts = node.getElementsByTagName('script');
   if (scripts.length) {
-    ("production" !== "development" ? invariant(
+    ("production" !== process.env.NODE_ENV ? invariant(
       handleScript,
       'createNodesFromMarkup(...): Unexpected <script> element rendered.'
     ) : invariant(handleScript));
@@ -42297,7 +35625,8 @@ function createNodesFromMarkup(markup, handleScript) {
 
 module.exports = createNodesFromMarkup;
 
-},{"./ExecutionEnvironment":"/home/eric/repos/react-d3/node_modules/react/lib/ExecutionEnvironment.js","./createArrayFrom":"/home/eric/repos/react-d3/node_modules/react/lib/createArrayFrom.js","./getMarkupWrap":"/home/eric/repos/react-d3/node_modules/react/lib/getMarkupWrap.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/dangerousStyleValue.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./ExecutionEnvironment":"/Users/yangwei/code/react-d3/node_modules/react/lib/ExecutionEnvironment.js","./createArrayFrom":"/Users/yangwei/code/react-d3/node_modules/react/lib/createArrayFrom.js","./getMarkupWrap":"/Users/yangwei/code/react-d3/node_modules/react/lib/getMarkupWrap.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/dangerousStyleValue.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -42355,7 +35684,8 @@ function dangerousStyleValue(name, value) {
 
 module.exports = dangerousStyleValue;
 
-},{"./CSSProperty":"/home/eric/repos/react-d3/node_modules/react/lib/CSSProperty.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/deprecated.js":[function(require,module,exports){
+},{"./CSSProperty":"/Users/yangwei/code/react-d3/node_modules/react/lib/CSSProperty.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/deprecated.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -42383,9 +35713,9 @@ var warning = require("./warning");
  */
 function deprecated(namespace, oldName, newName, ctx, fn) {
   var warned = false;
-  if ("production" !== "development") {
+  if ("production" !== process.env.NODE_ENV) {
     var newFn = function() {
-      ("production" !== "development" ? warning(
+      ("production" !== process.env.NODE_ENV ? warning(
         warned,
         (namespace + "." + oldName + " will be deprecated in a future version. ") +
         ("Use " + namespace + "." + newName + " instead.")
@@ -42404,7 +35734,8 @@ function deprecated(namespace, oldName, newName, ctx, fn) {
 
 module.exports = deprecated;
 
-},{"./Object.assign":"/home/eric/repos/react-d3/node_modules/react/lib/Object.assign.js","./warning":"/home/eric/repos/react-d3/node_modules/react/lib/warning.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/emptyFunction.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./Object.assign":"/Users/yangwei/code/react-d3/node_modules/react/lib/Object.assign.js","./warning":"/Users/yangwei/code/react-d3/node_modules/react/lib/warning.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/emptyFunction.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -42438,7 +35769,8 @@ emptyFunction.thatReturnsArgument = function(arg) { return arg; };
 
 module.exports = emptyFunction;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/emptyObject.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/emptyObject.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -42454,13 +35786,14 @@ module.exports = emptyFunction;
 
 var emptyObject = {};
 
-if ("production" !== "development") {
+if ("production" !== process.env.NODE_ENV) {
   Object.freeze(emptyObject);
 }
 
 module.exports = emptyObject;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/escapeTextForBrowser.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/escapeTextForBrowser.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -42501,7 +35834,8 @@ function escapeTextForBrowser(text) {
 
 module.exports = escapeTextForBrowser;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/flattenChildren.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/flattenChildren.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -42529,7 +35863,7 @@ function flattenSingleChildIntoContext(traverseContext, child, name) {
   // We found a component instance.
   var result = traverseContext;
   var keyUnique = !result.hasOwnProperty(name);
-  ("production" !== "development" ? warning(
+  ("production" !== process.env.NODE_ENV ? warning(
     keyUnique,
     'flattenChildren(...): Encountered two children with the same key, ' +
     '`%s`. Child keys must be unique; when two children share a key, only ' +
@@ -42568,7 +35902,8 @@ function flattenChildren(children) {
 
 module.exports = flattenChildren;
 
-},{"./ReactTextComponent":"/home/eric/repos/react-d3/node_modules/react/lib/ReactTextComponent.js","./traverseAllChildren":"/home/eric/repos/react-d3/node_modules/react/lib/traverseAllChildren.js","./warning":"/home/eric/repos/react-d3/node_modules/react/lib/warning.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/focusNode.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./ReactTextComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactTextComponent.js","./traverseAllChildren":"/Users/yangwei/code/react-d3/node_modules/react/lib/traverseAllChildren.js","./warning":"/Users/yangwei/code/react-d3/node_modules/react/lib/warning.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/focusNode.js":[function(require,module,exports){
 /**
  * Copyright 2014, Facebook, Inc.
  * All rights reserved.
@@ -42597,7 +35932,7 @@ function focusNode(node) {
 
 module.exports = focusNode;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/forEachAccumulated.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/forEachAccumulated.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -42628,7 +35963,7 @@ var forEachAccumulated = function(arr, cb, scope) {
 
 module.exports = forEachAccumulated;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/getActiveElement.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/getActiveElement.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -42657,7 +35992,7 @@ function getActiveElement() /*?DOMElement*/ {
 
 module.exports = getActiveElement;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/getEventCharCode.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/getEventCharCode.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -42709,7 +36044,7 @@ function getEventCharCode(nativeEvent) {
 
 module.exports = getEventCharCode;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/getEventKey.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/getEventKey.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -42814,7 +36149,7 @@ function getEventKey(nativeEvent) {
 
 module.exports = getEventKey;
 
-},{"./getEventCharCode":"/home/eric/repos/react-d3/node_modules/react/lib/getEventCharCode.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/getEventModifierState.js":[function(require,module,exports){
+},{"./getEventCharCode":"/Users/yangwei/code/react-d3/node_modules/react/lib/getEventCharCode.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/getEventModifierState.js":[function(require,module,exports){
 /**
  * Copyright 2013 Facebook, Inc.
  * All rights reserved.
@@ -42861,7 +36196,7 @@ function getEventModifierState(nativeEvent) {
 
 module.exports = getEventModifierState;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/getEventTarget.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/getEventTarget.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -42892,7 +36227,8 @@ function getEventTarget(nativeEvent) {
 
 module.exports = getEventTarget;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/getMarkupWrap.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/getMarkupWrap.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -42989,7 +36325,7 @@ var markupWrap = {
  * @return {?array} Markup wrap configuration, if applicable.
  */
 function getMarkupWrap(nodeName) {
-  ("production" !== "development" ? invariant(!!dummyNode, 'Markup wrapping node not initialized') : invariant(!!dummyNode));
+  ("production" !== process.env.NODE_ENV ? invariant(!!dummyNode, 'Markup wrapping node not initialized') : invariant(!!dummyNode));
   if (!markupWrap.hasOwnProperty(nodeName)) {
     nodeName = '*';
   }
@@ -43007,7 +36343,8 @@ function getMarkupWrap(nodeName) {
 
 module.exports = getMarkupWrap;
 
-},{"./ExecutionEnvironment":"/home/eric/repos/react-d3/node_modules/react/lib/ExecutionEnvironment.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/getNodeForCharacterOffset.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./ExecutionEnvironment":"/Users/yangwei/code/react-d3/node_modules/react/lib/ExecutionEnvironment.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/getNodeForCharacterOffset.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -43082,7 +36419,7 @@ function getNodeForCharacterOffset(root, offset) {
 
 module.exports = getNodeForCharacterOffset;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/getReactRootElementInContainer.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/getReactRootElementInContainer.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -43117,7 +36454,7 @@ function getReactRootElementInContainer(container) {
 
 module.exports = getReactRootElementInContainer;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/getTextContentAccessor.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/getTextContentAccessor.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -43154,7 +36491,7 @@ function getTextContentAccessor() {
 
 module.exports = getTextContentAccessor;
 
-},{"./ExecutionEnvironment":"/home/eric/repos/react-d3/node_modules/react/lib/ExecutionEnvironment.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/getUnboundedScrollPosition.js":[function(require,module,exports){
+},{"./ExecutionEnvironment":"/Users/yangwei/code/react-d3/node_modules/react/lib/ExecutionEnvironment.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/getUnboundedScrollPosition.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -43194,7 +36531,7 @@ function getUnboundedScrollPosition(scrollable) {
 
 module.exports = getUnboundedScrollPosition;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/hyphenate.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/hyphenate.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -43227,7 +36564,7 @@ function hyphenate(string) {
 
 module.exports = hyphenate;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/hyphenateStyleName.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/hyphenateStyleName.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -43268,7 +36605,8 @@ function hyphenateStyleName(string) {
 
 module.exports = hyphenateStyleName;
 
-},{"./hyphenate":"/home/eric/repos/react-d3/node_modules/react/lib/hyphenate.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/instantiateReactComponent.js":[function(require,module,exports){
+},{"./hyphenate":"/Users/yangwei/code/react-d3/node_modules/react/lib/hyphenate.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/instantiateReactComponent.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -43301,8 +36639,8 @@ var ReactEmptyComponent = require("./ReactEmptyComponent");
 function instantiateReactComponent(element, parentCompositeType) {
   var instance;
 
-  if ("production" !== "development") {
-    ("production" !== "development" ? warning(
+  if ("production" !== process.env.NODE_ENV) {
+    ("production" !== process.env.NODE_ENV ? warning(
       element && (typeof element.type === 'function' ||
                      typeof element.type === 'string'),
       'Only functions or strings can be mounted as React components.'
@@ -43362,8 +36700,8 @@ function instantiateReactComponent(element, parentCompositeType) {
     instance = new element.type(element.props);
   }
 
-  if ("production" !== "development") {
-    ("production" !== "development" ? warning(
+  if ("production" !== process.env.NODE_ENV) {
+    ("production" !== process.env.NODE_ENV ? warning(
       typeof instance.construct === 'function' &&
       typeof instance.mountComponent === 'function' &&
       typeof instance.receiveComponent === 'function',
@@ -43380,7 +36718,9 @@ function instantiateReactComponent(element, parentCompositeType) {
 
 module.exports = instantiateReactComponent;
 
-},{"./ReactElement":"/home/eric/repos/react-d3/node_modules/react/lib/ReactElement.js","./ReactEmptyComponent":"/home/eric/repos/react-d3/node_modules/react/lib/ReactEmptyComponent.js","./ReactLegacyElement":"/home/eric/repos/react-d3/node_modules/react/lib/ReactLegacyElement.js","./ReactNativeComponent":"/home/eric/repos/react-d3/node_modules/react/lib/ReactNativeComponent.js","./warning":"/home/eric/repos/react-d3/node_modules/react/lib/warning.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./ReactElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactElement.js","./ReactEmptyComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactEmptyComponent.js","./ReactLegacyElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactLegacyElement.js","./ReactNativeComponent":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactNativeComponent.js","./warning":"/Users/yangwei/code/react-d3/node_modules/react/lib/warning.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -43406,7 +36746,7 @@ module.exports = instantiateReactComponent;
  */
 
 var invariant = function(condition, format, a, b, c, d, e, f) {
-  if ("production" !== "development") {
+  if ("production" !== process.env.NODE_ENV) {
     if (format === undefined) {
       throw new Error('invariant requires an error message argument');
     }
@@ -43435,7 +36775,8 @@ var invariant = function(condition, format, a, b, c, d, e, f) {
 
 module.exports = invariant;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/isEventSupported.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/isEventSupported.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -43500,7 +36841,7 @@ function isEventSupported(eventNameSuffix, capture) {
 
 module.exports = isEventSupported;
 
-},{"./ExecutionEnvironment":"/home/eric/repos/react-d3/node_modules/react/lib/ExecutionEnvironment.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/isNode.js":[function(require,module,exports){
+},{"./ExecutionEnvironment":"/Users/yangwei/code/react-d3/node_modules/react/lib/ExecutionEnvironment.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/isNode.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -43528,7 +36869,7 @@ function isNode(object) {
 
 module.exports = isNode;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/isTextInputElement.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/isTextInputElement.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -43572,7 +36913,7 @@ function isTextInputElement(elem) {
 
 module.exports = isTextInputElement;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/isTextNode.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/isTextNode.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -43597,7 +36938,7 @@ function isTextNode(object) {
 
 module.exports = isTextNode;
 
-},{"./isNode":"/home/eric/repos/react-d3/node_modules/react/lib/isNode.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/joinClasses.js":[function(require,module,exports){
+},{"./isNode":"/Users/yangwei/code/react-d3/node_modules/react/lib/isNode.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/joinClasses.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -43638,7 +36979,8 @@ function joinClasses(className/*, ... */) {
 
 module.exports = joinClasses;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/keyMirror.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/keyMirror.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -43676,7 +37018,7 @@ var invariant = require("./invariant");
 var keyMirror = function(obj) {
   var ret = {};
   var key;
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     obj instanceof Object && !Array.isArray(obj),
     'keyMirror(...): Argument must be an object.'
   ) : invariant(obj instanceof Object && !Array.isArray(obj)));
@@ -43691,7 +37033,8 @@ var keyMirror = function(obj) {
 
 module.exports = keyMirror;
 
-},{"./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/keyOf.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/keyOf.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -43727,7 +37070,7 @@ var keyOf = function(oneKeyObj) {
 
 module.exports = keyOf;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/mapObject.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/mapObject.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -43780,7 +37123,7 @@ function mapObject(object, callback, context) {
 
 module.exports = mapObject;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/memoizeStringOnly.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/memoizeStringOnly.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -43814,7 +37157,8 @@ function memoizeStringOnly(callback) {
 
 module.exports = memoizeStringOnly;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/monitorCodeUse.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/monitorCodeUse.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2014, Facebook, Inc.
  * All rights reserved.
@@ -43838,7 +37182,7 @@ var invariant = require("./invariant");
  */
 
 function monitorCodeUse(eventName, data) {
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     eventName && !/[^a-z0-9_]/.test(eventName),
     'You must provide an eventName using only the characters [a-z0-9_]'
   ) : invariant(eventName && !/[^a-z0-9_]/.test(eventName)));
@@ -43846,7 +37190,9 @@ function monitorCodeUse(eventName, data) {
 
 module.exports = monitorCodeUse;
 
-},{"./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/onlyChild.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/onlyChild.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -43875,7 +37221,7 @@ var invariant = require("./invariant");
  * structure.
  */
 function onlyChild(children) {
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     ReactElement.isValidElement(children),
     'onlyChild must be passed a children with exactly one child.'
   ) : invariant(ReactElement.isValidElement(children)));
@@ -43884,7 +37230,8 @@ function onlyChild(children) {
 
 module.exports = onlyChild;
 
-},{"./ReactElement":"/home/eric/repos/react-d3/node_modules/react/lib/ReactElement.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/performance.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./ReactElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactElement.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/performance.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -43912,7 +37259,7 @@ if (ExecutionEnvironment.canUseDOM) {
 
 module.exports = performance || {};
 
-},{"./ExecutionEnvironment":"/home/eric/repos/react-d3/node_modules/react/lib/ExecutionEnvironment.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/performanceNow.js":[function(require,module,exports){
+},{"./ExecutionEnvironment":"/Users/yangwei/code/react-d3/node_modules/react/lib/ExecutionEnvironment.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/performanceNow.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -43940,7 +37287,7 @@ var performanceNow = performance.now.bind(performance);
 
 module.exports = performanceNow;
 
-},{"./performance":"/home/eric/repos/react-d3/node_modules/react/lib/performance.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/setInnerHTML.js":[function(require,module,exports){
+},{"./performance":"/Users/yangwei/code/react-d3/node_modules/react/lib/performance.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/setInnerHTML.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -44018,7 +37365,7 @@ if (ExecutionEnvironment.canUseDOM) {
 
 module.exports = setInnerHTML;
 
-},{"./ExecutionEnvironment":"/home/eric/repos/react-d3/node_modules/react/lib/ExecutionEnvironment.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/shallowEqual.js":[function(require,module,exports){
+},{"./ExecutionEnvironment":"/Users/yangwei/code/react-d3/node_modules/react/lib/ExecutionEnvironment.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/shallowEqual.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -44062,7 +37409,7 @@ function shallowEqual(objA, objB) {
 
 module.exports = shallowEqual;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/shouldUpdateReactComponent.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/shouldUpdateReactComponent.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -44100,7 +37447,8 @@ function shouldUpdateReactComponent(prevElement, nextElement) {
 
 module.exports = shouldUpdateReactComponent;
 
-},{}],"/home/eric/repos/react-d3/node_modules/react/lib/toArray.js":[function(require,module,exports){
+},{}],"/Users/yangwei/code/react-d3/node_modules/react/lib/toArray.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2014, Facebook, Inc.
  * All rights reserved.
@@ -44129,19 +37477,19 @@ function toArray(obj) {
 
   // Some browse builtin objects can report typeof 'function' (e.g. NodeList in
   // old versions of Safari).
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     !Array.isArray(obj) &&
     (typeof obj === 'object' || typeof obj === 'function'),
     'toArray: Array-like object expected'
   ) : invariant(!Array.isArray(obj) &&
   (typeof obj === 'object' || typeof obj === 'function')));
 
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     typeof length === 'number',
     'toArray: Object needs a length property'
   ) : invariant(typeof length === 'number'));
 
-  ("production" !== "development" ? invariant(
+  ("production" !== process.env.NODE_ENV ? invariant(
     length === 0 ||
     (length - 1) in obj,
     'toArray: Object should have keys for indices'
@@ -44170,7 +37518,9 @@ function toArray(obj) {
 
 module.exports = toArray;
 
-},{"./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/traverseAllChildren.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/traverseAllChildren.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -44298,7 +37648,7 @@ var traverseAllChildrenImpl =
         callback(traverseContext, children, storageName, indexSoFar);
         subtreeCount = 1;
       } else if (type === 'object') {
-        ("production" !== "development" ? invariant(
+        ("production" !== process.env.NODE_ENV ? invariant(
           !children || children.nodeType !== 1,
           'traverseAllChildren(...): Encountered an invalid child; DOM ' +
           'elements are not valid children of React components.'
@@ -44351,7 +37701,9 @@ function traverseAllChildren(children, callback, traverseContext) {
 
 module.exports = traverseAllChildren;
 
-},{"./ReactElement":"/home/eric/repos/react-d3/node_modules/react/lib/ReactElement.js","./ReactInstanceHandles":"/home/eric/repos/react-d3/node_modules/react/lib/ReactInstanceHandles.js","./invariant":"/home/eric/repos/react-d3/node_modules/react/lib/invariant.js"}],"/home/eric/repos/react-d3/node_modules/react/lib/warning.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./ReactElement":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactElement.js","./ReactInstanceHandles":"/Users/yangwei/code/react-d3/node_modules/react/lib/ReactInstanceHandles.js","./invariant":"/Users/yangwei/code/react-d3/node_modules/react/lib/invariant.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/lib/warning.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2014, Facebook, Inc.
  * All rights reserved.
@@ -44376,7 +37728,7 @@ var emptyFunction = require("./emptyFunction");
 
 var warning = emptyFunction;
 
-if ("production" !== "development") {
+if ("production" !== process.env.NODE_ENV) {
   warning = function(condition, format ) {for (var args=[],$__0=2,$__1=arguments.length;$__0<$__1;$__0++) args.push(arguments[$__0]);
     if (format === undefined) {
       throw new Error(
@@ -44394,183 +37746,410 @@ if ("production" !== "development") {
 
 module.exports = warning;
 
-},{"./emptyFunction":"/home/eric/repos/react-d3/node_modules/react/lib/emptyFunction.js"}],"/home/eric/repos/react-d3/node_modules/react/react.js":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./emptyFunction":"/Users/yangwei/code/react-d3/node_modules/react/lib/emptyFunction.js","_process":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/yangwei/code/react-d3/node_modules/react/react.js":[function(require,module,exports){
 module.exports = require('./lib/React');
 
-},{"./lib/React":"/home/eric/repos/react-d3/node_modules/react/lib/React.js"}],"/home/eric/repos/react-d3/package.json":[function(require,module,exports){
-module.exports={
-  "name": "react-d3",
-  "version": "0.1.1",
-  "description": "ReactJS charts using d3",
-  "author": "Eric S. Bullington",
-  "homepage": "http://esbullington.github.io/react-d3/",
-  "keywords": [
-    "d3",
-    "react",
-    "charts",
-    "ReactJS",
-    "react-component"
-  ],
-  "license": "MIT",
-  "main": "src/index.js",
-  "devDependencies": {
-    "browserify": "~6.3.3",
-    "chai": "^1.10.0",
-    "express": "^4.10.4",
-    "glob": "^4.3.5",
-    "highlight.js": "^8.4.0",
-    "karma": "^0.12.28",
-    "karma-browserify": "^1.0.0",
-    "karma-chai": "^0.1.0",
-    "karma-chai-plugins": "^0.2.3",
-    "karma-chrome-launcher": "^0.1.5",
-    "karma-firefox-launcher": "^0.1.3",
-    "karma-mocha": "^0.1.9",
-    "karma-phantomjs-launcher": "^0.1.4",
-    "mocha": "^2.0.1",
-    "nodemon": "^1.2.1",
-    "reactify": "^0.17.1",
-    "uglifyjs": "^2.3.6",
-    "watchify": "^2.1.1"
-  },
-  "dependencies": {
-    "d3": "^3.4.13",
-    "lodash": "^2.4.1",
-    "react": "^0.12.1"
-  },
-  "scripts": {
-    "webpublish": "git subtree push --prefix dist/public origin gh-pages",
-    "watch": "watchify -o dist/public/js/main.js docs/examples/main.js & nodemon server.js",
-    "docs": "browserify -o dist/public/js/main.js docs/examples/main.js",
-    "minified": "NODE_ENV=production browserify --standalone react-d3 ./src/index.js | uglifyjs -c > dist/browser/react-d3.min.js",
-    "build": "mkdir -p ./build/cjs & cp *.md ./build/cjs & cp ./dist/cjs/* ./build/cjs & jsx ./src ./build/cjs",
-    "clean": "rm -f ./build/cjs/*.js",
-    "lint": "npm run build & jshint ./build/js",
-    "test": "./node_modules/karma/bin/karma start karma.conf.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/esbullington/react-d3.git"
-  },
-  "browserify": {
-    "transform": [
-      "reactify"
-    ]
+},{"./lib/React":"/Users/yangwei/code/react-d3/node_modules/react/lib/React.js"}],"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/events/events.js":[function(require,module,exports){
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+function EventEmitter() {
+  this._events = this._events || {};
+  this._maxListeners = this._maxListeners || undefined;
+}
+module.exports = EventEmitter;
+
+// Backwards-compat with node 0.10.x
+EventEmitter.EventEmitter = EventEmitter;
+
+EventEmitter.prototype._events = undefined;
+EventEmitter.prototype._maxListeners = undefined;
+
+// By default EventEmitters will print a warning if more than 10 listeners are
+// added to it. This is a useful default which helps finding memory leaks.
+EventEmitter.defaultMaxListeners = 10;
+
+// Obviously not all Emitters should be limited to 10. This function allows
+// that to be increased. Set to zero for unlimited.
+EventEmitter.prototype.setMaxListeners = function(n) {
+  if (!isNumber(n) || n < 0 || isNaN(n))
+    throw TypeError('n must be a positive number');
+  this._maxListeners = n;
+  return this;
+};
+
+EventEmitter.prototype.emit = function(type) {
+  var er, handler, len, args, i, listeners;
+
+  if (!this._events)
+    this._events = {};
+
+  // If there is no 'error' event listener then throw.
+  if (type === 'error') {
+    if (!this._events.error ||
+        (isObject(this._events.error) && !this._events.error.length)) {
+      er = arguments[1];
+      if (er instanceof Error) {
+        throw er; // Unhandled 'error' event
+      }
+      throw TypeError('Uncaught, unspecified "error" event.');
+    }
   }
+
+  handler = this._events[type];
+
+  if (isUndefined(handler))
+    return false;
+
+  if (isFunction(handler)) {
+    switch (arguments.length) {
+      // fast cases
+      case 1:
+        handler.call(this);
+        break;
+      case 2:
+        handler.call(this, arguments[1]);
+        break;
+      case 3:
+        handler.call(this, arguments[1], arguments[2]);
+        break;
+      // slower
+      default:
+        len = arguments.length;
+        args = new Array(len - 1);
+        for (i = 1; i < len; i++)
+          args[i - 1] = arguments[i];
+        handler.apply(this, args);
+    }
+  } else if (isObject(handler)) {
+    len = arguments.length;
+    args = new Array(len - 1);
+    for (i = 1; i < len; i++)
+      args[i - 1] = arguments[i];
+
+    listeners = handler.slice();
+    len = listeners.length;
+    for (i = 0; i < len; i++)
+      listeners[i].apply(this, args);
+  }
+
+  return true;
+};
+
+EventEmitter.prototype.addListener = function(type, listener) {
+  var m;
+
+  if (!isFunction(listener))
+    throw TypeError('listener must be a function');
+
+  if (!this._events)
+    this._events = {};
+
+  // To avoid recursion in the case that type === "newListener"! Before
+  // adding it to the listeners, first emit "newListener".
+  if (this._events.newListener)
+    this.emit('newListener', type,
+              isFunction(listener.listener) ?
+              listener.listener : listener);
+
+  if (!this._events[type])
+    // Optimize the case of one listener. Don't need the extra array object.
+    this._events[type] = listener;
+  else if (isObject(this._events[type]))
+    // If we've already got an array, just append.
+    this._events[type].push(listener);
+  else
+    // Adding the second element, need to change to array.
+    this._events[type] = [this._events[type], listener];
+
+  // Check for listener leak
+  if (isObject(this._events[type]) && !this._events[type].warned) {
+    var m;
+    if (!isUndefined(this._maxListeners)) {
+      m = this._maxListeners;
+    } else {
+      m = EventEmitter.defaultMaxListeners;
+    }
+
+    if (m && m > 0 && this._events[type].length > m) {
+      this._events[type].warned = true;
+      console.error('(node) warning: possible EventEmitter memory ' +
+                    'leak detected. %d listeners added. ' +
+                    'Use emitter.setMaxListeners() to increase limit.',
+                    this._events[type].length);
+      if (typeof console.trace === 'function') {
+        // not supported in IE 10
+        console.trace();
+      }
+    }
+  }
+
+  return this;
+};
+
+EventEmitter.prototype.on = EventEmitter.prototype.addListener;
+
+EventEmitter.prototype.once = function(type, listener) {
+  if (!isFunction(listener))
+    throw TypeError('listener must be a function');
+
+  var fired = false;
+
+  function g() {
+    this.removeListener(type, g);
+
+    if (!fired) {
+      fired = true;
+      listener.apply(this, arguments);
+    }
+  }
+
+  g.listener = listener;
+  this.on(type, g);
+
+  return this;
+};
+
+// emits a 'removeListener' event iff the listener was removed
+EventEmitter.prototype.removeListener = function(type, listener) {
+  var list, position, length, i;
+
+  if (!isFunction(listener))
+    throw TypeError('listener must be a function');
+
+  if (!this._events || !this._events[type])
+    return this;
+
+  list = this._events[type];
+  length = list.length;
+  position = -1;
+
+  if (list === listener ||
+      (isFunction(list.listener) && list.listener === listener)) {
+    delete this._events[type];
+    if (this._events.removeListener)
+      this.emit('removeListener', type, listener);
+
+  } else if (isObject(list)) {
+    for (i = length; i-- > 0;) {
+      if (list[i] === listener ||
+          (list[i].listener && list[i].listener === listener)) {
+        position = i;
+        break;
+      }
+    }
+
+    if (position < 0)
+      return this;
+
+    if (list.length === 1) {
+      list.length = 0;
+      delete this._events[type];
+    } else {
+      list.splice(position, 1);
+    }
+
+    if (this._events.removeListener)
+      this.emit('removeListener', type, listener);
+  }
+
+  return this;
+};
+
+EventEmitter.prototype.removeAllListeners = function(type) {
+  var key, listeners;
+
+  if (!this._events)
+    return this;
+
+  // not listening for removeListener, no need to emit
+  if (!this._events.removeListener) {
+    if (arguments.length === 0)
+      this._events = {};
+    else if (this._events[type])
+      delete this._events[type];
+    return this;
+  }
+
+  // emit removeListener for all listeners on all events
+  if (arguments.length === 0) {
+    for (key in this._events) {
+      if (key === 'removeListener') continue;
+      this.removeAllListeners(key);
+    }
+    this.removeAllListeners('removeListener');
+    this._events = {};
+    return this;
+  }
+
+  listeners = this._events[type];
+
+  if (isFunction(listeners)) {
+    this.removeListener(type, listeners);
+  } else {
+    // LIFO order
+    while (listeners.length)
+      this.removeListener(type, listeners[listeners.length - 1]);
+  }
+  delete this._events[type];
+
+  return this;
+};
+
+EventEmitter.prototype.listeners = function(type) {
+  var ret;
+  if (!this._events || !this._events[type])
+    ret = [];
+  else if (isFunction(this._events[type]))
+    ret = [this._events[type]];
+  else
+    ret = this._events[type].slice();
+  return ret;
+};
+
+EventEmitter.listenerCount = function(emitter, type) {
+  var ret;
+  if (!emitter._events || !emitter._events[type])
+    ret = 0;
+  else if (isFunction(emitter._events[type]))
+    ret = 1;
+  else
+    ret = emitter._events[type].length;
+  return ret;
+};
+
+function isFunction(arg) {
+  return typeof arg === 'function';
 }
 
-},{}],"/home/eric/repos/react-d3/src/areachart.js":[function(require,module,exports){
-/** @jsx React.DOM */
+function isNumber(arg) {
+  return typeof arg === 'number';
+}
+
+function isObject(arg) {
+  return typeof arg === 'object' && arg !== null;
+}
+
+function isUndefined(arg) {
+  return arg === void 0;
+}
+
+},{}],"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js":[function(require,module,exports){
+// shim for using process in browser
+
+var process = module.exports = {};
+
+process.nextTick = (function () {
+    var canSetImmediate = typeof window !== 'undefined'
+    && window.setImmediate;
+    var canMutationObserver = typeof window !== 'undefined'
+    && window.MutationObserver;
+    var canPost = typeof window !== 'undefined'
+    && window.postMessage && window.addEventListener
+    ;
+
+    if (canSetImmediate) {
+        return function (f) { return window.setImmediate(f) };
+    }
+
+    var queue = [];
+
+    if (canMutationObserver) {
+        var hiddenDiv = document.createElement("div");
+        var observer = new MutationObserver(function () {
+            var queueList = queue.slice();
+            queue.length = 0;
+            queueList.forEach(function (fn) {
+                fn();
+            });
+        });
+
+        observer.observe(hiddenDiv, { attributes: true });
+
+        return function nextTick(fn) {
+            if (!queue.length) {
+                hiddenDiv.setAttribute('yes', 'no');
+            }
+            queue.push(fn);
+        };
+    }
+
+    if (canPost) {
+        window.addEventListener('message', function (ev) {
+            var source = ev.source;
+            if ((source === window || source === null) && ev.data === 'process-tick') {
+                ev.stopPropagation();
+                if (queue.length > 0) {
+                    var fn = queue.shift();
+                    fn();
+                }
+            }
+        }, true);
+
+        return function nextTick(fn) {
+            queue.push(fn);
+            window.postMessage('process-tick', '*');
+        };
+    }
+
+    return function nextTick(fn) {
+        setTimeout(fn, 0);
+    };
+})();
+
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+// TODO(shtylman)
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+
+},{}],"/Users/yangwei/code/react-d3/src/areachart.jsx":[function(require,module,exports){
+'use strict';
+
 var React = require('react');
 var d3 = require('d3');
-var Chart = require('./common').Chart;
-
-var XAxis = React.createClass({displayName: "XAxis",
-
-  componentWillReceiveProps: function(props) {
-    this._renderAxes(props);
-  },
-
-  componentDidMount: function() {
-    this._renderAxes(this.props);
-  },
-
-  _renderAxes: function(props) {
-
-    var unit = props.xAxisTickInterval.unit;
-    var interval = props.xAxisTickInterval.interval;
-
-    var xAxis = d3.svg.axis()
-      .ticks(d3.time[unit], interval)
-      .scale(props.xScale)
-      .orient("bottom");
-
-    var node = this.refs.xaxis.getDOMNode();
-
-    d3.select(node)
-      .attr("class", "x axis")
-      .call(xAxis);
-
-    // Style each of the tick lines
-    d3.select('.x.axis')
-      .selectAll('line')
-      .attr("shape-rendering", "crispEdges")
-      .attr("stroke", "#000");
-
-    // Style the main axis line
-    d3.select('.x.axis')
-      .select('path')
-      .attr("shape-rendering", "crispEdges")
-      .attr("fill", "none")
-      .attr("stroke", "#000")
-
-  },
-
-  render: function() {
-    var t = "translate(0," + this.props.height + ")";
-    return (
-      React.createElement("g", {
-        ref: "xaxis", 
-        className: "x axis", 
-        transform: t
-      }
-      )
-    );
-  }
-
-});
-
-
-var YAxis = React.createClass({displayName: "YAxis",
-
-  componentWillReceiveProps: function(props) {
-    this._renderAxes(props);
-  },
-
-  componentDidMount: function() {
-    this._renderAxes(this.props);
-  },
-
-  _renderAxes: function(props) {
-
-    var yAxis = d3.svg.axis()
-      .ticks(props.yAxisTickCount)
-      .scale(props.yScale)
-      .orient("left");
-
-    var node = this.refs.yaxis.getDOMNode();
-
-    d3.select(node)
-      .attr("class", "y axis")
-      .call(yAxis);
-
-    // Style each of the tick lines
-    d3.selectAll('.y.axis')
-      .selectAll('line')
-      .attr("shape-rendering", "crispEdges")
-      .attr("stroke", "#000");
-
-    // Style the main axis line
-    d3.selectAll('.y.axis')
-      .select('path')
-      .attr("shape-rendering", "crispEdges")
-      .attr("fill", "none")
-      .attr("stroke", "#000")
-
-  },
-
-  render: function() {
-    return (
-      React.createElement("g", {
-        ref: "yaxis", 
-        className: "y axis"
-      }
-      )
-    );
-  }
-
-});
-
+var common = require('./common');
+var Chart = common.Chart;
+var XAxis = common.XAxis;
+var YAxis = common.YAxis;
 
 var Area = React.createClass({displayName: "Area",
 
@@ -44583,15 +38162,15 @@ var Area = React.createClass({displayName: "Area",
 
   getDefaultProps: function() {
     return {
-      fill: 'steelblue'
-    }
+      fill: '#3182bd'
+    };
   },
 
   render: function() {
 
     return (
       React.createElement("path", {
-        className: "area", 
+        className: "area-path", 
         d: this.props.path, 
         fill: this.props.fill}
       )
@@ -44601,7 +38180,7 @@ var Area = React.createClass({displayName: "Area",
 });
 
 
-var DataSeries = React.createClass({displayName: "DataSeries",
+var DataSeries = exports.DataSeries = React.createClass({displayName: "DataSeries",
 
   render: function() {
 
@@ -44616,12 +38195,13 @@ var DataSeries = React.createClass({displayName: "DataSeries",
 
     return (
       React.createElement(Area, {path: path})
-    )
+    );
   }
 
 });
 
-var AreaChart = React.createClass({displayName: "AreaChart",
+
+var AreaChart = exports.AreaChart = React.createClass({displayName: "AreaChart",
 
   propTypes: {
     data: React.PropTypes.array,
@@ -44640,7 +38220,7 @@ var AreaChart = React.createClass({displayName: "AreaChart",
       width: 400,
       height: 200,
       title: ''
-    }
+    };
   },
 
   render: function() {
@@ -44650,12 +38230,13 @@ var AreaChart = React.createClass({displayName: "AreaChart",
     var xScale = d3.time.scale()
       .range([0, props.width]);
 
-    xScale.domain(d3.extent(props.data, function(d) { return d.date; }))
+    xScale.domain(d3.extent(props.data, function(d) { return d.date; }));
 
     var yScale = d3.scale.linear()
       .range([props.height, 0]);
 
-    yScale.domain([0, d3.max(props.data, function(d) { return d.value; })])
+    var values = props.data.map( function(item)  {return item.value;});
+    yScale.domain([d3.min([d3.min(values), 0]), d3.max(values)]);
 
     var margin = {top: 20, right: 20, bottom: 30, left: 50};
 
@@ -44677,6 +38258,7 @@ var AreaChart = React.createClass({displayName: "AreaChart",
             height: this.props.height}
           ), 
           React.createElement(XAxis, {
+            xAxisClassName: "area x axis", 
             xScale: xScale, 
             xAxisTickInterval: this.props.xAxisTickInterval, 
             margin: margin, 
@@ -44684,6 +38266,7 @@ var AreaChart = React.createClass({displayName: "AreaChart",
             height: this.props.height}
           ), 
           React.createElement(YAxis, {
+            yAxisClassName: "area y axis", 
             yScale: yScale, 
             margin: margin, 
             yAxisTickCount: this.props.yAxisTickCount, 
@@ -44697,15 +38280,15 @@ var AreaChart = React.createClass({displayName: "AreaChart",
 
 });
 
-exports.AreaChart = AreaChart;
+},{"./common":"/Users/yangwei/code/react-d3/src/common/index.js","d3":"/Users/yangwei/code/react-d3/node_modules/d3/d3.js","react":"/Users/yangwei/code/react-d3/node_modules/react/react.js"}],"/Users/yangwei/code/react-d3/src/barchart.jsx":[function(require,module,exports){
+'use strict';
 
-},{"./common":"/home/eric/repos/react-d3/src/common.js","d3":"/home/eric/repos/react-d3/node_modules/d3/d3.js","react":"/home/eric/repos/react-d3/node_modules/react/react.js"}],"/home/eric/repos/react-d3/src/barchart.js":[function(require,module,exports){
-/** @jsx React.DOM */
 var React = require('react');
 var d3 = require('d3');
-var Chart = require('./common').Chart;
-var _ = require('lodash');
-
+var common = require('./common');
+var Chart = common.Chart;
+var XAxis = common.XAxis;
+var YAxis = common.YAxis;
 
 var Bar = React.createClass({displayName: "Bar",
 
@@ -44719,7 +38302,7 @@ var Bar = React.createClass({displayName: "Bar",
   getDefaultProps: function() {
     return {
       offset: 0
-    }
+    };
   },
 
   render: function() {
@@ -44735,107 +38318,7 @@ var Bar = React.createClass({displayName: "Bar",
   }
 });
 
-var XAxis = React.createClass({displayName: "XAxis",
-
-  componentDidMount: function() {
-    this._renderAxis(this.props);
-  },
-
-  componentWillReceiveProps: function(props) {
-    this._renderAxis(props);
-  },
-
-  _renderAxis: function(props) {
-    var xAxis = d3.svg.axis()
-      .scale(props.xScale)
-      .orient("bottom");
-
-    var node = this.refs.barxaxis.getDOMNode();
-
-    d3.select(node)
-      .attr("class", "barx axis")
-      .call(xAxis);
-
-    // Style each of the tick lines
-    d3.select('.barx.axis')
-      .selectAll('line')
-      .attr("shape-rendering", "crispEdges")
-      .attr("stroke", "#000");
-
-    // Style the main axis line
-    d3.select('.barx.axis')
-      .select('path')
-      .attr("shape-rendering", "crispEdges")
-      .attr("fill", "none")
-      .attr("stroke", "none")
-
-  },
-
-  render: function() {
-    var t = "translate(0," + this.props.height + ")"
-    return (
-      React.createElement("g", {
-        ref: "barxaxis", 
-        className: "barx axis", 
-        transform: t
-      }
-      )
-    );
-  }
-
-});
-
-
-var YAxis = React.createClass({displayName: "YAxis",
-
-  componentDidMount: function() {
-    this._renderAxis(this.props);
-  },
-
-  componentWillReceiveProps: function(props) {
-    this._renderAxis(props);
-  },
-
-  _renderAxis: function(props) {
-    var yAxis = d3.svg.axis()
-      .ticks(props.yAxisTickCount)
-      .scale(props.yScale)
-      .orient("left");
-
-    var node = this.refs.baryaxis.getDOMNode();
-
-    d3.select(node)
-      .attr("class", "bary axis")
-      .call(yAxis);
-
-    // Style each of the tick lines
-    d3.selectAll('.bary.axis')
-      .selectAll('line')
-      .attr("shape-rendering", "crispEdges")
-      .attr("stroke", "#000");
-
-    // Style the main axis line
-    d3.selectAll('.bary.axis')
-      .select('path')
-      .attr("shape-rendering", "crispEdges")
-      .attr("fill", "none")
-      .attr("stroke", "#000")
-
-  },
-
-  render: function() {
-    return (
-      React.createElement("g", {
-        ref: "baryaxis", 
-        className: "bary axis"
-      }
-      )
-    );
-  }
-
-});
-
-var DataSeries = React.createClass({displayName: "DataSeries",
+var DataSeries = exports.DataSeries = React.createClass({displayName: "DataSeries",
 
   propTypes: {
     fill: React.PropTypes.string,
@@ -44850,20 +38333,21 @@ var DataSeries = React.createClass({displayName: "DataSeries",
     return {
       padding: 0.1,
       data: []
-    }
+    };
   },
 
   render: function() {
+
     var props = this.props;
 
     var xScale = d3.scale.ordinal()
       .domain(d3.range(props.values.length))
-      .rangeRoundBands([0, this.props.width], this.props.padding);
+      .rangeRoundBands([0, props.width], props.padding);
 
     var bars = props.values.map(function(point, i) {
       return (
         React.createElement(Bar, {height: props.yScale(0) - props.yScale(point), width: xScale.rangeBand(), offset: xScale(i), availableHeight: props.height, fill: props.fill, key: i})
-      )
+      );
     });
 
     return (
@@ -44872,7 +38356,7 @@ var DataSeries = React.createClass({displayName: "DataSeries",
   }
 });
 
-var BarChart = React.createClass({displayName: "BarChart",
+var BarChart = exports.BarChart = React.createClass({displayName: "BarChart",
 
   propTypes: {
     data: React.PropTypes.array,
@@ -44893,56 +38377,60 @@ var BarChart = React.createClass({displayName: "BarChart",
       margins: {top: 20, right: 30, bottom: 30, left: 30},
       fill: "#3182bd",
       title: ''
-    }
+    };
   },
 
   render: function() {
 
-    var values = _.pluck(this.props.data, 'value');
+    var props = this.props;
 
-    var labels = _.pluck(this.props.data, 'label');
+    var values = props.data.map( function(item)  {return item.value;} );
 
-    var margins = this.props.margins;
+    var labels = props.data.map( function(item)  {return item.label;} );
+
+    var margins = props.margins;
 
     var sideMargins = margins.left + margins.right;
     var topBottomMargins = margins.top + margins.bottom;
 
     var yScale = d3.scale.linear()
-      .domain([0, d3.max(values)])
-      .range([this.props.height - topBottomMargins, 0]);
+      .domain([d3.min([d3.min(values), 0]), d3.max(values)])
+      .range([props.height - topBottomMargins, 0]);
 
     var xScale = d3.scale.ordinal()
         .domain(labels)
-        .rangeRoundBands([0, this.props.width - sideMargins], 0.1);
+        .rangeRoundBands([0, props.width - sideMargins], 0.1);
 
     var trans = "translate(" + margins.left + "," + margins.top + ")";
 
     return (
-      React.createElement(Chart, {width: this.props.width, height: this.props.height, title: this.props.title}, 
+      React.createElement(Chart, {width: props.width, height: props.height, title: props.title}, 
         React.createElement("g", {transform: trans}, 
           React.createElement(DataSeries, {
             values: values, 
             yScale: yScale, 
             xScale: yScale, 
             margins: margins, 
-            data: this.props.data, 
-            width: this.props.width - sideMargins, 
-            height: this.props.height - topBottomMargins, 
-            fill: this.props.fill}
+            data: props.data, 
+            width: props.width - sideMargins, 
+            height: props.height - topBottomMargins, 
+            fill: props.fill}
           ), 
           React.createElement(YAxis, {
+            yAxisClassName: "bar y axis", 
             yScale: yScale, 
             margins: margins, 
-            yAxisTickCount: this.props.yAxisTickCount, 
-            width: this.props.width - sideMargins, 
-            height: this.props.height - topBottomMargins}
+            yAxisTickCount: props.yAxisTickCount, 
+            width: props.width - sideMargins, 
+            height: props.height - topBottomMargins}
           ), 
           React.createElement(XAxis, {
+            xAxisClassName: "bar x axis", 
             xScale: xScale, 
-            data: this.props.data, 
+            data: props.data, 
             margins: margins, 
-            width: this.props.width - sideMargins, 
-            height: this.props.height - topBottomMargins}
+            width: props.width - sideMargins, 
+            height: props.height - topBottomMargins}
           )
         )
       )
@@ -44951,30 +38439,450 @@ var BarChart = React.createClass({displayName: "BarChart",
 
 });
 
-exports.BarChart = BarChart;
+},{"./common":"/Users/yangwei/code/react-d3/src/common/index.js","d3":"/Users/yangwei/code/react-d3/node_modules/d3/d3.js","react":"/Users/yangwei/code/react-d3/node_modules/react/react.js"}],"/Users/yangwei/code/react-d3/src/common/axes.jsx":[function(require,module,exports){
+'use strict';
 
-},{"./common":"/home/eric/repos/react-d3/src/common.js","d3":"/home/eric/repos/react-d3/node_modules/d3/d3.js","lodash":"/home/eric/repos/react-d3/node_modules/lodash/dist/lodash.js","react":"/home/eric/repos/react-d3/node_modules/react/react.js"}],"/home/eric/repos/react-d3/src/common.js":[function(require,module,exports){
-/** @jsx React.DOM */
 var React = require('react');
 var d3 = require('d3');
 
+exports.XAxis = React.createClass({displayName: "XAxis",
 
-exports.Chart = React.createClass({displayName: "Chart",
+  propTypes: {
+    xAxisClassName: React.PropTypes.string.isRequired,
+    xOrient: React.PropTypes.oneOf(['top', 'bottom']),
+    xScale: React.PropTypes.func.isRequired,
+    xHideOrigin: React.PropTypes.bool,
+    height: React.PropTypes.number.isRequired,
+    fill: React.PropTypes.string,
+    stroke: React.PropTypes.string,
+    tickStroke: React.PropTypes.string,
+    strokeWidth: React.PropTypes.string
+  },
+
+  getDefaultProps: function() {
+    return {
+      xAxisClassName: 'x axis',
+      xOrient: 'bottom',
+      xHideOrigin: false,
+      fill: "none",
+      stroke: "none",
+      tickStroke: "#000",
+      strokeWidth: "none",
+      hideOrigin: false
+    };
+  },
+
+
+  componentDidMount: function() {
+    this._renderAxis(this.props);
+  },
+
+  componentWillReceiveProps: function(props) {
+    this._renderAxis(props);
+  },
+
+  _renderAxis: function(props) {
+    var xAxis = d3.svg.axis()
+      .scale(props.xScale)
+      .orient(props.xOrient);
+
+    if (props.xAxisTickInterval) {
+      xAxis.ticks(d3.time[props.xAxisTickInterval.unit], props.xAxisTickInterval.interval);
+    } else if (props.xAxisTickCount) {
+      xAxis.ticks(props.xAxisTickCount);
+    }
+
+    var xAxisClassSelect = props.xAxisClassName.replace(/ /g, '.');
+
+    if (xAxisClassSelect[0] != '.') {
+      xAxisClassSelect = '.' + xAxisClassSelect;
+    }
+
+    var node = this.refs.xaxis.getDOMNode();
+
+    d3.select(node)
+      .attr("class", props.xAxisClassName)
+      .call(xAxis);
+
+    // Style each of the tick lines
+    d3.select(xAxisClassSelect)
+      .selectAll('line')
+      .attr("shape-rendering", "crispEdges")
+      .attr("stroke", props.tickStroke);
+
+    // Style the main axis line
+    d3.select(xAxisClassSelect)
+      .select('path')
+      .attr("shape-rendering", "crispEdges")
+      .attr("fill", props.fill)
+      .attr("stroke", props.stroke)
+      .attr("stroke-width", props.strokeWidth);
+
+    if (props.xHideOrigin) {
+      // Hack to hide the x axis origin
+      var originSelect = xAxisClassSelect + ' g:first-child';
+      d3.selectAll(originSelect).style("opacity","0");
+    }
+
+  },
+
+  render: function() {
+    var props = this.props;
+    var t = "translate(0," + props.height + ")";
+    return (
+      React.createElement("g", {
+        ref: "xaxis", 
+        className: props.xAxisClassName, 
+        transform: t
+      }
+      )
+    );
+  }
+
+});
+
+
+exports.YAxis = React.createClass({displayName: "YAxis",
+
+  propTypes: {
+    yAxisClassName: React.PropTypes.string,
+    yOrient: React.PropTypes.oneOf(['left', 'right']),
+    yScale: React.PropTypes.func.isRequired,
+    yHideOrigin: React.PropTypes.bool,
+    fill: React.PropTypes.string,
+    stroke: React.PropTypes.string,
+    tickStroke: React.PropTypes.string,
+    strokeWidth: React.PropTypes.string
+  },
+
+  getDefaultProps: function() {
+    return {
+      yAxisClassName: 'y axis',
+      yOrient: 'left',
+      yHideOrigin: false,
+      fill: "none",
+      stroke: "#000",
+      tickStroke: "#000",
+      strokeWidth: "none"
+    };
+  },
+
+  componentDidMount: function() {
+    this._renderAxis(this.props);
+  },
+
+  componentWillReceiveProps: function(props) {
+    this._renderAxis(props);
+  },
+
+  _renderAxis: function(props) {
+
+    var yAxis = d3.svg.axis()
+      .ticks(props.yAxisTickCount)
+      .scale(props.yScale)
+      .orient(this.props.yOrient);
+
+    if (props.yAxisTickCount) {
+      yAxis.ticks(props.yAxisTickCount);
+    } else if (props.yAxisTickInterval) {
+      yAxis.ticks(d3.time[props.yAxisTickInterval.unit], props.yAxisTickInterval.interval);
+    }
+
+    var yAxisClassSelect = props.yAxisClassName.replace(/ /g, '.');
+
+    if (yAxisClassSelect[0] != '.') {
+      yAxisClassSelect = '.' + yAxisClassSelect;
+    }
+
+    var node = this.refs.yaxis.getDOMNode();
+
+    d3.select(node)
+      .attr("class", props.yAxisClassName)
+      .call(yAxis);
+
+    // Style each of the tick lines
+    d3.selectAll(yAxisClassSelect)
+      .selectAll('line')
+      .attr("shape-rendering", "crispEdges")
+      .attr("stroke", props.tickStroke);
+
+    // Style the main axis line
+    d3.selectAll(yAxisClassSelect)
+      .select('path')
+      .attr("shape-rendering", "crispEdges")
+      .attr("fill", props.fill)
+      .attr("stroke", props.stroke);
+
+    if (props.yHideOrigin) {
+      // Hack to hide the x axis origin
+      var originSelect = yAxisClassSelect + ' g:first-child';
+      d3.selectAll(originSelect).style("opacity","0");
+    }
+
+  },
+
+  render: function() {
+    var props = this.props;
+    return (
+      React.createElement("g", {
+        ref: "yaxis", 
+        className: props.yAxisClassName
+      }
+      )
+    );
+  }
+
+});
+
+},{"d3":"/Users/yangwei/code/react-d3/node_modules/d3/d3.js","react":"/Users/yangwei/code/react-d3/node_modules/react/react.js"}],"/Users/yangwei/code/react-d3/src/common/chart.jsx":[function(require,module,exports){
+'use strict';
+
+var React = require('react');
+var Legend = require('./legend').Legend;
+
+var PlainChart = React.createClass({displayName: "PlainChart",
   render: function() {
     return (
       React.createElement("div", null, 
-        React.createElement("h3", null, this.props.title), 
+        React.createElement("h4", null, this.props.title), 
         React.createElement("svg", {width: this.props.width, height: this.props.height}, this.props.children)
       )
     );
   }
 });
 
-},{"d3":"/home/eric/repos/react-d3/node_modules/d3/d3.js","react":"/home/eric/repos/react-d3/node_modules/react/react.js"}],"/home/eric/repos/react-d3/src/linechart.js":[function(require,module,exports){
-/** @jsx React.DOM */
+var LegendChart = React.createClass({displayName: "LegendChart",
+
+  propTypes: {
+    legend: React.PropTypes.bool,
+    legendPosition: React.PropTypes.string,
+    sideOffset: React.PropTypes.number,
+    margins: React.PropTypes.object,
+    data: React.PropTypes.object,
+  },
+
+  getDefaultProps: function() {
+    return {
+      data: {},
+      legend: false,
+      legendPosition: 'right',
+      sideOffset: 90
+    };
+  },
+
+  _renderLegend: function() {
+    if (this.props.legend) {
+      return (
+        React.createElement(Legend, {
+          legendPosition: this.props.legendPosition, 
+          margins: this.props.margins, 
+          colors: this.props.colors, 
+          data: this.props.data, 
+          width: this.props.width, 
+          height: this.props.height, 
+          sideOffset: this.props.sideOffset}
+        ) 
+      );
+    }
+  },
+
+  render: function() {
+    return (
+      React.createElement("div", {style: {'width': this.props.width, 'height': this.props.height}}, 
+        React.createElement("h4", null, this.props.title), 
+        this._renderLegend(), 
+        React.createElement("svg", {width: this.props.width - this.props.sideOffset, height: this.props.height}, this.props.children)
+      )
+    );
+  }
+});
+
+exports.LegendChart = LegendChart;
+
+exports.Chart = React.createClass({displayName: "Chart",
+
+  propTypes: {
+    legend: React.PropTypes.bool,
+  },
+
+  getDefaultProps: function() {
+    return {
+      legend: false
+    };
+  },
+
+  render: function() {
+    if (this.props.legend) {
+      return React.createElement(LegendChart, React.__spread({},  this.props));
+    }
+    return React.createElement(PlainChart, React.__spread({},  this.props));
+  }
+
+});
+
+
+},{"./legend":"/Users/yangwei/code/react-d3/src/common/legend.jsx","react":"/Users/yangwei/code/react-d3/node_modules/react/react.js"}],"/Users/yangwei/code/react-d3/src/common/index.js":[function(require,module,exports){
+
+exports.XAxis = require('./axes').XAxis;
+exports.YAxis = require('./axes').YAxis;
+exports.Chart = require('./chart').Chart;
+exports.LegendChart = require('./chart').LegendChart;
+exports.Legend = require('./legend').Legend;
+exports.Voronoi = require('./voronoi').Voronoi;
+
+},{"./axes":"/Users/yangwei/code/react-d3/src/common/axes.jsx","./chart":"/Users/yangwei/code/react-d3/src/common/chart.jsx","./legend":"/Users/yangwei/code/react-d3/src/common/legend.jsx","./voronoi":"/Users/yangwei/code/react-d3/src/common/voronoi.jsx"}],"/Users/yangwei/code/react-d3/src/common/legend.jsx":[function(require,module,exports){
+'use strict';
+
 var React = require('react');
 var d3 = require('d3');
-var Chart = require('./common').Chart;
+
+exports.Legend = React.createClass({displayName: "Legend",
+
+  propTypes: {
+    width: React.PropTypes.number,
+    height: React.PropTypes.number,
+    margins: React.PropTypes.object,
+    text: React.PropTypes.string,
+    colors: React.PropTypes.func
+  },
+
+  getDefaultProps: function() {
+    return {
+      text: "#000",
+      colors: d3.scale.category20c()
+    };
+  },
+
+  render: function() {
+
+    var props = this.props;
+
+    var textStyle = {
+      'color': 'black',
+      'fontSize': '50%',
+      'verticalAlign': 'top'
+    };
+
+    var legendItems = [];
+    var idx = 0;
+    for(var seriesName in props.data) {
+
+      if (props.data.hasOwnProperty(seriesName)) {
+
+      var itemStyle = {
+        'color': props.colors(idx),
+        'lineHeight': '60%',
+        'fontSize': '200%'
+      };
+
+        var seriesValue = props.data[seriesName];
+        legendItems.push(
+              React.createElement("li", {style: itemStyle, key: idx}, 
+                React.createElement("span", {style: textStyle}, seriesName)
+              )
+            );
+        idx++;
+      }
+    }
+
+    // In preparation for legend positioning
+    var legendFloat = 'right';
+
+    var topMargin = props.margins.top;
+
+    var legendBlockStyle = {
+      'wordWrap': 'break-word',
+      'width': props.sideOffset,
+      'paddingLeft': '0',
+      'marginBottom': '0',
+      'marginTop': topMargin,
+      'float': legendFloat
+    };
+
+    return React.createElement("ul", {style: legendBlockStyle}, legendItems);
+  }
+
+});
+
+
+},{"d3":"/Users/yangwei/code/react-d3/node_modules/d3/d3.js","react":"/Users/yangwei/code/react-d3/node_modules/react/react.js"}],"/Users/yangwei/code/react-d3/src/common/voronoi.jsx":[function(require,module,exports){
+'use strict';
+
+var React = require('react');
+var d3 = require('d3');
+
+var Polygon = React.createClass({displayName: "Polygon",
+
+  _animateCircle: function() {
+    this.props.pubsub.emit('animateCircle', this.props.id);
+  },
+
+  _restoreCircle: function() {
+    this.props.pubsub.emit('restoreCircle', this.props.id);
+  },
+
+  _drawPath: function(d) {
+    if(d === undefined) {
+      return; 
+    }  
+    return 'M' + d.join(',') + 'Z';
+  },
+
+  render: function() {
+    return React.createElement("path", {
+      onMouseOver: this._animateCircle, 
+      onMouseOut: this._restoreCircle, 
+      fill: "white", 
+      d: this._drawPath(this.props.vnode)});
+  }
+
+});
+
+
+exports.Voronoi = React.createClass({displayName: "Voronoi",
+
+  render: function() {
+    var xScale = this.props.xScale;
+    var yScale = this.props.yScale;
+
+    var voronoi = d3.geom.voronoi()
+      .x(function(d){ return xScale(d.coord.x); })
+      .y(function(d){ return yScale(d.coord.y); })
+      .clipExtent([[0, 0], [ this.props.width , this.props.height]]);
+
+    var regions = voronoi(this.props.data).map(function(vnode, idx) {
+      return React.createElement(Polygon, {pubsub: this.props.pubsub, key: idx, id: vnode.point.id, vnode: vnode});
+    }.bind(this));
+
+    return (
+      React.createElement("g", null, 
+        regions
+      )
+    );
+  }
+
+});
+
+},{"d3":"/Users/yangwei/code/react-d3/node_modules/d3/d3.js","react":"/Users/yangwei/code/react-d3/node_modules/react/react.js"}],"/Users/yangwei/code/react-d3/src/index.js":[function(require,module,exports){
+var d3 = require('d3');
+var React = require('react');
+
+exports.BarChart = require('./barchart').BarChart;
+exports.LineChart = require('./linechart').LineChart;
+exports.PieChart = require('./piechart').PieChart;
+exports.AreaChart = require('./areachart').AreaChart;
+exports.Treemap = require('./treemap').Treemap;
+exports.ScatterChart = require('./scatterchart').ScatterChart;
+
+},{"./areachart":"/Users/yangwei/code/react-d3/src/areachart.jsx","./barchart":"/Users/yangwei/code/react-d3/src/barchart.jsx","./linechart":"/Users/yangwei/code/react-d3/src/linechart.jsx","./piechart":"/Users/yangwei/code/react-d3/src/piechart.jsx","./scatterchart":"/Users/yangwei/code/react-d3/src/scatterchart.jsx","./treemap":"/Users/yangwei/code/react-d3/src/treemap.jsx","d3":"/Users/yangwei/code/react-d3/node_modules/d3/d3.js","react":"/Users/yangwei/code/react-d3/node_modules/react/react.js"}],"/Users/yangwei/code/react-d3/src/linechart.jsx":[function(require,module,exports){
+'use strict';
+
+var React = require('react');
+var d3 = require('d3');
+var common = require('./common');
+var Chart = common.Chart;
+var XAxis = common.XAxis;
+var YAxis = common.YAxis;
 
 
 var Line = React.createClass({displayName: "Line",
@@ -44995,12 +38903,13 @@ var Line = React.createClass({displayName: "Line",
   },
 
   render: function() {
+    var props = this.props;
     return (
       React.createElement("path", {
-        d: this.props.path, 
-        stroke: this.props.stroke, 
-        fill: this.props.fill, 
-        strokeWidth: this.props.strokeWidth}
+        d: props.path, 
+        stroke: props.stroke, 
+        fill: props.fill, 
+        strokeWidth: props.strokeWidth}
       )
     );
   }
@@ -45019,304 +38928,269 @@ var Circle = React.createClass({displayName: "Circle",
   getDefaultProps: function() {
     return {
       fill: '#1f77b4'
-    }
+    };
   },
 
   render: function() {
+    var props = this.props;
     return (
       React.createElement("circle", {
-        cx: this.props.cx, 
-        cy: this.props.cy, 
-        r: this.props.r, 
-        fill: this.props.fill}
+        cx: props.cx, 
+        cy: props.cy, 
+        r: props.r, 
+        fill: props.fill}
       )
     );
   }
 
 });
 
-var XAxis = React.createClass({displayName: "XAxis",
-
-  componentWillReceiveProps: function(props) {
-    this._renderAxis(props);
-  },
-
-  render: function() {
-    var t = "translate(0," + this.props.height + ")"
-    return (
-      React.createElement("g", {
-        ref: "linexaxis", 
-        className: "linex axis", 
-        transform: t
-      }
-      )
-    );
-  },
-
-  componentDidMount: function() {
-    this._renderAxis(this.props);
-  },
-
-  _renderAxis: function(props) {
-    var xAxis = d3.svg.axis()
-      .scale(props.scaleX)
-      .orient("bottom");
-
-    var node = this.refs.linexaxis.getDOMNode();
-
-    d3.select(node)
-      .attr("class", "linex axis")
-      .style("fill", props.color)
-      .call(xAxis);
-
-    // Style each of the tick lines
-    var lineXAxis = d3.select('.linex.axis')
-      .selectAll('line')
-      .attr("shape-rendering", "crispEdges")
-      .attr("stroke", props.color);
-
-    // Style the main axis line
-    d3.select('.linex.axis')
-      .select('path')
-      .attr("shape-rendering", "crispEdges")
-      .attr("fill", "none")
-      .attr("stroke", props.color)
-      .attr("stroke-width", "1");
-
-    // Hides the x axis origin
-    d3.selectAll(".linex.axis g:first-child").style("opacity","0");
-  }
-
-});
-
-
-var YAxis = React.createClass({displayName: "YAxis",
-
-  componentWillReceiveProps: function(props) {
-    this._renderAxis(props);
-  },
-
-  render: function() {
-    return (
-      React.createElement("g", {
-        ref: "lineyaxis", 
-        className: "liney axis"
-      }
-      )
-    );
-  },
-
-  componentDidMount: function() {
-    this._renderAxis(this.props);
-  },
-
-  _renderAxis: function(props) {
-    var yAxis = d3.svg.axis()
-      .ticks(props.yAxisTickCount)
-      .scale(props.scaleY)
-      .orient("left");
-
-    var node = this.refs.lineyaxis.getDOMNode();
-
-    d3.select(node)
-      .attr("class", "liney axis")
-      .style("fill", props.color)
-      .call(yAxis);
-
-    // Style each of the tick lines
-    d3.selectAll('.liney.axis')
-      .selectAll('line')
-      .attr("shape-rendering", "crispEdges")
-      .attr("stroke", props.color);
-
-    // Style the main axis line
-    d3.selectAll('.liney.axis')
-      .select('path')
-      .attr("shape-rendering", "crispEdges")
-      .attr("fill", "none")
-      .attr("stroke", props.color)
-  }
-
-});
-
-var DataSeries = React.createClass({displayName: "DataSeries",
+var DataSeries = exports.DataSeries = React.createClass({displayName: "DataSeries",
 
   propTypes: {
     data: React.PropTypes.array,
-    interpolate: React.PropTypes.string,
+    interpolationType: React.PropTypes.string,
     color: React.PropTypes.string
   },
 
   getDefaultProps: function() {
     return {
       data: [],
-      interpolate: 'linear',
+      interpolationType: 'linear',
       color: '#fff'
-    }
+    };
   },
 
   render: function() {
-    var self = this;
+    var props = this.props;
     var interpolatePath = d3.svg.line()
         .x(function(d) {
-          return self.props.scaleX(d.x);
+          return props.xScale(d.x);
         })
         .y(function(d) {
-          return self.props.scaleY(d.y);
+          return props.yScale(d.y);
         })
-        .interpolate(this.props.interpolate);
+        .interpolate(props.interpolationType);
 
-    var circles = [];
-
-    this.props.data.forEach(function(point, i) {
-      circles.push(React.createElement(Circle, {cx: this.props.scaleX(point.x), cy: this.props.scaleY(point.y), r: this.props.pointRadius, fill: this.props.color, key: this.props.seriesName + i}));
-    }.bind(this));
+    var circles = props.data.map(function(point, i) {
+      return (
+        React.createElement(Circle, {
+          cx: props.xScale(point.x), 
+          cy: props.yScale(point.y), 
+          r: props.pointRadius, 
+          fill: props.color, 
+          key: props.seriesName + i}
+        )
+      );
+    });
 
     return (
       React.createElement("g", null, 
-        React.createElement(Line, {path: interpolatePath(this.props.data), stroke: this.props.color}), 
+        React.createElement(Line, {
+          path: interpolatePath(props.data), 
+          stroke: props.color}
+        ), 
         circles
       )
-    )
+    );
   }
 
 });
 
-var LineChart = React.createClass({displayName: "LineChart",
+
+var Axes = React.createClass({displayName: "Axes",
 
   propTypes: {
-    margins: React.PropTypes.object,
-    pointRadius: React.PropTypes.number,
-    width: React.PropTypes.number,
-    height: React.PropTypes.number,
-    axesColor: React.PropTypes.string,
-    title: React.PropTypes.string,
-    colors: React.PropTypes.func
+    xAxisClassName: React.PropTypes.string.isRequired,
+    xOrient: React.PropTypes.oneOf(['top', 'bottom']),
+    xScale: React.PropTypes.func.isRequired,
+    xHideOrigin: React.PropTypes.bool,
+    yAxisClassName: React.PropTypes.string.isRequired,
+    yOrient: React.PropTypes.oneOf(['left', 'right']),
+    yScale: React.PropTypes.func.isRequired,
+    yHideOrigin: React.PropTypes.bool,
+    chartHeight: React.PropTypes.number.isRequired,
+    chartWidth: React.PropTypes.number.isRequired,
+    fill: React.PropTypes.string,
+    stroke: React.PropTypes.string,
+    tickStroke: React.PropTypes.string,
+    strokeWidth: React.PropTypes.string
   },
 
   getDefaultProps: function() {
     return {
-      margins: {top: 20, right: 30, bottom: 30, left: 30},
+      axesColor: '#000'
+    };
+  },
+
+  render: function() {
+
+    var props = this.props;
+
+    return (
+        React.createElement("g", null, 
+          React.createElement(YAxis, {
+            yAxisClassName: props.yAxisClassName, 
+            yScale: props.yScale, 
+            yAxisTickCount: props.yAxisTickCount, 
+            yHideOrigin: props.yHideOrigin, 
+            margins: props.margins, 
+            width: props.chartWidth, 
+            height: props.chartHeight, 
+            stroke: props.axesColor}
+          ), 
+          React.createElement(XAxis, {
+            xAxisClassName: props.xAxisClassName, 
+            strokeWidth: props.strokeWidth, 
+            xHideOrigin: props.xHideOrigin, 
+            xScale: props.xScale, 
+            margins: props.margins, 
+            width: props.chartWidth, 
+            height: props.chartHeight, 
+            stroke: props.axesColor}
+          )
+        )
+    );
+  }
+
+});
+
+
+var LineChart = exports.LineChart = React.createClass({displayName: "LineChart",
+
+  propTypes: {
+    margins: React.PropTypes.object,
+    legendOffset: React.PropTypes.number,
+    titleOffset: React.PropTypes.number,
+    pointRadius: React.PropTypes.number,
+    yHideOrigin: React.PropTypes.bool,
+    xHideOrigin: React.PropTypes.bool,
+    width: React.PropTypes.number,
+    height: React.PropTypes.number,
+    axesColor: React.PropTypes.string,
+    title: React.PropTypes.string,
+    colors: React.PropTypes.func,
+    legend: React.PropTypes.bool
+  },
+
+  getDefaultProps: function() {
+    return {
+      margins: {top: 10, right: 20, bottom: 30, left: 30},
+      legendOffset: 120,
+      titleOffset: 56,
       pointRadius: 3,
       width: 400,
       height: 200,
       axesColor: '#000',
       title: '',
       colors: d3.scale.category20c()
-    }
+    };
   },
 
-  getInitialState: function() {
-    return {
-      maxX: 0,
-      maxY: 0,
-      chartWidth: 0,
-      chartHeight: 0
-    }
-  },
+  _calculateScales: function(props, chartWidth, chartHeight) {
 
-  componentWillMount: function() {
-    this._calculateState();
+    var nestedValues = Object.keys(props.data).map( function(seriesName)  {
+      return props.data[seriesName];
+    });
+
+    var allValues = [].concat.apply([], nestedValues);
+    var xValues = allValues.map( function(item)  {return item.x;} );
+    var yValues = allValues.map( function(item)  {return item.y;} );
+
+    var xScale = d3.scale.linear()
+      .domain([d3.min([d3.min(xValues), 0]), d3.max(xValues)])
+      .range([0, chartWidth]);
+
+    var yScale = d3.scale.linear()
+      .domain([d3.min([d3.min(yValues), 0]), d3.max(yValues)])
+      .range([chartHeight, 0]);
+
+    return {xScale: xScale, yScale: yScale};
+
   },
 
   render: function() {
-    var dataSeriesArray = [];
-    var index = 0;
 
-    for(var seriesName in this.props.data) {
-      if (this.props.data.hasOwnProperty(seriesName)) {
+    var props = this.props;
+
+    // Calculate inner chart dimensions
+    var chartWidth, chartHeight;
+
+    chartWidth = props.width - props.margins.left - props.margins.right;
+    chartHeight = props.height - props.margins.top - props.margins.bottom;
+
+    if (props.legend) {
+      chartWidth = chartWidth - props.legendOffset;
+    }
+
+    if (props.title) {
+      chartHeight = chartHeight - props.titleOffset;
+    }
+
+    var scales = this._calculateScales(props, chartWidth, chartHeight);
+
+    var trans = "translate(" + props.margins.left + "," + props.margins.top + ")";
+
+    var index = 0;
+    var dataSeriesArray = [];
+    for(var seriesName in props.data) {
+      if (props.data.hasOwnProperty(seriesName)) {
         dataSeriesArray.push(
             React.createElement(DataSeries, {
-              scaleX: this.state.scaleX, 
-              scaleY: this.state.scaleY, 
+              xScale: scales.xScale, 
+              yScale: scales.yScale, 
               seriesName: seriesName, 
-              data: this.props.data[seriesName], 
-              width: this.state.chartWidth, 
-              height: this.state.chartHeight, 
-              color: this.props.colors(index), 
-              pointRadius: this.props.pointRadius, 
+              data: props.data[seriesName], 
+              width: chartWidth, 
+              height: chartHeight, 
+              color: props.colors(index), 
+              pointRadius: props.pointRadius, 
               key: seriesName}
             )
-        )
+        );
         index++;
       }
     }
 
-    var trans = "translate(" + this.props.margins.left + "," + this.props.margins.top + ")"
-
     return (
-      React.createElement(Chart, {width: this.props.width, height: this.props.height, title: this.props.title}, 
+      React.createElement(Chart, {
+        legend: props.legend, 
+        data: props.data, 
+        margins: props.margins, 
+        colors: props.colors, 
+        width: props.width, 
+        height: props.height, 
+        title: props.title
+      }, 
         React.createElement("g", {transform: trans}, 
           dataSeriesArray, 
-          React.createElement(YAxis, {
-            scaleY: this.state.scaleY, 
-            margins: this.props.margins, 
-            yAxisTickCount: this.props.yAxisTickCount, 
-            width: this.state.chartWidth, 
-            height: this.state.chartHeight, 
-            color: this.props.axesColor}
-          ), 
-          React.createElement(XAxis, {
-            scaleX: this.state.scaleX, 
-            data: this.props.data, 
-            margins: this.props.margins, 
-            width: this.state.chartWidth, 
-            height: this.state.chartHeight, 
-            color: this.props.axesColor}
+          React.createElement(Axes, {
+            yAxisClassName: "line y axis", 
+            yScale: scales.yScale, 
+            yAxisTickCount: props.yAxisTickCount, 
+            yHideOrigin: props.yHideOrigin, 
+            xAxisClassName: "line x axis", 
+            xScale: scales.xScale, 
+            xHideOrigin: props.xHideOrigin, 
+            strokeWidth: "1", 
+            margins: props.margins, 
+            chartWidth: chartWidth, 
+            chartHeight: chartHeight, 
+            stroke: props.axesColor}
           )
         )
       )
     );
   },
 
-  _calculateState: function() {
-
-    var maxY = 0,
-        maxX = 0;
-
-    for(var series in this.props.data) {
-      var seriesMaxY = d3.max(this.props.data[series], function(d) {
-        return d.y;
-      });
-
-      var seriesMaxX = d3.max(this.props.data[series], function(d) {
-        return d.x;
-      });
-
-      maxX = (seriesMaxX > maxX) ? seriesMaxX : maxX;
-      maxY = (seriesMaxY > maxY) ? seriesMaxY : maxY;
-    }
-
-    var chartWidth = this.props.width - this.props.margins.left - this.props.margins.right;
-    var chartHeight = this.props.height - this.props.margins.top - this.props.margins.bottom;
-
-    var scaleX = d3.scale.linear()
-      .domain([0, maxX])
-      .range([0, chartWidth]);
-
-    var scaleY = d3.scale.linear()
-      .domain([0, maxY])
-      .range([chartHeight, 0]);
-
-    this.setState({
-      maxX: maxX,
-      maxY: maxY,
-      scaleX: scaleX,
-      scaleY: scaleY,
-      chartWidth: chartWidth,
-      chartHeight: chartHeight
-    })
-  }
 
 });
 
-exports.LineChart = LineChart;
+},{"./common":"/Users/yangwei/code/react-d3/src/common/index.js","d3":"/Users/yangwei/code/react-d3/node_modules/d3/d3.js","react":"/Users/yangwei/code/react-d3/node_modules/react/react.js"}],"/Users/yangwei/code/react-d3/src/piechart.jsx":[function(require,module,exports){
+'use strict';
 
-},{"./common":"/home/eric/repos/react-d3/src/common.js","d3":"/home/eric/repos/react-d3/node_modules/d3/d3.js","react":"/home/eric/repos/react-d3/node_modules/react/react.js"}],"/home/eric/repos/react-d3/src/piechart.js":[function(require,module,exports){
-/** @jsx React.DOM */
 var React = require('react');
 var d3 = require('d3');
-var _ = require('lodash');
 var Chart = require('./common').Chart;
 
 
@@ -45326,7 +39200,7 @@ var Arc = React.createClass({displayName: "Arc",
     return {
       labelTextFill: "black",
       valueTextFill: "white"
-    }
+    };
   },
 
   propTypes: {
@@ -45339,8 +39213,7 @@ var Arc = React.createClass({displayName: "Arc",
   },
 
   render: function() {
-    // transform={"translate(" + arc.centroid() + ")"}
-    props = this.props;
+    var props = this.props;
     var arc = d3.svg.arc()
       .innerRadius(props.innerRadius)
       .outerRadius(props.outerRadius)
@@ -45354,6 +39227,7 @@ var Arc = React.createClass({displayName: "Arc",
     var x      = dist * (1.2 * Math.sin(angle));
     var y      = -dist * Math.cos(angle);
     var t = "translate(" + x + "," + y + ")";
+
     return (
       React.createElement("g", {className: "arc-group"}, 
         React.createElement("path", {
@@ -45384,7 +39258,7 @@ var Arc = React.createClass({displayName: "Arc",
             "fill": props.labelTextFill,
             "shapeRendering": "crispEdges"
           }}, 
-          this.props.label
+          props.label
         ), 
         React.createElement("text", {
           className: "arc-value-text", 
@@ -45395,7 +39269,7 @@ var Arc = React.createClass({displayName: "Arc",
             "textAnchor": "middle",
             "fill": props.valueTextFill
           }}, 
-          this.props.value + "%"
+          props.value + "%"
         )
       )
     );
@@ -45416,10 +39290,11 @@ var DataSeries = React.createClass({displayName: "DataSeries",
       innerRadius: 0,
       data: [],
       color: d3.scale.category20c()
-    }
+    };
   },
 
   render: function() {
+
     var props = this.props;
 
     var pie = d3.layout
@@ -45428,11 +39303,10 @@ var DataSeries = React.createClass({displayName: "DataSeries",
 
     var arcData = pie(props.data);
 
-    var color = this.props.color;
+    var color = props.color;
 
-    var arcs = [];
-    arcData.forEach(function(arc, i) {
-      arcs.push(
+    var arcs = arcData.map(function(arc, i) {
+      return (
         React.createElement(Arc, {
           startAngle: arc.startAngle, 
           endAngle: arc.endAngle, 
@@ -45446,20 +39320,20 @@ var DataSeries = React.createClass({displayName: "DataSeries",
           key: i, 
           width: props.width}
         )
-      )
+      );
     });
     return (
-      React.createElement("g", {className: "pie-group", transform: this.props.transform}, arcs)
+      React.createElement("g", {className: "pie-group", transform: props.transform}, arcs)
     );
   }
 });
 
-var PieChart = React.createClass({displayName: "PieChart",
+var PieChart = exports.PieChart = React.createClass({displayName: "PieChart",
 
   getDefaultProps: function() {
     return {
       title: ''
-    }
+    };
   },
 
   propTypes: {
@@ -45474,29 +39348,31 @@ var PieChart = React.createClass({displayName: "PieChart",
 
   render: function() {
     var props = this.props;
-    var transform = "translate("
-      + (this.props.cx || this.props.width/2) + ","
-      + (this.props.cy || this.props.height/2) + ")";
-    var data = _.pluck(this.props.data, 'value');
-    var labels = _.pluck(this.props.data, 'label');
+    var transform = "translate(" +
+      (props.cx || props.width/2) + "," +
+      (props.cy || props.height/2) + ")";
+
+    var data = props.data.map( function(item)  {return item.value;} );
+    var labels = props.data.map( function(item)  {return item.label;} );
+
     return (
       React.createElement(Chart, {
         className: "pie-chart", 
-        width: this.props.width, 
-        height: this.props.height, 
-        title: this.props.title
+        width: props.width, 
+        height: props.height, 
+        title: props.title
       }, 
         React.createElement(DataSeries, {
-          labelTextFill: this.props.labelTextFill, 
-          valueTextFill: this.props.valueTextFill, 
+          labelTextFill: props.labelTextFill, 
+          valueTextFill: props.valueTextFill, 
           labels: labels, 
-          color: this.props.color, 
+          color: props.color, 
           transform: transform, 
           data: data, 
-          width: this.props.width, 
-          height: this.props.height, 
-          radius: this.props.radius, 
-          innerRadius: this.props.innerRadius}
+          width: props.width, 
+          height: props.height, 
+          radius: props.radius, 
+          innerRadius: props.innerRadius}
         )
       )
     );
@@ -45504,10 +39380,247 @@ var PieChart = React.createClass({displayName: "PieChart",
 
 });
 
-exports.PieChart = PieChart;
+},{"./common":"/Users/yangwei/code/react-d3/src/common/index.js","d3":"/Users/yangwei/code/react-d3/node_modules/d3/d3.js","react":"/Users/yangwei/code/react-d3/node_modules/react/react.js"}],"/Users/yangwei/code/react-d3/src/scatterchart.jsx":[function(require,module,exports){
+'use strict';
 
-},{"./common":"/home/eric/repos/react-d3/src/common.js","d3":"/home/eric/repos/react-d3/node_modules/d3/d3.js","lodash":"/home/eric/repos/react-d3/node_modules/lodash/dist/lodash.js","react":"/home/eric/repos/react-d3/node_modules/react/react.js"}],"/home/eric/repos/react-d3/src/treemap.js":[function(require,module,exports){
-/** @jsx React.DOM */
+var React = require('react');
+var d3 = require('d3');
+var common = require('./common');
+var Chart = common.Chart;
+var XAxis = common.XAxis;
+var YAxis = common.YAxis;
+var Voronoi = common.Voronoi;
+var EventEmitter = require('events').EventEmitter;
+var pubsub = exports.pubsub = new EventEmitter();
+var utils = require('./utils');
+
+var Circle = React.createClass({displayName: "Circle",
+
+  propTypes: {
+    id: React.PropTypes.string,
+    cx: React.PropTypes.number,
+    cy: React.PropTypes.number,
+    r: React.PropTypes.number,
+    fill: React.PropTypes.string,
+    stroke: React.PropTypes.string,
+    strokeWidth: React.PropTypes.number,
+    strokeOpacity: React.PropTypes.number,
+    hoverAnimation: React.PropTypes.bool
+  },
+
+  getDefaultProps: function() {
+    return {
+      fill: '#1f77b4'
+    };
+  },
+
+  getInitialState: function() {
+    // state for animation usage
+    return {
+      circleRadius: this.props.r,
+      circleColor: this.props.fill
+    };
+  },
+
+  componentDidMount: function() {
+    pubsub.on('animateCircle', this._animateCircle);
+    pubsub.on('restoreCircle', this._restoreCircle);
+  },
+
+  componentWillUnmount: function() {
+    pubsub.removeListener('animateCircle', this._animateCircle);
+    pubsub.removeListener('restoreCircle', this._restoreCircle);
+  },
+
+  render: function() {
+    return (
+      React.createElement("circle", {
+        fill: this.state.circleColor, 
+        cx: this.props.cx, 
+        cy: this.props.cy, 
+        r: this.state.circleRadius, 
+        id: this.props.id}
+      )
+    );
+  },
+
+  _animateCircle: function(id) {
+    if (this.props.id === id) {
+      this.setState({ 
+        circleRadius: this.state.circleRadius * ( 5 / 4 ),
+        circleColor: utils.shade(this.props.fill, -0.2)
+      });
+    }
+  },
+
+  _restoreCircle: function(id) {
+    if (this.props.id === id) {
+      this.setState({ 
+        circleRadius: this.state.circleRadius * ( 4 / 5 ),
+        circleColor: this.props.fill
+      });
+    }
+  }
+
+});
+
+var DataSeries = exports.DataSeries = React.createClass({displayName: "DataSeries",
+
+  propTypes: {
+    data: React.PropTypes.array,
+    color: React.PropTypes.string
+  },
+
+  getDefaultProps: function() {
+    return {
+      data: [],
+      color: '#fff'
+    };
+  },
+
+  render: function() {
+
+    var circles = this.props.data.map(function(point, i) {
+      return (React.createElement(Circle, {cx: this.props.xScale(point.x), cy: this.props.yScale(point.y), r: this.props.pointRadius, fill: this.props.color, key: this.props.seriesName + i, id: this.props.seriesName + '-' + i}));
+    }.bind(this));
+
+    return (
+      React.createElement("g", null, 
+        circles
+      )
+    );
+  }
+
+});
+
+
+var ScatterChart = exports.ScatterChart = React.createClass({displayName: "ScatterChart",
+
+  propTypes: {
+    margins: React.PropTypes.object,
+    legendOffset: React.PropTypes.number,
+    titleOffset: React.PropTypes.number,
+    pointRadius: React.PropTypes.number,
+    yHideOrigin: React.PropTypes.bool,
+    xHideOrigin: React.PropTypes.bool,
+    width: React.PropTypes.number,
+    height: React.PropTypes.number,
+    axesColor: React.PropTypes.string,
+    title: React.PropTypes.string,
+    colors: React.PropTypes.func,
+    legend: React.PropTypes.bool,
+    hoverAnimation: React.PropTypes.bool,
+  },
+
+  getDefaultProps: function() {
+    return {
+      margins: {top: 20, right: 30, bottom: 30, left: 30},
+      legendOffset: 120,
+      titleOffset: 56,
+      pointRadius: 3,
+      width: 400,
+      height: 200,
+      axesColor: '#000',
+      title: '',
+      colors: d3.scale.category20c(),
+      hoverAnimation: true
+    };
+  },
+
+  _calculateScales: utils.calculateScales,
+
+  render: function() {
+
+    var props = this.props;
+
+    // Calculate inner chart dimensions
+    var chartWidth, chartHeight;
+
+    chartWidth = props.width - props.margins.left - props.margins.right;
+    chartHeight = props.height - props.margins.top - props.margins.bottom;
+
+    if (props.legend) {
+      chartWidth = chartWidth - props.legendOffset;
+    }
+
+    if (props.title) {
+      chartHeight = chartHeight - props.titleOffset;
+    }
+
+    // Returns an object of flattened allValues, xValues, and yValues
+    var flattenedData = utils.flattenData(props.data);
+
+    var allValues = flattenedData.allValues,
+        xValues = flattenedData.xValues,
+        yValues = flattenedData.yValues;
+
+    // Set pubsub max listeners to total number of nodes to be created
+    pubsub.setMaxListeners(xValues.length + yValues.length);
+
+    var scales = this._calculateScales(chartWidth, chartHeight, xValues, yValues);
+
+    var trans = "translate(" + props.margins.left + "," + props.margins.top + ")";
+
+    var dataSeriesArray = Object.keys(props.data).map( function(seriesName, idx)  {
+      return (
+          React.createElement(DataSeries, {
+            xScale: scales.xScale, 
+            yScale: scales.yScale, 
+            seriesName: seriesName, 
+            data: props.data[seriesName], 
+            width: chartWidth, 
+            height: chartHeight, 
+            color: props.colors(idx), 
+            pointRadius: props.pointRadius, 
+            key: seriesName, 
+            hoverAnimation: props.hoverAnimation}
+          )
+      );
+    });
+
+    return (
+      React.createElement(Chart, {width: props.width, height: props.height, title: props.title}, 
+        React.createElement("g", {transform: trans}, 
+          React.createElement(Voronoi, {
+            pubsub: pubsub, 
+            data: allValues, 
+            yScale: scales.yScale, 
+            xScale: scales.xScale, 
+            width: chartWidth, 
+            height: chartHeight}
+          ), 
+          dataSeriesArray, 
+          React.createElement(YAxis, {
+            yAxisClassName: "scatter y axis", 
+            yScale: scales.yScale, 
+            yHideOrigin: props.yHideOrigin, 
+            margins: props.margins, 
+            yAxisTickCount: props.yAxisTickCount, 
+            width: chartWidth, 
+            height: chartHeight, 
+            stroke: props.axesColor}
+          ), 
+          React.createElement(XAxis, {
+            xAxisClassName: "scatter x axis", 
+            strokeWidth: "1", 
+            xHideOrigin: props.xHideOrigin, 
+            xScale: scales.xScale, 
+            data: props.data, 
+            margins: props.margins, 
+            width: chartWidth, 
+            height: chartHeight, 
+            stroke: props.axesColor}
+          )
+        )
+      )
+    );
+  }
+
+});
+
+},{"./common":"/Users/yangwei/code/react-d3/src/common/index.js","./utils":"/Users/yangwei/code/react-d3/src/utils.js","d3":"/Users/yangwei/code/react-d3/node_modules/d3/d3.js","events":"/Users/yangwei/code/react-d3/node_modules/watchify/node_modules/browserify/node_modules/events/events.js","react":"/Users/yangwei/code/react-d3/node_modules/react/react.js"}],"/Users/yangwei/code/react-d3/src/treemap.jsx":[function(require,module,exports){
+'use strict';
+
 var React = require('react');
 var d3 = require('d3');
 var Chart = require('./common').Chart;
@@ -45547,7 +39660,7 @@ var Cell = React.createClass({displayName: "Cell",
           this.props.label
         )
       )
-    )
+    );
   }
 });
 
@@ -45563,7 +39676,7 @@ var DataSeries = React.createClass({displayName: "DataSeries",
       data: [],
       value: 'value',
       label: 'label'
-    } 
+    };
   },
 
   render: function() {
@@ -45576,10 +39689,10 @@ var DataSeries = React.createClass({displayName: "DataSeries",
 
     var treemap = d3.layout.treemap()
                     // make sure calculation loop through all objects inside array 
-                    .children(function(d) { return d })
+                    .children(function(d) { return d; })
                     .size([this.props.width, this.props.height])
                     .sticky(true)
-                    .value(function(d) { return d[value] });
+                    .value(function(d) { return d[value]; });
     
     var cells = treemap(data).map(function(node, i) {
       return (
@@ -45599,7 +39712,7 @@ var DataSeries = React.createClass({displayName: "DataSeries",
       React.createElement("g", {transform: this.props.transform, className: "treemap"}, 
         cells
       )
-    )
+    );
   }
 
 });
@@ -45628,7 +39741,7 @@ var Treemap = React.createClass({displayName: "Treemap",
       title: '',
       textColor: '#f7f7f7',
       fontSize: '0.65em'
-    } 
+    };
   },
 
   render: function() {
@@ -45654,8 +39767,93 @@ var Treemap = React.createClass({displayName: "Treemap",
 
 exports.Treemap = Treemap;
 
-},{"./common":"/home/eric/repos/react-d3/src/common.js","d3":"/home/eric/repos/react-d3/node_modules/d3/d3.js","react":"/home/eric/repos/react-d3/node_modules/react/react.js"}],"/home/eric/repos/react-d3/utils/datagen.js":[function(require,module,exports){
-var _ = require('lodash');
+},{"./common":"/Users/yangwei/code/react-d3/src/common/index.js","d3":"/Users/yangwei/code/react-d3/node_modules/d3/d3.js","react":"/Users/yangwei/code/react-d3/node_modules/react/react.js"}],"/Users/yangwei/code/react-d3/src/utils.js":[function(require,module,exports){
+var d3 = require('d3');
+
+
+exports.calculateScales = function(chartWidth, chartHeight, xValues, yValues)  {
+
+  var xScale, yScale;
+
+  xScale = d3.scale.linear()
+    .domain([d3.min([d3.min(xValues), 0]), d3.max(xValues)])
+    .range([0, chartWidth]);
+
+  yScale = d3.scale.linear()
+    .domain([d3.min([d3.min(yValues), 0]), d3.max(yValues)])
+    .range([chartHeight, 0]);
+
+  return {
+    xScale: xScale,
+    yScale: yScale
+  };
+
+}
+
+
+exports.flattenData = function(data)  {
+
+  var allValues = [];
+  var xValues = [];
+  var yValues = [];
+  var coincidentCoordinateCheck = {};
+
+  Object.keys(data).forEach( function(seriesName)  {
+    data[seriesName].forEach( function(item, idx)  {
+      // Check for NaN since d3's Voronoi cannot handle NaN values
+      // Go ahead and Proceed to next iteration since we don't want NaN
+      // in allValues or in xValues or yValues
+      if (isNaN(item.x) || isNaN(item.y)) {
+        return;
+      }
+      xValues.push(item.x);
+      yValues.push(item.y);
+      var xyCoords = item.x + "-" + item.y;
+      if (xyCoords in coincidentCoordinateCheck) {
+        // Proceed to next iteration if the x y pair already exists
+        // d3's Voronoi cannot handle NaN values or coincident coords
+        // But we push them into xValues and yValues above because
+        // we still may handle them there (labels, etc.)
+        return;
+      }
+      coincidentCoordinateCheck[xyCoords] = '';
+      var pointItem = {
+        coord: {
+          x: item.x,
+          y: item.y,
+        },
+        id: seriesName + '-' + idx
+      };
+      allValues.push(pointItem);
+    });
+  });
+  return {
+    allValues: allValues,
+    xValues: xValues,
+    yValues: yValues
+  }
+}
+
+
+
+exports.shade = function(hex, percent)  {
+
+  var R, G, B, red, green, blue, number;
+  var min = Math.min, round = Math.round;
+  if(hex.length !== 7) { return hex; }
+  number = parseInt(hex.slice(1), 16); 
+  R = number >> 16;
+  G = number >> 8 & 0xFF;
+  B = number & 0xFF;
+  red = min( 255, round( ( 1 + percent ) * R )).toString(16);
+  green = min( 255, round( ( 1 + percent ) * G )).toString(16);
+  blue = min( 255, round( ( 1 + percent ) * B )).toString(16);
+  return '#' + red + green + blue; 
+
+} 
+
+
+},{"d3":"/Users/yangwei/code/react-d3/node_modules/d3/d3.js"}],"/Users/yangwei/code/react-d3/utils/datagen.js":[function(require,module,exports){
 
 exports.generateArrayOfPoints = function(n) {
   var data = [];
@@ -45728,12 +39926,12 @@ var generatePartsOfWhole = function() {
   }
   numbers.pop();
   numbers.pop();
-  var sum = _.reduce(numbers, function(sum, num) {
+  var sum = numbers.reduce(function(sum, num) {
     return sum + num;
   });
   var remainder = 100 - sum;
   numbers.push(remainder);
-  var numbers = _.sortBy(numbers, function(v) { return v; });
+  var numbers = numbers.sort(function(v) { return v; });
   numbers.forEach( function(value, idx) {
     var i = idx % 10;
     var name = names[i];
@@ -45779,4 +39977,4 @@ var generateArrayOfTimeObjects = function(n) {
 
 exports.generateArrayOfTimeObjects = generateArrayOfTimeObjects;
 
-},{"lodash":"/home/eric/repos/react-d3/node_modules/lodash/dist/lodash.js"}]},{},["/home/eric/repos/react-d3/docs/examples/main.js"]);
+},{}]},{},["/Users/yangwei/code/react-d3/docs/examples/main.js"]);
